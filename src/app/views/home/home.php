@@ -39,18 +39,21 @@
     <?php
         include('/var/www/html/app/includes/navbar.php');
     ?>
-    <!-- Detail laporan status -->
-    <?php if (isset($_SESSION['success_message'])): ?>
-        <div id="popup" class="popup fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div class="content bg-[#78B992] p-8 rounded text-center text-xl">
-                <p><?php echo $_SESSION['success_message']; ?></p>
-                <p id="countdown" class="text-lg font-bold">5</p>
-            </div>
+<!-- Detail laporan status -->
+<?php if (isset($_SESSION['success_message'])): ?>
+    <div id="popup" class="popup fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="content <?php echo isset($_SESSION['bad_message']) ? 'bg-red-500' : 'bg-[#78B992]'; ?> p-8 rounded text-center text-xl">
+            <p><?php echo $_SESSION['success_message']; ?></p>
+            <p><?php echo isset($_SESSION['bad_message']) ? 'Laporan anda akan di cek oleh koordinator Lab' : ''; ?></p>
+            <p id="countdown" class="text-lg font-bold">3</p>
         </div>
+    </div>
     <?php
-        unset($_SESSION['success_message']); // Clear the message after use
-        endif;
-    ?>
+    unset($_SESSION['success_message']); // Clear the message after use
+    unset($_SESSION['bad_message']); // Clear the bad_message after use
+endif;
+?>
+
     <!-- isi -->
     <div class="flex lg:mx-16 lg:my-7 flex-col justify-center md:flex-row">
       <div
@@ -119,16 +122,10 @@
                         <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center">
                             <?= $permasalahan['Batas_Waktu'] ?>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-center">
-                            <?php
-                            $namaPenggunaArr = [];
-                            foreach ($permasalahanLab as $permasalahan) {
-                                if ($permasalahan['ID_Masalah'] == $permasalahan['ID_Masalah']) {
-                                    $namaPenggunaArr[] = $permasalahan['Nama_Pengguna'];
-                                }
-                            }
-                            echo implode(', ', $namaPenggunaArr);
-                            ?>
+                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-center text-sm font-semibold">
+                        <?php foreach ($permasalahan['teknisi'] as $teknisi): ?>
+                            <?= htmlspecialchars($teknisi); ?>
+                        <?php endforeach; ?>
                         </td>
                         <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center">
                             <?php
@@ -143,7 +140,7 @@
                 <?php
                     $counter++; // Tingkatkan nilai counter setelah setiap perulangan
                     endforeach;
-                    }
+                }
                 ?>
           </table>
         </div>
@@ -232,7 +229,7 @@
      //   pop up
      window.onload = function () {
         var countdownElement = document.getElementById("countdown");
-        var countdown = 5; // 3 detik countdown
+        var countdown = 3; // 3 detik countdown
         var popup = document.getElementById("popup");
 
         popup.classList.remove("hidden"); // Menampilkan popup

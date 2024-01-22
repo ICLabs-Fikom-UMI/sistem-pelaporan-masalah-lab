@@ -6,8 +6,10 @@ include('/var/www/html/app/models/homeModel.php');
 
 
 function showViewHome($conn) {
-    $getAll = getAllPermasalahanLab($conn);
-    $getTeknisiByIDMasalah = getTeknisiByIDMasalah($conn, $idMasalah);
+    $permasalahanLab = getAllPermasalahanLab($conn);
+    foreach ($permasalahanLab as $key => $permasalahan) {
+        $permasalahanLab[$key]['teknisi'] = getTeknisiByMasalah($conn, $permasalahan['ID_Masalah']);
+    }
     $asets = getDataAset($conn);
     $labs = getDataLab($conn);
     include('/var/www/html/app/views/home/home.php');
@@ -19,11 +21,11 @@ function laporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $con
 
     // Handle the response
     if ($result === true) {
-        $_SESSION['success_message'] = "Laporan berhasil ditambahkan.";
+        $_SESSION['success_message'] = "Laporan berhasil ditambahkan. Akan segera di cek oleh Kordinator Lab";
         header("Location: index.php?action=home");
         exit();
     } else {
-        $_SESSION['success_message'] = "Laporan Gagal ditambahkan.";
+        $_SESSION['bad_message'] = "Laporan Gagal ditambahkan.";
         header("Location: index.php?action=home");
         exit();
     }

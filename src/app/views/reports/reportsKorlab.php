@@ -203,21 +203,13 @@
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Pilih Teknisi</th>
-                <td
-                  class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-2 flex flex-wrap items-center justify-center"
-                >
-                  <div class="flex items-center mr-2">
-                    <input type="checkbox" name="akbar1" id="akbar1" />
-                    <label for="akbar1" class="ml-2 text-xs">Akbar</label>
-                  </div>
-                  <div class="flex items-center mr-2">
-                    <input type="checkbox" name="2" id="akbar2" />
-                    <label for="akbar2" class="ml-2 text-xs">Akbar</label>
-                  </div>
-                  <div class="flex items-center mr-2">
-                    <input type="checkbox" name="akbar3" id="akbar3" />
-                    <label for="akbar3" class="ml-2 text-xs">Akbar</label>
-                  </div>
+                <td class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-2 flex flex-wrap items-center justify-center">
+                <?php foreach ($users as $user): ?>
+                    <div class="flex items-center mr-2">
+                    <input type="checkbox" name="<?= $user['ID_Pengguna'] ?>" id="<?= $user['ID_Pengguna'] ?>" />
+                    <label for="<?= $user['ID_Pengguna'] ?>" class="ml-2 text-xs"><?= $user['Nama_Depan'] ?></label>
+                    </div>
+                <?php endforeach; ?>
                 </td>
               </tr>
               <tr class="md:text-base text-sm">
