@@ -1,0 +1,7 @@
+view
+src/output.css
+src/package-lock.json
+src/package.json
+src/postcss.config.js
+src/style.css
+src/tailwind.config.js
