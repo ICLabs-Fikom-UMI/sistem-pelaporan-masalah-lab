@@ -1,4 +1,4 @@
-<?php session_start();
+<?php
  if(!isset($_SESSION['user_id'])){
     header('Location: index.php');
     exit;
@@ -38,6 +38,23 @@
   <?php
         include('/var/www/html/app/includes/navbar.php');
     ?>
+<!-- pop up -->
+<?php
+if (isset($_SESSION['setuju_message']) || isset($_SESSION['tolak_message'])):
+    $message = isset($_SESSION['setuju_message']) ? $_SESSION['setuju_message'] : $_SESSION['tolak_message'];
+?>
+    <div id="popup" class="popup fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="content bg-[#78B992] p-8 rounded text-center text-xl">
+            <p><?php echo $message; ?></p>
+            <p id="countdown" class="text-lg font-bold">3</p>
+        </div>
+    </div>
+    <?php
+    // Clear the messages after use
+    unset($_SESSION['setuju_message']);
+    unset($_SESSION['tolak_message']);
+endif;
+?>
 
     <!-- isi -->
     <div class="flex lg:mx-16 lg:my-7 justify-center md:flex-row flex-col">
@@ -91,12 +108,11 @@
                     foreach ($dataLaporan as $data):
                 ?>
               <tr class="text-xs md:text-lg">
-                <td
-                  class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6] w-10"
-                >
+              <td onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6] w-10">
                     <?= $counter; ?>
                 </td>
-                <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-sm text-justify">
+
+                <td onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-sm text-justify">
                     <div class="flex flex-col">
                         <span class="font-bold text-lg">Permasalahan:</span>
                         <p class="font-semibold text-md">Lab: <?= $data['Nama_Lab'] ?></p>
@@ -132,8 +148,8 @@
                 >
                 <input type="hidden" name="id_masalah[]" value="<?= $data['ID_Masalah'] ?>" />
                 <div class="flex items-center justify-center">
-                    <button name="action" value="tolak_<?= $data['ID_Masalah'] ?>"  class="bg-[#9F5858] hover:bg-[#8A5151] rounded-md ms-1 p-2 w-full hover:shadow-xl">Tolak</button>
-                    <button name="action" value="setuju_<?= $data['ID_Masalah'] ?>" type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-md ms-1 w-full p-2 hover:shadow-xl">Setuju</button>
+                <button onclick="confirmAndReject(event, <?= $data['ID_Masalah'] ?>);" class="bg-[#9F5858] hover:bg-[#8A5151] rounded-md ms-1 p-2 w-full hover:shadow-xl">Tolak</button>
+                    <button name="action" value="setuju_<?= $data['ID_Masalah'] ?>" type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-md ms-1 w-full p-2 hover:shadow-xl" onclick="return confirm('Apakah Anda yakin ingin menyetujui ini?');">Setuju</button>
                 </div>
                 </td>
               </tr>
@@ -160,23 +176,23 @@
             >
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">ID Laporan</th>
-                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">-</td>
+                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0"><?= $dataDetailLaporan['ID_Masalah'] ?? '-' ?></td>
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Tanggal Dibuat</th>
-                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">-</td>
+                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0"><?= $dataDetailLaporan['Tanggal_Pelaporan'] ?? '-' ?></td>
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Nama Lab</th>
-                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">-</td>
+                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0"><?= $dataDetailLaporan['Nama_Lab'] ?? '-' ?></td>
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Aset</th>
-                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">-</td>
+                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0"><?= $dataDetailLaporan['Nama_Aset'] ?? '-' ?></td>
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Aset No</th>
-                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">-</td>
+                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0"><?= $dataDetailLaporan['Nomor_Unit'] ?? '-' ?></td>
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Deskripsi</th>
@@ -187,7 +203,7 @@
                     cols="20"
                     rows="4"
                     class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-0"
-                  ></textarea>
+                  ><?= $dataDetailLaporan['Deskripsi_Masalah'] ?? '' ?></textarea>
                 </td>
               </tr>
               <tr class="md:text-base text-sm">
@@ -251,6 +267,38 @@
     >
       <img src="app/includes/img/LogoFikom_Putih.png" alt="" class="w-56 shadow-inner" />
     </div>
+
+    <script>
+        //tolak
+        function confirmAndReject(event, idMasalah) {
+            event.preventDefault(); // Prevent form submission
+            var confirmAction = confirm('Apakah Anda yakin ingin Menolak ini?');
+            if (confirmAction) {
+                // Redirect to the server-side script
+                window.location.href = '?action=tolakLaporan&id_masalah=' + idMasalah;
+            }
+        }
+
+
+     //   pop up
+     window.onload = function () {
+        var countdownElement = document.getElementById("countdown");
+        var countdown = 3; // 3 detik countdown
+        var popup = document.getElementById("popup");
+
+        popup.classList.remove("hidden"); // Menampilkan popup
+
+        var interval = setInterval(function () {
+          countdown--;
+          countdownElement.innerHTML = countdown;
+
+          if (countdown <= 0) {
+            clearInterval(interval);
+            popup.classList.add("hidden"); // Menghilangkan popup
+          }
+        }, 1000);
+      };
+</script>
 
   </body>
 </html>

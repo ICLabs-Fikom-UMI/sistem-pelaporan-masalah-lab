@@ -71,7 +71,37 @@ function approveReport($conn, $id_masalah, $batas_waktu, $id_teknisi) {
 
     return true;
 }
+function rejectReport($conn, $id_masalah){
+    $query = "DELETE FROM txn_lab_issues WHERE ID_Masalah = ?";
+    $stmt = mysqli_prepare($conn, $query);
 
+    if (!$stmt || !mysqli_stmt_bind_param($stmt, "i", $id_masalah) || !mysqli_stmt_execute($stmt)) {
+        return false; // Return false if there was an error
+    }
 
+    mysqli_stmt_close($stmt);
+    return true; // Return true if the deletion was successful
+}
+
+function getDetailLaporan($conn, $id_masalah) {
+    $query = "SELECT tli.ID_Masalah, tli.Tanggal_Pelaporan, ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah
+              FROM txn_lab_issues tli
+              JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
+              JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
+              WHERE tli.ID_Masalah = ?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id_masalah);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    if ($row = mysqli_fetch_assoc($result)) {
+        mysqli_stmt_close($stmt);
+        return $row; // Return the single row of data
+    } else {
+        mysqli_stmt_close($stmt);
+        return null; // Return null if no data found
+    }
+}
 
 ?>

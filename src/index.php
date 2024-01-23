@@ -53,9 +53,9 @@ switch ($action) {
                 showViewReportAsisten($conn);
             }
             // If the role is neither 'korlab' nor 'asisten', or the role is not set
-            else {
+        else {
                 header("Location: index.php?action=home");
-            }
+        }
             break;
         }
     case 'berikanTugas':
@@ -75,6 +75,22 @@ switch ($action) {
                 }
             }
             break;
+    case 'tolakLaporan':
+        $id_masalah = $_GET['id_masalah'] ?? null;
+        if($id_masalah){
+            tolakLaporan($conn, $id_masalah);
+        }else{
+            showViewReportKorlab($conn);
+        }
+        break;
+    case 'detailLaporan':
+        $id_masalah = $_GET['id_masalah'] ?? null;
+        if($id_masalah){
+            detailLaporan($conn, $id_masalah);
+        }else{
+            showViewReportKorlab($conn);
+        }
+        break;
     default:
         echo "404 Not Found";
 }
