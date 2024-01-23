@@ -59,10 +59,21 @@ switch ($action) {
             break;
         }
     case 'berikanTugas':
-            $id_masalah = $_POST['id_masalah'];
-            $id_teknisi = $_POST['id_teknisi'];
-            $batas_waktu = $_POST['batas_waktu'];
-            setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi);
+                // Assuming $_POST['id_masalah'] is an array of all the masalah IDs
+            foreach ($_POST['id_masalah'] as $id_masalah) {
+                // Construct the names of the dynamic fields
+                $batasWaktuField = 'batas_waktu_' . $id_masalah;
+                $idTeknisiField = 'id_teknisi_' . $id_masalah;
+
+                // Check if these fields exist in $_POST
+                if (isset($_POST[$batasWaktuField]) && isset($_POST[$idTeknisiField])) {
+                    $batas_waktu = $_POST[$batasWaktuField];
+                    $id_teknisi = $_POST[$idTeknisiField];
+
+                    // Call the function with these values
+                    setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi);
+                }
+            }
             break;
     default:
         echo "404 Not Found";

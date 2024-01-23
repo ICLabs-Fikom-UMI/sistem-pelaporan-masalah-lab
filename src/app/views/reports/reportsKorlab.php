@@ -52,7 +52,7 @@
         >
           <form action="?action=berikanTugas" method="post" class="flex justify-center"  >
             <table
-              class="table-auto whitespace-no-wrap border-spacing-1 md:border-spacing-2"
+              class="min-w-full table-auto whitespace-no-wrap border-spacing-1 md:border-spacing-2"
             >
               <tr
                 class="md:text-lg text-xs font-semibold tracking-wide uppercase border-b bg-[#C2B8B8]"
@@ -111,7 +111,7 @@
                 >
                   <input
                     type="date"
-                    name="batas_waktu"
+                    name="batas_waktu_<?=$data['ID_Masalah'] ?>"
                     id="batas_waktu"
                     class="text-center bg-[#E6E6E6] w-32 text-sm"
                   />
@@ -119,7 +119,7 @@
                 <td
                   class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle"
                 >
-                <select name="id_teknisi" id="teknisi" class="text-center text-sm bg-[#E6E6E6]">
+                <select name="id_teknisi_<?= $data['ID_Masalah'] ?>" id="teknisi" class="text-center text-sm bg-[#E6E6E6]">
                     <option value="" disabled selected>Pilih Teknisi</option>
                     <?php foreach ($users as $user): ?>
                         <option value="<?= $user['ID_Pengguna'] ?>"><?= $user['Nama_Depan'] ?></option>
@@ -130,7 +130,7 @@
                 <td
                   class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle text-sm"
                 >
-                <input type="hidden" name="id_masalah" value="<?= $data['ID_Masalah'] ?>" />
+                <input type="hidden" name="id_masalah[]" value="<?= $data['ID_Masalah'] ?>" />
                 <div class="flex items-center justify-center">
                     <button name="action" value="tolak_<?= $data['ID_Masalah'] ?>"  class="bg-[#9F5858] hover:bg-[#8A5151] rounded-md ms-1 p-2 w-full hover:shadow-xl">Tolak</button>
                     <button name="action" value="setuju_<?= $data['ID_Masalah'] ?>" type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-md ms-1 w-full p-2 hover:shadow-xl">Setuju</button>

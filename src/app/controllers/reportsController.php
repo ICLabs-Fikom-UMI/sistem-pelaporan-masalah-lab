@@ -10,8 +10,9 @@ function showViewReportKorlab($conn) {
 
 function setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi){
 
+
     approveReport($conn, $id_masalah, $batas_waktu, $id_teknisi);
-    // header("Location: index.php?action=reports");
+    header("Location: index.php?action=reports");
 
 
 }
