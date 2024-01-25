@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,6 +39,7 @@
               id=""
               placeholder="Masukkan Email atau Nim"
               class="md:p-6 p-4 my-6 rounded-lg w-full shadow-xl"
+              required
             />
             <input
               type="password"
@@ -45,6 +47,7 @@
               id=""
               placeholder="Masukkan Password"
               class="md:p-6 p-4 lg:mb-12 mb-8 rounded-lg w-full shadow-xl"
+              required
             />
             <div class="flex justify-center">
               <button

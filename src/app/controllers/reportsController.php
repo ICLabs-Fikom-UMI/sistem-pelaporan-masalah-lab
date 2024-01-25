@@ -1,5 +1,6 @@
 <?php
-include('/var/www/html/app/models/reportsModel.php');
+include_once('/var/www/html/app/models/reportsModel.php');
+include_once('/var/www/html/app/models/utility/dataModel.php');
 function showViewReportKorlab($conn) {
     $users = getUser($conn); // Fetch user data
     $dataLaporan = getDataLaporan($conn); // Fetch report data
@@ -8,15 +9,12 @@ function showViewReportKorlab($conn) {
     include('/var/www/html/app/views/reports/reportsKorlab.php');
 }
 
-function setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi){
-
-
-    approveReport($conn, $id_masalah, $batas_waktu, $id_teknisi);
-    $_SESSION['setuju_message'] = "Laporan Telah Di Tolak...";
+function setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi, $Deskripsi_Masalah = null) {
+    approveReport($conn, $id_masalah, $batas_waktu, $id_teknisi, $Deskripsi_Masalah);
+    $_SESSION['setuju_message'] = "Laporan Telah Disetujui";
     header("Location: index.php?action=reports");
-
-
 }
+
 function tolakLaporan($conn, $id_masalah){
     $users = getUser($conn); // Fetch user data
     $dataLaporan = getDataLaporan($conn); // Fetch report data
@@ -29,6 +27,27 @@ function detailLaporan($conn, $id_masalah){
     $dataLaporan = getDataLaporan($conn); // Fetch report data
     $dataDetailLaporan =getDetailLaporan($conn, $id_masalah);
     include('/var/www/html/app/views/reports/reportsKorlab.php');
+
+}
+
+
+// reports asisten
+function showViewReportAsisten($conn) {
+    $allLaporanSaya = getAllLaporanSaya($conn);
+    // Directly include the view file without checking for data retrieval success
+    include('/var/www/html/app/views/reports/reportsAsisten.php');
+}
+
+function dataEditLaporan($conn, $id_masalah){
+    $asets = getDataAset($conn);
+    $labs = getDataLab($conn);
+    $allLaporanSaya = getAllLaporanSaya($conn);
+    $dataDetailLaporan=getDetailLaporan($conn, $id_masalah);
+    include('/var/www/html/app/views/reports/reportsAsisten.php');
+
+}
+
+function editLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah){
 
 }
 ?>

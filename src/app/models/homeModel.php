@@ -1,16 +1,5 @@
 <?php
-function getDataLab($conn) {
-    $result = mysqli_query($conn, "SELECT ID_Lab, Nama_Lab FROM master_lab");
-    $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    return $users;
-}
-function getDataAset($conn) {
-    $result = mysqli_query($conn, "SELECT ID_Aset, Nama_Aset FROM master_aset_lab");
-    $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    return $users;
-}
 function setLaporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $conn){
     $query = "INSERT INTO txn_lab_issues (Deskripsi_Masalah, ID_Lab, ID_Aset, ID_Pelapor, Status_Masalah, Nomor_Unit) VALUES (?, ?, ?, ?, 'Diproses', ?)";
     $stmt = mysqli_prepare($conn, $query);

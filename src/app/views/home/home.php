@@ -119,7 +119,7 @@ endif;
                                 <p class="text-md"><?= $permasalahan['Deskripsi_Masalah'] ?></p>
                             </div>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center">
+                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center text-sm">
                             <?= $permasalahan['Batas_Waktu'] ?>
                         </td>
                         <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-center text-sm font-semibold">
@@ -127,7 +127,7 @@ endif;
                             <?= htmlspecialchars($teknisi); ?>
                         <?php endforeach; ?>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center">
+                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center text-sm">
                             <?php
                             if ($permasalahan['Status_Masalah'] == 'Disetujui') {
                                 echo 'Sedang Dikerjakan';
@@ -203,7 +203,7 @@ endif;
               <textarea
                 name="deskripsi"
                 id="deskripsi"
-                class="w-full p-3 rounded-t-lg bg-[#B2B2B2] text-center text-black text-center align-middle"
+                class="w-full p-3 rounded-t-lg bg-[#B2B2B2] text-center text-black align-middle"
                 rows="3"
                 placeholder="Detail permasalahan"
                 required

@@ -35,6 +35,7 @@
     </style>
   </head>
   <body>
+    <!-- Navbar -->
   <?php
         include('/var/www/html/app/includes/navbar.php');
     ?>
@@ -169,9 +170,9 @@ endif;
             <p class="text-xl md:text-2xl font-semibold">Detail Laporan</p>
           </div>
 
-          <form action="">
+          <form action="?action=berikanTugas" method="post">
             <table
-              class="ml-6 border-collapse border-separate"
+              class="ml-6  border-separate"
               style="border-spacing: 0 10px"
             >
               <tr class="md:text-base text-sm">
@@ -198,7 +199,7 @@ endif;
                 <th class="font-semibold text-left w-44">Deskripsi</th>
                 <td>
                   <textarea
-                    name=""
+                    name="name="deskripsi_masalah_<?= $dataDetailLaporan['ID_Masalah'] ?? '' ?>""
                     id=""
                     cols="20"
                     rows="4"
@@ -211,7 +212,7 @@ endif;
                 <td>
                   <input
                     type="date"
-                    name="date"
+                    name="batas_waktu_<?=$dataDetailLaporan['ID_Masalah'] ?>"
                     id="date"
                     class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-0"
                   />
@@ -220,17 +221,18 @@ endif;
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Pilih Teknisi</th>
                 <td class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-2 flex flex-wrap items-center justify-center">
-                <?php foreach ($users as $user): ?>
-                    <div class="flex items-center mr-2">
-                    <input type="checkbox" name="<?= $user['ID_Pengguna'] ?>" id="<?= $user['ID_Pengguna'] ?>" />
-                    <label for="<?= $user['ID_Pengguna'] ?>" class="ml-2 text-xs"><?= $user['Nama_Depan'] ?></label>
-                    </div>
-                <?php endforeach; ?>
+                <select name="id_teknisi_<?= $dataDetailLaporan['ID_Masalah'] ?>" id="teknisi" class="bg-[#D9D9D9] w-full justify-center">
+                    <option value="" disabled selected>Pilih Teknisi</option>
+                    <?php foreach ($users as $user): ?>
+                        <option value="<?= $user['ID_Pengguna'] ?>"><?= $user['Nama_Depan'] ?></option>
+                    <?php endforeach; ?>
+                </select>
                 </td>
               </tr>
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-center w-full" colspan="2">
                   <div class="mt-4">
+                    <input type="hidden" name="id_masalah[]" value="<?= $dataDetailLaporan['ID_Masalah'] ?>" />
                     <button
                       type="submit"
                       class="bg-[#9F5858] hover:bg-[#8A5151] md:px-2 md:py-1 px-4 py-2 rounded-sm hover:border hover:border-black m-2"

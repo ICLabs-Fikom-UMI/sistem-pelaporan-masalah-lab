@@ -12,7 +12,13 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
 switch ($action) {
     case 'showLoginForm':
 
-        showLoginForm();
+            // Jika user sudah login, alihkan ke beranda
+            if (isset($_SESSION['user_id'])) {
+                header('Location: index.php?action=home');
+                exit;
+            }
+            // Tampilkan form login jika belum login
+            showLoginForm();
         break;
 
     case 'processLogin':
@@ -52,29 +58,29 @@ switch ($action) {
             else if ($_SESSION['role'] == 'Asisten') {
                 showViewReportAsisten($conn);
             }
-            // If the role is neither 'korlab' nor 'asisten', or the role is not set
         else {
                 header("Location: index.php?action=home");
         }
             break;
         }
     case 'berikanTugas':
-                // Assuming $_POST['id_masalah'] is an array of all the masalah IDs
-            foreach ($_POST['id_masalah'] as $id_masalah) {
-                // Construct the names of the dynamic fields
-                $batasWaktuField = 'batas_waktu_' . $id_masalah;
-                $idTeknisiField = 'id_teknisi_' . $id_masalah;
+        foreach ($_POST['id_masalah'] as $id_masalah) {
+            // Construct the names of the dynamic fields
+            $batasWaktuField = 'batas_waktu_' . $id_masalah;
+            $idTeknisiField = 'id_teknisi_' . $id_masalah;
+            $deskripsiMasalahField = 'deskripsi_masalah_' . $id_masalah; // Field baru untuk deskripsi masalah
 
-                // Check if these fields exist in $_POST
-                if (isset($_POST[$batasWaktuField]) && isset($_POST[$idTeknisiField])) {
-                    $batas_waktu = $_POST[$batasWaktuField];
-                    $id_teknisi = $_POST[$idTeknisiField];
+            // Check if these fields exist in $_POST
+            if (isset($_POST[$batasWaktuField]) && isset($_POST[$idTeknisiField])) {
+                $batas_waktu = $_POST[$batasWaktuField];
+                $id_teknisi = $_POST[$idTeknisiField];
+                $deskripsi_masalah = $_POST[$deskripsiMasalahField] ?? null; // Mengambil deskripsi masalah, jika ada
 
-                    // Call the function with these values
-                    setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi);
-                }
+                // Call the function with these values
+                setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi, $deskripsi_masalah);
             }
-            break;
+        }
+        break;
     case 'tolakLaporan':
         $id_masalah = $_GET['id_masalah'] ?? null;
         if($id_masalah){
@@ -90,6 +96,18 @@ switch ($action) {
         }else{
             showViewReportKorlab($conn);
         }
+        break;
+    case 'getEditLaporan':
+        $id_masalah = $_GET['id_masalah'] ?? null;
+        dataEditLaporan($conn, $id_masalah);
+        break;
+    case 'editLaporan':
+        $id_masalah = $_POST['id_Masalah'];
+        $nama_lab = $_POST['lab'];
+        $nama_aset = $_POST['aset'];
+        $aset_no = $_POST['aset_no'];
+        $deskripsi_masalah = $_POST['deskripsi_masalah'];
+        editLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah);
         break;
     default:
         echo "404 Not Found";

@@ -1,7 +1,7 @@
 <?php
 
-include('/var/www/html/app/models/homeModel.php');
-
+include_once('/var/www/html/app/models/homeModel.php');
+include_once('/var/www/html/app/models/utility/dataModel.php');
 
 
 

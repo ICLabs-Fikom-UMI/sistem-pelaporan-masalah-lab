@@ -1,22 +1,4 @@
 <?php
-function getUser($conn) {
-    $sql = "SELECT u.ID_Pengguna, u.Nama_Depan
-            FROM master_user u
-            INNER JOIN master_roles r ON u.ID_Peran = r.ID_Peran
-            WHERE r.Nama_Peran = 'Asisten'";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-    $users = [];
-    while ($row = $result->fetch_assoc()) {
-        $users[] = $row;
-    }
-
-    return $users;
-}
-
 
 function getDataLaporan($conn) {
     $query = "SELECT tli.ID_Masalah, ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah
@@ -103,5 +85,32 @@ function getDetailLaporan($conn, $id_masalah) {
         return null; // Return null if no data found
     }
 }
+
+
+// asisten reports
+function getAllLaporanSaya($conn) {
+    $idPelapor = $_SESSION['user_id']; // Mengambil ID pengguna dari session
+
+    $query = "SELECT tli.ID_Masalah, ml.Nama_Lab, mal.Nama_Aset, tli.Deskripsi_Masalah, tli.Tanggal_Pelaporan
+              FROM txn_lab_issues tli
+              JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
+              JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
+              WHERE tli.ID_Pelapor = ?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $idPelapor);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $laporan = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_stmt_close($stmt);
+
+    return $laporan;
+}
+
+function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah){
+
+}
+
 
 ?>
