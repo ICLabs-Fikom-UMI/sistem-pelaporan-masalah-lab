@@ -48,6 +48,7 @@ function dataEditLaporan($conn, $id_masalah){
 }
 
 function editLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah){
-
+    submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah);
+    include('/var/www/html/app/views/reports/reportsAsisten.php');
 }
 ?>

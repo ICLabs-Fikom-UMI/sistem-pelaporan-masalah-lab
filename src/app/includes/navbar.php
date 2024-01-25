@@ -50,13 +50,13 @@
           <a href="?action=home" class="hidden lg:flex items-center hover:text-secondary">
             Home
           </a>
-          <a href="/" class="hidden lg:flex items-center hover:text-secondary">
+          <a href="<?= isset($_SESSION['user_id']) ? '?action=labs' : '?action=showLoginForm'; ?>"  class="hidden lg:flex items-center hover:text-secondary">
             Labs
           </a>
-          <a href="?action=reports" class="hidden lg:flex items-center hover:text-secondary">
+          <a href="<?= isset($_SESSION['user_id']) ? '?action=reports' : '?action=showLoginForm'; ?>"  class="hidden lg:flex items-center hover:text-secondary">
             Reports
           </a>
-          <a href="/" class="hidden lg:flex items-center hover:text-secondary">
+          <a href="<?= isset($_SESSION['user_id']) ? '?action=tasks' : '?action=showLoginForm'; ?>"  class="hidden lg:flex items-center hover:text-secondary">
             Tasks
           </a>
           <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'Laboran'): ?>
