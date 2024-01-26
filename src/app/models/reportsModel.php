@@ -108,9 +108,33 @@ function getAllLaporanSaya($conn) {
     return $laporan;
 }
 
-function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah){
+
+function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah) {
+    // Prepare the SQL statement to update the record
+    $sql = "UPDATE txn_lab_issues
+            SET ID_Lab = ?, ID_Aset = ?, Nomor_Unit = ?, Deskripsi_Masalah = ?
+            WHERE ID_Masalah = ?";
+
+    // Use prepared statements to prevent SQL injection
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+        // Bind the parameters
+        mysqli_stmt_bind_param($stmt, "iissi", $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah, $id_masalah);
+
+        // Execute the statement
+        if (mysqli_stmt_execute($stmt)) {
+            // Update successful
+            echo "Record updated successfully!";
+        } else {
+            // Update failed
+            echo "Error updating record: " . mysqli_error($conn);
+        }
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
+    } else {
+        // Error in preparing the statement
+        echo "Error preparing statement: " . mysqli_error($conn);
+    }
 
 }
-
-
 ?>

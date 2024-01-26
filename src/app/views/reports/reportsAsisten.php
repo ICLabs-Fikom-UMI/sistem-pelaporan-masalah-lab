@@ -170,16 +170,14 @@ endif;
                     name="lab"
                     id="lab"
                     class="w-full bg-[#D9D9D9] text-md text-center align-middle rounded-l-md"
-                    required
                   >
-                  <option
-                        value="<?= $dataDetailLaporan['ID_Lab'] ?? '-' ?>"
-                        <?= !isset($dataDetailLaporan['ID_Lab']) ? 'disabled selected' : '' ?>>
-                        <?= $dataDetailLaporan['Nama_Lab'] ?? 'Pilih Lab' ?>
-                    </option>
-
-                    <?php foreach ($labs as $lab): ?>
-                        <option value="<?= $lab['ID_Lab'] ?>"><?= $lab['Nama_Lab'] ?></option>
+                  <?php foreach ($labs as $lab): ?>
+                        <option value="<?= $lab['ID_Lab'] ?>"
+                            <?php if (isset($dataDetailLaporan['ID_Lab']) && $dataDetailLaporan['ID_Lab'] == $lab['ID_Lab']) {
+                                echo 'selected';
+                            } ?>>
+                            <?= $lab['Nama_Lab'] ?>
+                        </option>
                     <?php endforeach; ?>
                   </select>
                 </td>
@@ -191,16 +189,15 @@ endif;
                     name="aset"
                     id="aset"
                     class="w-full bg-[#D9D9D9] rounded-l-md text-center align-middle text-md"
-                    required
                   >
-                  <option
-                        value="<?= $dataDetailLaporan['ID_Aset'] ?? '' ?>"
-                        <?= isset($dataDetailLaporan['ID_Aset']) ? '' : 'disabled selected' ?>>
-                        <?= $dataDetailLaporan['Nama_Aset'] ?? 'Pilih Aset' ?>
+                  <?php foreach ($asets as $aset): ?>
+                    <option value="<?= $aset['ID_Aset'] ?>"
+                        <?php if (isset($dataDetailLaporan['ID_Aset']) && $dataDetailLaporan['ID_Aset'] == $aset['ID_Aset']) {
+                            echo 'selected';
+                        } ?>>
+                        <?= $aset['Nama_Aset'] ?>
                     </option>
-                    <?php foreach ($asets as $aset): ?>
-                        <option value="<?= $aset['ID_Aset'] ?>"><?= $aset['Nama_Aset'] ?></option>
-                     <?php endforeach; ?>
+                <?php endforeach; ?>
                   </select>
                 </td>
               </tr>
@@ -261,7 +258,7 @@ endif;
     <div
       class="lg:hidden mx-auto p-2 w-full bg-[#B2B2B2] flex items-center justify-center fixed inset-x-0 bottom-0 shadow-2xl"
     >
-      <img src="img/LogoFikom_Putih.png" alt="" class="w-56 shadow-inner" />
+      <img src="app/includes/img/LogoFikom_Putih.png" alt="" class="w-56 shadow-inner" />
     </div>
 
     <script>

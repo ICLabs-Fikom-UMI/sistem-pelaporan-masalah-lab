@@ -103,11 +103,11 @@ switch ($action) {
         break;
     case 'editLaporan':
         $id_masalah = $_POST['id_Masalah'];
-        $nama_lab = $_POST['lab'];
-        $nama_aset = $_POST['aset'];
-        $aset_no = $_POST['aset_no'];
+        $id_lab = $_POST['lab'];
+        $id_aset = $_POST['aset'];
+        $nomor_unit = $_POST['aset_no'];
         $deskripsi_masalah = $_POST['deskripsi_masalah'];
-        editLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah);
+        editLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
         break;
     default:
         echo "404 Not Found";

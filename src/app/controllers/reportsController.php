@@ -47,8 +47,12 @@ function dataEditLaporan($conn, $id_masalah){
 
 }
 
-function editLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah){
-    submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah);
+function editLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah) {
+    $asets = getDataAset($conn);
+    $labs = getDataLab($conn);
+
+    submitEditLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
+    $allLaporanSaya = getAllLaporanSaya($conn);
     include('/var/www/html/app/views/reports/reportsAsisten.php');
 }
 ?>
