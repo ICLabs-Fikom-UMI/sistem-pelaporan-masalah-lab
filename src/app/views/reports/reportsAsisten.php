@@ -96,7 +96,7 @@ endif;
                 <th
                   class="md:px-4 md:py-2 py-1 rounded-xl text-center align-middle font-semibold shadow-xl"
                 >
-                  Aksi
+                  Aksi/Status
                 </th>
               </tr>
 
@@ -126,14 +126,22 @@ endif;
                 <td
                     class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle text-sm"
                 >
-                <form action="index.php" method="get">
-                    <input type="hidden" name="action" value="getEditLaporan">
-                    <input type="hidden" name="id_masalah" value="<?= $laporan['ID_Masalah']; ?>">
-                    <button type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl">
-                        Edit
-                    </button>
-                </form>
-
+                <?php
+                    $statusMasalah = $laporan['Status_Masalah'];
+                    if ($statusMasalah === 'Disetujui') {
+                        echo 'Sedang dikerjakan';
+                    } elseif ($statusMasalah === 'Selesai') {
+                        echo 'Telah diselesaikan';
+                    } else {
+                        ?>
+                        <form action="index.php" method="get">
+                            <input type="hidden" name="action" value="getEditLaporan">
+                            <input type="hidden" name="id_masalah" value="<?= $laporan['ID_Masalah']; ?>">
+                            <button type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl">
+                                Edit
+                            </button>
+                        </form>
+                    <?php } ?>
                 </td>
               </tr>
               <?php endforeach; ?>

@@ -68,7 +68,6 @@ endif;
         <div
           class="bg-[#D9D9D9] rounded-t-md mt-4 min-h-[300px] flex-grow pt-2"
         >
-          <form action="?action=berikanTugas" method="post" class="flex justify-center"  >
             <table
               class="min-w-full table-auto whitespace-no-wrap border-spacing-1 md:border-spacing-2"
             >
@@ -86,14 +85,14 @@ endif;
                   Laporan
                 </th>
                 <th
-                  class="md:px-2 md:py-2 py-1 rounded-xl text-center align-middle font-semibold shadow-xl w-20"
+                  class="md:px-2 md:py-2 py-1 rounded-xl text-center align-middle font-semibold shadow-xl "
                 >
-                  Batas Waktu
+                  Pelapor
                 </th>
                 <th
                   class="md:px-2 md:py-2 py-1 rounded-xl text-center align-middle font-semibold shadow-xl"
                 >
-                  Teknisi
+                  Tanggal
                 </th>
                 <th rowspan="100" class="bg-black">
                   <div class="border-l h-full"></div>
@@ -124,24 +123,14 @@ endif;
                     </div>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6]"
+                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center font-semibold"
                 >
-                  <input
-                    type="date"
-                    name="batas_waktu_<?=$data['ID_Masalah'] ?>"
-                    id="batas_waktu"
-                    class="text-center bg-[#E6E6E6] w-32 text-sm"
-                  />
+                <p><?= $data['Nama_Pelapor'] ?></p>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle"
+                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle font-semibold"
                 >
-                <select name="id_teknisi_<?= $data['ID_Masalah'] ?>" id="teknisi" class="text-center text-sm bg-[#E6E6E6]">
-                    <option value="" disabled selected>Pilih Teknisi</option>
-                    <?php foreach ($users as $user): ?>
-                        <option value="<?= $user['ID_Pengguna'] ?>"><?= $user['Nama_Depan'] ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <p><?= $data['Tanggal_Laporan'] ?></p>
 
                 </td>
                 <td
@@ -149,8 +138,7 @@ endif;
                 >
                 <input type="hidden" name="id_masalah[]" value="<?= $data['ID_Masalah'] ?>" />
                 <div class="flex items-center justify-center">
-                <button onclick="confirmAndReject(event, <?= $data['ID_Masalah'] ?>);" class="bg-[#9F5858] hover:bg-[#8A5151] rounded-md ms-1 p-2 w-full hover:shadow-xl">Tolak</button>
-                    <button name="action" value="setuju_<?= $data['ID_Masalah'] ?>" type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-md ms-1 w-full p-2 hover:shadow-xl" onclick="return confirm('Apakah Anda yakin ingin menyetujui ini?');">Setuju</button>
+                <button onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-md ms-1 w-full p-2 hover:shadow-xl">Detail</button>
                 </div>
                 </td>
               </tr>
@@ -159,7 +147,6 @@ endif;
                     endforeach;
                 ?>
             </table>
-          </form>
         </div>
       </div>
       <div>
