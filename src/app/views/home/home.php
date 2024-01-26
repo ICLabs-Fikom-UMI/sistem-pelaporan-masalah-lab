@@ -12,12 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <style>
+
       .border-spacing-2 {
         border-collapse: separate;
         border-spacing: 0.2rem; /* Atur nilai sesuai kebutuhan */
       }
       .border-spacing-1 {
-        border-collapse: separate;
+        border-collapse: separate !important;
         border-spacing: 0.1rem; /* Atur nilai sesuai kebutuhan */
       }
       #no::placeholder {

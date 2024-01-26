@@ -16,8 +16,8 @@
       body {
         font-family: "Poppins", sans-serif;
         background-image: url(app/includes/img/<?php echo isset($_SESSION['user_id']) ? 'home.png' : 'bg-login1.png'; ?>);
-        background-size: cover; Menyesuaikan ukuran gambar agar menutupi seluruh elemen */
-         background-repeat: no-repeat; Mencegah gambar berulang
+        background-size: cover;
+         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center;
       }

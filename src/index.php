@@ -5,6 +5,8 @@ include('app/core/db.php');
 include('app/controllers/loginController.php');
 include('app/controllers/homeController.php');
 include('app/controllers/reportsController.php');
+include('app/controllers/tasksController.php');
+include('app/controllers/labsController.php');
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
@@ -108,6 +110,12 @@ switch ($action) {
         $nomor_unit = $_POST['aset_no'];
         $deskripsi_masalah = $_POST['deskripsi_masalah'];
         editLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
+        break;
+    case 'tasks':
+        showTasksView($conn);
+        break;
+    case 'labs':
+        showLabsView($conn);
         break;
     default:
         echo "404 Not Found";
