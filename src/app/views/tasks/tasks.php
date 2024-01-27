@@ -33,14 +33,31 @@
  <!-- navbar -->
  <?php
         include('/var/www/html/app/includes/navbar.php');
-    ?>
+?>
+  <!-- pop up -->
+<?php
+if (isset($_SESSION['Success_Message']) || isset($_SESSION['Erorr_Message'])):
+    $message = isset($_SESSION['Success_Message']) ? $_SESSION['Success_Message'] : $_SESSION['Error_Message'];
+?>
+    <div id="popup" class="popup fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="content bg-[#78B992] p-8 rounded text-center text-xl">
+            <p><?php echo $message; ?></p>
+            <p id="countdown" class="text-lg font-bold">3</p>
+        </div>
+    </div>
+    <?php
+    // Clear the messages after use
+    unset($_SESSION['Success_Message']);
+    unset($_SESSION['Erorr_Message']);
+endif;
+?>
     <!-- isi -->
     <div class="flex lg:mx-16 lg:my-7 justify-center md:flex-row flex-col">
       <div
         class="bg-[#B2B2B2] mt-28 lg:mt-24 mx-0 md:mx-4 lg:w-[1080px] lg:h-[738px] rounded-md shadow-xl flex flex-col"
       >
         <div class="flex justify-center mt-7 mb-2">
-          <p class="text-xl md:text-2xl font-semibold">Laporan Saya</p>
+          <p class="text-xl md:text-2xl font-semibold">Tugas Saya</p>
         </div>
         <div
           class="bg-[#D9D9D9] rounded-t-md mt-4 min-h-[300px] flex-grow pt-2"
@@ -93,53 +110,20 @@
               </thead>
               <!-- Table body -->
               <tbody class="text-xs md:text-lg">
+              <?php foreach ($reports as $index => $report): ?>
                 <tr>
-                  <td
-                    class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6]"
-                  >
-                    <p class="">1</p>
-                  </td>
-                  <td
-                    class="rounded-xl shadow-xl bg-[#E6E6E6] font-semibold uppercase text-center"
-                  >
-                    komputer vision
-                  </td>
-                  <td
-                    class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center font-semibold"
-                  >
-                    <div>Sound System</div>
-                  </td>
-                  <td
-                    class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle font-semibold"
-                  >
-                    <p>1,2,3</p>
-                  </td>
-                  <td
-                    class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle"
-                  >
-                    <div>
-                      tidak ada suara Lorem ipsum dolor, sit amet consectetur
-                      adipisicing elit. Ex sapiente, debitis quam dolores at
-                      distinctio.
-                    </div>
-                  </td>
-                  <td
-                    class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center text-sm align-middle font-semibold"
-                  >
-                    <div>12/20/2023</div>
-                  </td>
-                  <td
-                    class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle"
-                  >
-                    <button
-                      type="submit"
-                      class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl h-full"
-                    >
-                      Selesaikan
-                    </button>
-                  </td>
+                    <td class="rounded-xl shadow-xl text-center font-semibold align-middle bg-[#E6E6E6]"><p class=""><?= $index + 1 ?></p></td>
+                    <td class="rounded-xl shadow-xl bg-[#E6E6E6] font-semibold uppercase text-center text-sm"><?= $report['Nama_Lab'] ?></td>
+                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center font-semibold text-sm"><div><?= $report['Nama_Aset'] ?></div></td>
+                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle font-semibold text-sm"><p><?= $report['Nomor_Unit'] ?></p></td>
+                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle"><div><?= $report['Deskripsi_Masalah'] ?></div></td>
+                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center text-sm align-middle font-semibold"><div><?= date('m/d/Y', strtotime($report['Batas_Waktu'])) ?></div></td>
+                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle">
+                        <button onclick="window.location.href='?action=tasksDetail&id_masalah=<?= $report['ID_Masalah'] ?>';"  type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl h-full">Detail</button>
+                    </td>
                 </tr>
-              </tbody>
+            <?php endforeach; ?>
+            </tbody>
             </table>
           </div>
         </div>
@@ -151,8 +135,6 @@
           <div class="flex justify-center mt-7 mb-4">
             <p class="text-xl md:text-2xl font-semibold">Detail Laporan</p>
           </div>
-
-          <form action="">
             <table
               class="ml-6 border-collapse border-separate"
               style="border-spacing: 0 10px"
@@ -160,29 +142,31 @@
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">ID Laporan</th>
                 <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0 md:p-2">
-                  <div class="ps-3">lkasdjflk</div>
+                  <div class="ps-3"><?= $reportsById['ID_Masalah'] ?? '-' ?></div>
                 </td>
               </tr>
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">Tanggal Dibuat</th>
-                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">asdfas</td>
+                <td class="w-96 bg-[#C8BEBE] rounded-l-md ps-4 p-0">
+                    <?= !empty($reportsById['Tanggal_Pelaporan']) && strtotime($reportsById['Tanggal_Pelaporan']) ? date('m/d/Y', strtotime($reportsById['Tanggal_Pelaporan'])) : '-' ?>
+                </td>
               </tr>
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">Nama Lab</th>
                 <td class="w-96 bg-[#C8BEBE] rounded-l-md p-0 md:p-2">
-                  <div class="ps-3">startup</div>
+                  <div class="ps-3"><?= $reportsById['Nama_Lab'] ?? '-' ?></div>
                 </td>
               </tr>
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">Aset</th>
                 <td class="w-96 bg-[#C8BEBE] rounded-l-md p-0 md:p-2">
-                  <div class="ps-3">Mouse</div>
+                  <div class="ps-3"><?= $reportsById['Nama_Aset'] ?? '-' ?></div>
                 </td>
               </tr>
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">Aset No</th>
                 <td class="w-96 bg-[#C8BEBE] rounded-l-md p-0 md:p-2">
-                  <div class="ps-3">2,3,4</div>
+                  <div class="ps-3"><?= $reportsById['Nomor_Unit'] ?? '-' ?></div>
                 </td>
               </tr>
               <tr class="text-md">
@@ -191,15 +175,14 @@
                   class="w-96 bg-[#C8BEBE] rounded-l-md p-0 md:p-2 text-xs text-justify"
                 >
                   <div class="ps-3">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. A
-                    omnis corporis esse, commodi nam expedita!
+                    <?= $reportsById['Deskripsi_Masalah'] ?? '-' ?>
                   </div>
                 </td>
               </tr>
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">Batas Waktu</th>
                 <td class="w-96 bg-[#C8BEBE] rounded-l-md p-0 md:p-2">
-                  <div class="ps-3">01/02/2003</div>
+                  <div class="ps-3"><?= !empty($reportsById['Batas_Waktu']) ? date('m/d/Y', strtotime($reportsById['Batas_Waktu'])) : '-' ?></div>
                 </td>
               </tr>
               <tr class="text-md">
@@ -207,9 +190,10 @@
                 <td
                   class="w-full bg-[#C8BEBE] rounded-l-md ps-4 p-2 flex flex-wrap"
                 >
-                  <div class="">akbar, furqon</div>
+                  <div class=""><?= $reportsById['Teknisi'] ?? '-' ?></div>
                 </td>
               </tr>
+              <form action="?action=tasksPenyelesaian" method="POST" enctype="multipart/form-data">
               <tr class="text-md">
                 <th class="font-semibold text-left w-44">Foto</th>
                 <td
@@ -217,7 +201,7 @@
                 >
                   <input
                     type="file"
-                    name=""
+                    name="foto"
                     id=""
                     class="w-full h-full text-xs"
                   />
@@ -241,6 +225,7 @@
               <tr class="text-md">
                 <th class="font-semibold text-center w-full" colspan="2">
                   <div class="mt-4">
+                  <input type="hidden" name="id_masalah" value="<?= $reportsById['ID_Masalah'] ?>" />
                     <button
                       type="reset"
                       class="bg-[#9F5858] hover:bg-[#8A5151] md:px-2 md:py-1 px-4 py-2 rounded-sm hover:border hover:border-black m-2"
@@ -250,6 +235,7 @@
 
                     <button
                       type="submit"
+                      name="submit"
                       class="bg-[#AFD0BC] hover:bg-[#98BCA7] md:px-4 md:py-1 px-4 py-2 rounded-sm hover:border hover:border-black m-2"
                     >
                       Selesaikan
@@ -257,15 +243,34 @@
                   </div>
                 </th>
               </tr>
+              </form>
             </table>
-          </form>
         </div>
 
         <!-- footer -->
           <?php
             include('/var/www/html/app/includes/footer.php');
         ?>
+  <script>
+      //   pop up
+      window.onload = function () {
+        var countdownElement = document.getElementById("countdown");
+        var countdown = 5; // 3 detik countdown
+        var popup = document.getElementById("popup");
 
+        popup.classList.remove("hidden"); // Menampilkan popup
+
+        var interval = setInterval(function () {
+          countdown--;
+          countdownElement.innerHTML = countdown;
+
+          if (countdown <= 0) {
+            clearInterval(interval);
+            popup.classList.add("hidden"); // Menghilangkan popup
+          }
+        }, 1000);
+      };
+    </script>
 
   </body>
 </html>

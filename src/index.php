@@ -114,6 +114,16 @@ switch ($action) {
     case 'tasks':
         showTasksView($conn);
         break;
+    case 'tasksDetail':
+        $id_masalah = $_GET['id_masalah'] ?? null;
+        taskDetail($conn, $id_masalah);
+        break;
+    case 'tasksPenyelesaian':
+        $id_masalah = $_POST['id_masalah'];
+        $foto_path = $_FILES['foto'];
+        $komentar = $_POST['komentar'];
+        tasksPenyelesaian($conn, $id_masalah,$foto_path, $komentar);
+        break;
     case 'labs':
         showLabsView($conn);
         break;
