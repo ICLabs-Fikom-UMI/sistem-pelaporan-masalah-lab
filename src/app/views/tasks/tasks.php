@@ -246,6 +246,7 @@ endif;
               </form>
             </table>
         </div>
+        <img src="public/foto/task_2_1706373923.png" alt="">
 
         <!-- footer -->
           <?php

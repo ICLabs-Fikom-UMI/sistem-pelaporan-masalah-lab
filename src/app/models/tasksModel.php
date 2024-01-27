@@ -68,23 +68,25 @@ function getTaskById($conn, $id_masalah) {
     return $taskDetail;
 }
 
-function updateDatabaseWithFile($conn, $id_masalah,$fileName, $komentar){
-    $targetFilePath = "/var/www/html/uploads/" . $fileName;
+function updateDatabaseWithFile($conn, $id_masalah, $fileName, $komentar){
+    $targetFilePath = $fileName;
+    $status = 'Selesai'; // Set the Status_Masalah to 'Selesai'
 
-    // Query untuk memperbarui database
-    $query = "UPDATE txn_lab_issues SET Foto_Path = ?, Komentar = ? WHERE ID_Masalah = ?";
+    // Query to update the database
+    $query = "UPDATE txn_lab_issues SET Foto_Path = ?, Komentar = ?, Status_Masalah = ? WHERE ID_Masalah = ?";
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "ssi", $targetFilePath, $komentar, $id_masalah);
+    mysqli_stmt_bind_param($stmt, "sssi", $targetFilePath, $komentar, $status, $id_masalah);
     mysqli_stmt_execute($stmt);
 
     if(mysqli_stmt_affected_rows($stmt) > 0){
-        // Sukses memperbarui
+        // Successfully updated
         return true;
     } else {
-        // Gagal memperbarui
+        // Failed to update
         return false;
     }
 }
+
 
 
 

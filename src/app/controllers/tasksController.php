@@ -39,7 +39,9 @@ function tasksPenyelesaian($conn, $id_masalah, $foto_path, $komentar) {
     }
 
     if ($uploadSuccess) {
-        $updateResult = updateDatabaseWithFile($conn, $id_masalah, $fileName, $komentar);
+        $fileNameInDb = "public/foto/{$fileName}";
+        echo $fileNameInDb;
+        $updateResult = updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar);
         if ($updateResult) {
             // Tetapkan pesan sukses ke session
             $_SESSION['Success_Message'] = "Anda berhasil Menyelesaikan tugas.";
