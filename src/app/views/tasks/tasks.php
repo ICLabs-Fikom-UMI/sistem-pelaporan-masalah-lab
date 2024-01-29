@@ -32,7 +32,7 @@
   <body>
  <!-- navbar -->
  <?php
-        include('/var/www/html/app/includes/navbar.php');
+    include('/var/www/html/app/includes/navbar.php');
 ?>
   <!-- pop up -->
 <?php
@@ -45,7 +45,7 @@ if (isset($_SESSION['Success_Message']) || isset($_SESSION['Erorr_Message'])):
             <p id="countdown" class="text-lg font-bold">3</p>
         </div>
     </div>
-    <?php
+<?php
     // Clear the messages after use
     unset($_SESSION['Success_Message']);
     unset($_SESSION['Erorr_Message']);

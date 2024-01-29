@@ -61,11 +61,11 @@ function rejectReport($conn, $id_masalah){
     $stmt = mysqli_prepare($conn, $query);
 
     if (!$stmt || !mysqli_stmt_bind_param($stmt, "i", $id_masalah) || !mysqli_stmt_execute($stmt)) {
-        return false; // Return false if there was an error
+        return false;
     }
 
     mysqli_stmt_close($stmt);
-    return true; // Return true if the deletion was successful
+    return true;
 }
 
 function getDetailLaporan($conn, $id_masalah) {
@@ -82,10 +82,10 @@ function getDetailLaporan($conn, $id_masalah) {
     $result = mysqli_stmt_get_result($stmt);
     if ($row = mysqli_fetch_assoc($result)) {
         mysqli_stmt_close($stmt);
-        return $row; // Return the single row of data
+        return $row;
     } else {
         mysqli_stmt_close($stmt);
-        return null; // Return null if no data found
+        return null;
     }
 }
 

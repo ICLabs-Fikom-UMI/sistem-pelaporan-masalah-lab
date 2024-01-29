@@ -70,19 +70,17 @@ function getTaskById($conn, $id_masalah) {
 
 function updateDatabaseWithFile($conn, $id_masalah, $fileName, $komentar){
     $targetFilePath = $fileName;
-    $status = 'Selesai'; // Set the Status_Masalah to 'Selesai'
+    $status = 'Selesai';
 
-    // Query to update the database
     $query = "UPDATE txn_lab_issues SET Foto_Path = ?, Komentar = ?, Status_Masalah = ? WHERE ID_Masalah = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "sssi", $targetFilePath, $komentar, $status, $id_masalah);
     mysqli_stmt_execute($stmt);
 
     if(mysqli_stmt_affected_rows($stmt) > 0){
-        // Successfully updated
         return true;
     } else {
-        // Failed to update
+
         return false;
     }
 }

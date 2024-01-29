@@ -3,7 +3,6 @@ session_start();
 include('/var/www/html/app/models/loginModel.php');
 
 
-
 function showLoginForm() {
     include('/var/www/html/app/views/login/login.php');
 

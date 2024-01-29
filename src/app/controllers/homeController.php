@@ -3,8 +3,6 @@
 include_once('/var/www/html/app/models/homeModel.php');
 include_once('/var/www/html/app/models/utility/dataModel.php');
 
-
-
 function showViewHome($conn) {
     $permasalahanLab = getAllPermasalahanLab($conn);
     foreach ($permasalahanLab as $key => $permasalahan) {

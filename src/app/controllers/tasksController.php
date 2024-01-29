@@ -43,10 +43,8 @@ function tasksPenyelesaian($conn, $id_masalah, $foto_path, $komentar) {
         echo $fileNameInDb;
         $updateResult = updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar);
         if ($updateResult) {
-            // Tetapkan pesan sukses ke session
             $_SESSION['Success_Message'] = "Anda berhasil Menyelesaikan tugas.";
         } else {
-            // Tetapkan pesan error ke session atau handle error
             $_SESSION['Error_Message'] = "Gagal memperbarui data.";
         }
     }
@@ -54,6 +52,4 @@ function tasksPenyelesaian($conn, $id_masalah, $foto_path, $komentar) {
     $reports = getAllTaskById($conn);
     include('/var/www/html/app/views/tasks/tasks.php');
 }
-
-
 ?>

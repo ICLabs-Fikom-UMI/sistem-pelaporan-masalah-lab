@@ -46,8 +46,7 @@ if (isset($_SESSION['setuju_message']) || isset($_SESSION['tolak_message'])):
             <p id="countdown" class="text-lg font-bold">3</p>
         </div>
     </div>
-    <?php
-    // Clear the messages after use
+<?php
     unset($_SESSION['setuju_message']);
     unset($_SESSION['tolak_message']);
 endif;
@@ -273,10 +272,10 @@ endif;
       //   pop up
       window.onload = function () {
         var countdownElement = document.getElementById("countdown");
-        var countdown = 5; // 3 detik countdown
+        var countdown = 3;
         var popup = document.getElementById("popup");
 
-        popup.classList.remove("hidden"); // Menampilkan popup
+        popup.classList.remove("hidden");
 
         var interval = setInterval(function () {
           countdown--;
@@ -284,7 +283,7 @@ endif;
 
           if (countdown <= 0) {
             clearInterval(interval);
-            popup.classList.add("hidden"); // Menghilangkan popup
+            popup.classList.add("hidden");
           }
         }, 1000);
       };

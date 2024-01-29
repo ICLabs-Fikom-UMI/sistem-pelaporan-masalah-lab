@@ -9,7 +9,7 @@
   <body>
     <!-- navbar -->
  <?php
-        include('/var/www/html/app/includes/navbar.php');
+    include('/var/www/html/app/includes/navbar.php');
 ?>
     <div class="mt-28 md:mt-36">
       <div class="flex flex-col mx-5 md:mx-28">

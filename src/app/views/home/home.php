@@ -15,11 +15,11 @@
 
       .border-spacing-2 {
         border-collapse: separate;
-        border-spacing: 0.2rem; /* Atur nilai sesuai kebutuhan */
+        border-spacing: 0.2rem;
       }
       .border-spacing-1 {
         border-collapse: separate !important;
-        border-spacing: 0.1rem; /* Atur nilai sesuai kebutuhan */
+        border-spacing: 0.1rem;
       }
       #no::placeholder {
         color: #977878;
@@ -31,8 +31,8 @@
         display: flex;
         align-items: center;
         height: 100%;
-        font-size: 0.75rem; /* 12px */
-        line-height: 1rem; /* 16px */
+        font-size: 0.75rem;
+        line-height: 1rem;
       }
     </style>
   </head>
@@ -50,8 +50,8 @@
         </div>
     </div>
     <?php
-    unset($_SESSION['success_message']); // Clear the message after use
-    unset($_SESSION['bad_message']); // Clear the bad_message after use
+    unset($_SESSION['success_message']);
+    unset($_SESSION['bad_message']);
 endif;
 ?>
 

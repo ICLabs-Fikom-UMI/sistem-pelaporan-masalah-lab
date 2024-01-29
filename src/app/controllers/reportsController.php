@@ -5,7 +5,7 @@ function showViewReportKorlab($conn) {
     $users = getUser($conn); // Fetch user data
     $dataLaporan = getDataLaporan($conn); // Fetch report data
 
-    // Directly include the view file without checking for data retrieval success
+
     include('/var/www/html/app/views/reports/reportsKorlab.php');
 }
 
@@ -16,15 +16,15 @@ function setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi, $Deskrips
 }
 
 function tolakLaporan($conn, $id_masalah){
-    $users = getUser($conn); // Fetch user data
-    $dataLaporan = getDataLaporan($conn); // Fetch report data
+    $users = getUser($conn);
+    $dataLaporan = getDataLaporan($conn);
     rejectReport($conn, $id_masalah);
     $_SESSION['tolak_message'] = "Laporan Telah Di Tolak...";
     header("Location: index.php?action=reports");
 }
 function detailLaporan($conn, $id_masalah){
-    $users = getUser($conn); // Fetch user data
-    $dataLaporan = getDataLaporan($conn); // Fetch report data
+    $users = getUser($conn);
+    $dataLaporan = getDataLaporan($conn);
     $dataDetailLaporan =getDetailLaporan($conn, $id_masalah);
     include('/var/www/html/app/views/reports/reportsKorlab.php');
 
@@ -34,7 +34,6 @@ function detailLaporan($conn, $id_masalah){
 // reports asisten
 function showViewReportAsisten($conn) {
     $allLaporanSaya = getAllLaporanSaya($conn);
-    // Directly include the view file without checking for data retrieval success
     include('/var/www/html/app/views/reports/reportsAsisten.php');
 }
 

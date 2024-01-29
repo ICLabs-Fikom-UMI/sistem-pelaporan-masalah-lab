@@ -1,6 +1,5 @@
 <?php
 function getUserByEmail($email, $conn) {
-    // $query = "SELECT * FROM master_user WHERE Email = ?";
     $query = "SELECT master_user.*, master_roles.Nama_Peran FROM master_user
               JOIN master_roles ON master_user.ID_Peran = master_roles.ID_Peran
               WHERE Email = ?";

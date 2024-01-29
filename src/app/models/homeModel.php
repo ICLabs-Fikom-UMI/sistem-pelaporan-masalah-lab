@@ -1,5 +1,4 @@
 <?php
-
 function setLaporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $conn){
     $query = "INSERT INTO txn_lab_issues (Deskripsi_Masalah, ID_Lab, ID_Aset, ID_Pelapor, Status_Masalah, Nomor_Unit) VALUES (?, ?, ?, ?, 'Diproses', ?)";
     $stmt = mysqli_prepare($conn, $query);
@@ -21,7 +20,7 @@ function getAllPermasalahanLab($conn) {
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
               LEFT JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
               LEFT JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
-              WHERE tli.Status_Masalah = 'Disetujui'"; // Menambahkan kondisi WHERE
+              WHERE tli.Status_Masalah = 'Disetujui'";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -52,7 +51,5 @@ function getTeknisiByMasalah($conn, $idMasalah) {
 
     return $teknisiNames;
 }
-
-
 
 ?>
