@@ -7,6 +7,7 @@ include('app/controllers/homeController.php');
 include('app/controllers/reportsController.php');
 include('app/controllers/tasksController.php');
 include('app/controllers/labsController.php');
+include('app/controllers/accessController.php');
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
@@ -126,6 +127,9 @@ switch ($action) {
         break;
     case 'labs':
         showLabsView($conn);
+        break;
+    case 'access':
+        showAccessView($conn);
         break;
     default:
         echo "404 Not Found";

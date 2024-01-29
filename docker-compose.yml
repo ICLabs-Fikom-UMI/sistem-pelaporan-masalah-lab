@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web:
+    build: .
+    volumes:
+      - ./src:/var/www/html # Menyinkronkan direktori src dengan /var/www/html di dalam container
+    ports:
+      - "8001:80" # Port HTTP
+      - "9003:9003" # Port Xdebug
+  my-mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306" # Pemetaan port 3307 di host ke port 3306 di kontainer MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: db_laporan_lab
+  phpmyadmin-existing:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: my-mysql
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"

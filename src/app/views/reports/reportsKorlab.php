@@ -199,7 +199,7 @@ endif;
                 <td>
                   <input
                     type="date"
-                    name="batas_waktu_<?=$dataDetailLaporan['ID_Masalah'] ?>"
+                    name="batas_waktu_<?=$dataDetailLaporan['ID_Masalah'] ?? '-' ?>"
                     id="date"
                     class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-0"
                   />
@@ -208,7 +208,7 @@ endif;
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-left w-44">Pilih Teknisi</th>
                 <td class="w-full bg-[#D9D9D9] rounded-l-md ps-4 p-2 flex flex-wrap items-center justify-center">
-                <select name="id_teknisi_<?= $dataDetailLaporan['ID_Masalah'] ?>" id="teknisi" class="bg-[#D9D9D9] w-full justify-center">
+                <select name="id_teknisi_<?= $dataDetailLaporan['ID_Masalah'] ?? '-' ?>" id="teknisi" class="bg-[#D9D9D9] w-full justify-center">
                     <option value="" disabled selected>Pilih Teknisi</option>
                     <?php foreach ($users as $user): ?>
                         <option value="<?= $user['ID_Pengguna'] ?>"><?= $user['Nama_Depan'] ?></option>
@@ -219,7 +219,7 @@ endif;
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-center w-full" colspan="2">
                   <div class="mt-4">
-                    <input type="hidden" name="id_masalah[]" value="<?= $dataDetailLaporan['ID_Masalah'] ?>" />
+                    <input type="hidden" name="id_masalah[]" value="<?= $dataDetailLaporan['ID_Masalah'] ?? '-' ?>" />
                     <button
                       type="submit"
                       class="bg-[#9F5858] hover:bg-[#8A5151] md:px-2 md:py-1 px-4 py-2 rounded-sm hover:border hover:border-black m-2"

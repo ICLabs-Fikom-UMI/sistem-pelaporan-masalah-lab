@@ -225,7 +225,7 @@ endif;
               <tr class="text-md">
                 <th class="font-semibold text-center w-full" colspan="2">
                   <div class="mt-4">
-                  <input type="hidden" name="id_masalah" value="<?= $reportsById['ID_Masalah'] ?>" />
+                  <input type="hidden" name="id_masalah" value="<?= $reportsById['ID_Masalah'] ?? '-' ?>" />
                     <button
                       type="reset"
                       class="bg-[#9F5858] hover:bg-[#8A5151] md:px-2 md:py-1 px-4 py-2 rounded-sm hover:border hover:border-black m-2"
@@ -246,7 +246,6 @@ endif;
               </form>
             </table>
         </div>
-        <img src="public/foto/task_2_1706373923.png" alt="">
 
         <!-- footer -->
           <?php

@@ -60,7 +60,7 @@
             Tasks
           </a>
           <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'Laboran'): ?>
-          <a href="/" class="hidden lg:flex items-center hover:text-secondary">
+          <a href="<?= isset($_SESSION['user_id']) ? '?action=access' : '?action=showLoginForm'; ?>" class="hidden lg:flex items-center hover:text-secondary">
             access
           </a>
           <?php endif; ?>
