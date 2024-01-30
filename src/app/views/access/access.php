@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Access</title>
+    <style>
+      .border-spacing-2 {
+        border-collapse: separate;
+        border-spacing: 0.2rem; /* Atur nilai sesuai kebutuhan */
+      }
+      .border-spacing-1 {
+        border-collapse: separate;
+        border-spacing: 0.1rem; /* Atur nilai sesuai kebutuhan */
+      }
+    </style>
   </head>
   <body>
     <!-- navbar -->
@@ -57,22 +67,22 @@
                   Aksi
                 </th>
               </tr>
-
+<?php foreach ($dataAsisten as $index => $asisten): ?>
               <tr class="text-xs md:text-lg">
                 <td
                   class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6]"
                 >
-                  1
+                    <?php echo $index + 1;  ?>
                 </td>
                 <td
                   class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]"
                 >
-                  Muhammad Akbar
+                    <?php echo $asisten['Nama_Depan'] . " " . $asisten['Nama_Belakang'];  ?>
                 </td>
                 <td
                   class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center"
                 >
-                  <div>Asisten</div>
+                    <div><?php echo $asisten['Nama_Peran']; // Displaying the role ?></div>
                 </td>
                 <td
                   class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
@@ -99,6 +109,7 @@
                   </button>
                 </td>
               </tr>
+<?php endforeach; ?>
             </table>
           </form>
         </div>
