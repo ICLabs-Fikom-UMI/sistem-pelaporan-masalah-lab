@@ -13,7 +13,13 @@ function showViewHome($conn) {
     include('/var/www/html/app/views/home/home.php');
 
 }
-function laporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $conn) {
+function laporanCepat($conn) {
+    $id_lab = $_POST['id_lab'];
+    $id_aset = $_POST['id_aset'];
+    $no_unit = $_POST['no_unit'];
+    $deskripsi = $_POST['deskripsi'];
+    $ID_Pelapor = $_SESSION['user_id'];
+
     // Call the setLaporanCepat function from the model
     $result = setLaporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $conn);
 

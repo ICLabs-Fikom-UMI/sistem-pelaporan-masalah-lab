@@ -12,23 +12,24 @@ include('app/controllers/accessController.php');
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
 
+// Check if the user is logged in for actions other than login-related ones
+if (!in_array($action, ['showLoginForm', 'processLogin'])) {
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: index.php?action=showLoginForm');
+        exit;
+    }
+}
 switch ($action) {
     case 'showLoginForm':
-
-            // Jika user sudah login, alihkan ke beranda
             if (isset($_SESSION['user_id'])) {
                 header('Location: index.php?action=home');
                 exit;
             }
-            // Tampilkan form login jika belum login
             showLoginForm();
         break;
 
     case 'processLogin':
-        $emailOrNim = $_POST['emailNim'];
-        $password = $_POST['password'];
-
-        processLogin($emailOrNim, $password, $conn);
+        processLogin($conn);
         break;
     case 'logout':
         session_destroy();
@@ -44,12 +45,7 @@ switch ($action) {
         }
         break;
     case 'laporan-cepat':
-        $id_lab = $_POST['id_lab'];
-        $id_aset = $_POST['id_aset'];
-        $no_unit = $_POST['no_unit'];
-        $deskripsi = $_POST['deskripsi'];
-        $ID_Pelapor = $_SESSION['user_id'];
-        laporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $conn);
+        laporanCepat($conn);
         break;
     case 'reports':
         if(isset($_SESSION['user_id'])){
@@ -101,35 +97,28 @@ switch ($action) {
         }
         break;
     case 'getEditLaporan':
-        $id_masalah = $_GET['id_masalah'] ?? null;
-        dataEditLaporan($conn, $id_masalah);
+        dataEditLaporan($conn);
         break;
     case 'editLaporan':
-        $id_masalah = $_POST['id_Masalah'];
-        $id_lab = $_POST['lab'];
-        $id_aset = $_POST['aset'];
-        $nomor_unit = $_POST['aset_no'];
-        $deskripsi_masalah = $_POST['deskripsi_masalah'];
-        editLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
+        editLaporan($conn);
         break;
     case 'tasks':
         showTasksView($conn);
         break;
     case 'tasksDetail':
-        $id_masalah = $_GET['id_masalah'] ?? null;
-        taskDetail($conn, $id_masalah);
+        taskDetail($conn);
         break;
     case 'tasksPenyelesaian':
-        $id_masalah = $_POST['id_masalah'];
-        $foto_path = $_FILES['foto'];
-        $komentar = $_POST['komentar'];
-        tasksPenyelesaian($conn, $id_masalah,$foto_path, $komentar);
+        tasksPenyelesaian($conn);
         break;
     case 'labs':
         showLabsView($conn);
         break;
     case 'access':
         showAccessView($conn);
+        break;
+    case 'peranBaru':
+        editPeran($conn);
         break;
     default:
         echo "404 Not Found";

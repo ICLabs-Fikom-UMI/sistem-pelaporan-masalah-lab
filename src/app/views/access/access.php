@@ -31,7 +31,7 @@
         <div
           class="bg-[#D9D9D9] rounded-t-md mt-4 min-h-[300px] flex-grow pt-2"
         >
-          <form action="">
+          <form action="?action=peranBaru">
             <table
               class="min-w-full table-auto w-full text-left whitespace-no-wrap border-spacing-1 md:border-spacing-2"
             >
@@ -88,19 +88,20 @@
                   class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
                 >
                 <select
-                name="teknisi"
-                id="teknisi"
+                name="peranBaru"
+                id="peranBaru"
                 class="w-full text-center bg-[#E6E6E6] text-xs"
               >
                 <option value="" disabled selected>Pilih peran Baru</option>
-                <option value="akbar">Laboran</option>
-                <option value="akbar">Korlab</option>
-                <option value="akbar">Asisten</option>
+                <option value="2">Laboran</option>
+                <option value="3">Korlab</option>
+                <option value="1">Asisten</option>
               </select>
                 </td>
                 <td
                   class="rounded-xl shadow-xlbg-[#E6E6E6] flex justify-center"
                 >
+                <input type="hidden" name="id_masalah" value="<?= $asisten['ID_Pengguna']; ?>">
                   <button
                     type="submit"
                     class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl"

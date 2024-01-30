@@ -8,7 +8,9 @@ function showLoginForm() {
 
 }
 
-function processLogin($emailOrNim, $password, $conn) {
+function processLogin($conn) {
+    $emailOrNim = $_POST['emailNim'];
+    $password = $_POST['password'];
     // Validasi input
     if (filter_var($emailOrNim, FILTER_VALIDATE_EMAIL)) {
         // Jika input adalah email yang valid

@@ -5,13 +5,19 @@ function showTasksView($conn) {
     include('/var/www/html/app/views/tasks/tasks.php');
 }
 
-function taskDetail($conn, $id_masalah){
+function taskDetail($conn){
+    $id_masalah = $_GET['id_masalah'] ?? null;
+
+    // fetch data reports and reports by id
     $reports =getAllTaskById($conn);
     $reportsById = getTaskById($conn, $id_masalah);
     include('/var/www/html/app/views/tasks/tasks.php');
 }
 
-function tasksPenyelesaian($conn, $id_masalah, $foto_path, $komentar) {
+function tasksPenyelesaian($conn) {
+    $id_masalah = $_POST['id_masalah'];
+    $foto_path = $_FILES['foto'];
+    $komentar = $_POST['komentar'];
     $targetDir = "public/foto/";
     $fileType = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
 

@@ -37,7 +37,8 @@ function showViewReportAsisten($conn) {
     include('/var/www/html/app/views/reports/reportsAsisten.php');
 }
 
-function dataEditLaporan($conn, $id_masalah){
+function dataEditLaporan($conn){
+    $id_masalah = $_GET['id_masalah'] ?? null;
     $asets = getDataAset($conn);
     $labs = getDataLab($conn);
     $allLaporanSaya = getAllLaporanSaya($conn);
@@ -46,7 +47,14 @@ function dataEditLaporan($conn, $id_masalah){
 
 }
 
-function editLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah) {
+function editLaporan($conn) {
+    $id_masalah = $_POST['id_Masalah'];
+    $id_lab = $_POST['lab'];
+    $id_aset = $_POST['aset'];
+    $nomor_unit = $_POST['aset_no'];
+    $deskripsi_masalah = $_POST['deskripsi_masalah'];
+
+    // fetch data asets and labs
     $asets = getDataAset($conn);
     $labs = getDataLab($conn);
 
