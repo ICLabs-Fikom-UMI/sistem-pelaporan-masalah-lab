@@ -108,11 +108,11 @@ endif;
                     foreach ($dataLaporan as $data):
                 ?>
               <tr class="text-xs md:text-lg">
-              <td onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6] w-10">
+              <td onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="rounded-xl shadow-md hover:shadow-xl text-center align-middle bg-[#E6E6E6] w-10">
                     <?= $counter; ?>
                 </td>
 
-                <td onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-sm text-justify">
+                <td onclick="window.location.href='?action=detailLaporan&id_masalah=<?= $data['ID_Masalah'] ?>';" class="rounded-xl shadow-md hover:shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-sm text-justify">
                     <div class="flex flex-col">
                         <span class="font-bold text-lg">Permasalahan:</span>
                         <p class="font-semibold text-md">Lab: <?= $data['Nama_Lab'] ?></p>
@@ -123,18 +123,18 @@ endif;
                     </div>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center font-semibold"
+                  class="rounded-xl shadow-md hover:shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center font-semibold"
                 >
                 <p><?= $data['Nama_Pelapor'] ?></p>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle font-semibold"
+                  class="rounded-xl shadow-md hover:shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle font-semibold"
                 >
                 <p><?= $data['Tanggal_Laporan'] ?></p>
 
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle text-sm"
+                  class="rounded-xl shadow-md hover:shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle text-sm"
                 >
                 <input type="hidden" name="id_masalah[]" value="<?= $data['ID_Masalah'] ?>" />
                 <div class="flex items-center justify-center">
@@ -219,7 +219,7 @@ endif;
               <tr class="md:text-base text-sm">
                 <th class="font-semibold text-center w-full" colspan="2">
                   <div class="mt-4">
-                    <input type="hidden" name="id_masalah[]" value="<?= $dataDetailLaporan['ID_Masalah'] ?? '-' ?>" />
+                    <input type="hidden" name="id_masalah[]" value="<?= $dataDetailLaporan['ID_Masalah'] ?? '-shadow-md hover:' ?>" />
                     <button
                       type="submit"
                       class="bg-[#9F5858] hover:bg-[#8A5151] md:px-2 md:py-1 px-4 py-2 rounded-sm hover:border hover:border-black m-2"

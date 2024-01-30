@@ -112,14 +112,14 @@ endif;
               <tbody class="text-xs md:text-lg">
               <?php foreach ($reports as $index => $report): ?>
                 <tr>
-                    <td class="rounded-xl shadow-xl text-center font-semibold align-middle bg-[#E6E6E6]"><p class=""><?= $index + 1 ?></p></td>
-                    <td class="rounded-xl shadow-xl bg-[#E6E6E6] font-semibold uppercase text-center text-sm"><?= $report['Nama_Lab'] ?></td>
-                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center font-semibold text-sm"><div><?= $report['Nama_Aset'] ?></div></td>
-                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle font-semibold text-sm"><p><?= $report['Nomor_Unit'] ?></p></td>
-                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle"><div><?= $report['Deskripsi_Masalah'] ?></div></td>
-                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center text-sm align-middle font-semibold"><div><?= date('m/d/Y', strtotime($report['Batas_Waktu'])) ?></div></td>
-                    <td class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle">
-                        <button onclick="window.location.href='?action=tasksDetail&id_masalah=<?= $report['ID_Masalah'] ?>';"  type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl h-full">Detail</button>
+                    <td class="rounded-xl shadow-md hover:shadow-xl text-center font-semibold align-middle bg-[#E6E6E6]"><p class=""><?= $index + 1 ?></p></td>
+                    <td class="rounded-xl shadow-md hover:shadow-xl bg-[#E6E6E6] font-semibold uppercase text-center text-sm"><?= $report['Nama_Lab'] ?></td>
+                    <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center font-semibold text-sm"><div><?= $report['Nama_Aset'] ?></div></td>
+                    <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle font-semibold text-sm"><p><?= $report['Nomor_Unit'] ?></p></td>
+                    <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle"><div><?= $report['Deskripsi_Masalah'] ?></div></td>
+                    <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center text-sm align-middle font-semibold"><div><?= date('m/d/Y', strtotime($report['Batas_Waktu'])) ?></div></td>
+                    <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-left text-sm align-middle">
+                        <button onclick="window.location.href='?action=tasksDetail&id_masalah=<?= $report['ID_Masalah'] ?>';"  type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm focus:border focus:border-black ms-1 w-full p-2 shadow-xl h-full">Detail</button>
                     </td>
                 </tr>
             <?php endforeach; ?>

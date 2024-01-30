@@ -19,6 +19,12 @@ if (!in_array($action, ['showLoginForm', 'processLogin'])) {
         exit;
     }
 }
+// Restrict access to 'tasks' for 'Laboran' and 'Korlab' roles
+if ($action == 'tasks' && isset($_SESSION['role']) && in_array($_SESSION['role'], ['Laboran', 'Korlab'])) {
+    header('Location: index.php?action=home');
+    exit;
+}
+
 switch ($action) {
     case 'showLoginForm':
             if (isset($_SESSION['user_id'])) {

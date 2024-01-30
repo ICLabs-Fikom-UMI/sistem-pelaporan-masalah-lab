@@ -107,10 +107,10 @@ endif;
                     foreach ($permasalahanLab as $permasalahan):
                 ?>
                     <tr class="text-xs md:text-lg">
-                        <td class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6]">
+                        <td class="rounded-xl shadow-md hover:shadow-xl text-center align-middle bg-[#E6E6E6]">
                             <?= $counter; ?>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-sm text-justify">
+                        <td class="rounded-xl shadow-md hover:shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-sm text-justify">
                             <div class="flex flex-col">
                                 <span class="font-bold text-lg">Permasalahan:</span>
                                 <p class="font-semibold text-md">Lab: <?= $permasalahan['Nama_Lab'] ?></p>
@@ -120,15 +120,15 @@ endif;
                                 <p class="text-md"><?= $permasalahan['Deskripsi_Masalah'] ?></p>
                             </div>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center text-sm">
+                        <td class="rounded-xl shadow-md hover:shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center text-sm">
                             <?= $permasalahan['Batas_Waktu'] ?>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-center text-sm font-semibold">
+                        <td class="rounded-xl shadow-md hover:shadow-xl ps-2 md:px-4 md:py-2 bg-[#E6E6E6] text-center text-sm font-semibold">
                         <?php foreach ($permasalahan['teknisi'] as $teknisi): ?>
                             <?= htmlspecialchars($teknisi); ?>
                         <?php endforeach; ?>
                         </td>
-                        <td class="rounded-xl shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center text-sm">
+                        <td class="rounded-xl shadow-md hover:shadow-xl ps-2 md:px-4 md:py-2  bg-[#E6E6E6] text-center text-sm">
                             <?php
                             if ($permasalahan['Status_Masalah'] == 'Disetujui') {
                                 echo 'Sedang Dikerjakan';

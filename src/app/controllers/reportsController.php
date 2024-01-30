@@ -55,8 +55,6 @@ function editLaporan($conn) {
     $deskripsi_masalah = $_POST['deskripsi_masalah'];
 
     // fetch data asets and labs
-    $asets = getDataAset($conn);
-    $labs = getDataLab($conn);
 
     submitEditLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
     $allLaporanSaya = getAllLaporanSaya($conn);

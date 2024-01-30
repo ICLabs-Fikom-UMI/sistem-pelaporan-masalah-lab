@@ -69,7 +69,7 @@ function rejectReport($conn, $id_masalah){
 }
 
 function getDetailLaporan($conn, $id_masalah) {
-    $query = "SELECT tli.ID_Masalah, tli.Tanggal_Pelaporan, ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah
+    $query = "SELECT tli.ID_Masalah, tli.Tanggal_Pelaporan, tli.ID_Lab, ml.Nama_Lab, tli.ID_Aset, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
@@ -88,6 +88,7 @@ function getDetailLaporan($conn, $id_masalah) {
         return null;
     }
 }
+
 
 
 // asisten reports

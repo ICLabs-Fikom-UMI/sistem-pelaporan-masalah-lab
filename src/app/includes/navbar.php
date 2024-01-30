@@ -56,9 +56,11 @@
           <a href="<?= isset($_SESSION['user_id']) ? '?action=reports' : '?action=showLoginForm'; ?>"  class="hidden lg:flex items-center hover:text-secondary">
             Reports
           </a>
-          <a href="<?= isset($_SESSION['user_id']) ? '?action=tasks' : '?action=showLoginForm'; ?>"  class="hidden lg:flex items-center hover:text-secondary">
-            Tasks
-          </a>
+          <?php if (!isset($_SESSION['role']) || ($_SESSION['role'] != 'Laboran' && $_SESSION['role'] != 'Korlab')): ?>
+                <a href="<?= isset($_SESSION['user_id']) ? '?action=tasks' : '?action=showLoginForm'; ?>"  class="hidden lg:flex items-center hover:text-secondary">
+                    Tasks
+                </a>
+          <?php endif; ?>
           <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'Laboran'): ?>
           <a href="<?= isset($_SESSION['user_id']) ? '?action=access' : '?action=showLoginForm'; ?>" class="hidden lg:flex items-center hover:text-secondary">
             access

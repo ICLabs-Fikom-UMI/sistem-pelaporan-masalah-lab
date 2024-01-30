@@ -62,7 +62,7 @@
                   <div class="border-l h-full"></div>
                 </th>
                 <th
-                  class="md:px-4 md:py-2 py-1 rounded-xl text-center align-middle font-semibold shadow-xl w-48"
+                  class="md:px-4 md:py-2 py-1 rounded-xl text-center align-middle font-semibold shadow-xl md:w-48"
                 >
                   Aksi
                 </th>
@@ -70,22 +70,22 @@
 <?php foreach ($dataAsisten as $index => $asisten): ?>
               <tr class="text-xs md:text-lg">
                 <td
-                  class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6]"
+                  class="rounded-xl shadow-md hover:shadow-xl text-center align-middle bg-[#E6E6E6]"
                 >
                     <?php echo $index + 1;  ?>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]"
+                  class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]"
                 >
                     <?php echo $asisten['Nama_Depan'] . " " . $asisten['Nama_Belakang'];  ?>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center"
+                  class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center"
                 >
                     <div><?php echo $asisten['Nama_Peran']; // Displaying the role ?></div>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
+                  class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
                 >
                 <select
                 name="peranBaru"
@@ -99,15 +99,18 @@
               </select>
                 </td>
                 <td
-                  class="rounded-xl shadow-xlbg-[#E6E6E6] flex justify-center"
+                  class="rounded-xl shadow-md hover:shadow-xl bg-[#E6E6E6] flex justify-center"
                 >
                 <input type="hidden" name="id_masalah" value="<?= $asisten['ID_Pengguna']; ?>">
-                  <button
-                    type="submit"
-                    class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl"
-                  >
-                    Simpan
-                  </button>
+                    <button
+                        type="submit"
+                        class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1  p-2 shadow-xl"
+                    >
+                        Simpan
+                    </button>
+                    <div class="border-l-2 border-black mx-2 h-11"></div>
+                    </div>
+                    <a href="?action=detailUser" class="p-2 bg-[#A69B9B] hover:border hover:border-black">Detail</a>
                 </td>
               </tr>
 <?php endforeach; ?>
@@ -121,20 +124,20 @@
         class="bg-[#B2B2B2] mt-2 mx-2 md:mx-4 lg:w-[1180px] lg:h-[700px] h-[550px] rounded-md shadow-xl flex flex-col"
         >
           <div class="flex justify-center mt-7 mb-2">
-            <p class="text-lg md:text-2xl font-semibold">Tambah User</p>
+            <p class="text-lg md:text-2xl font-semibold hover:shadow-sm">Tambah User</p>
           </div>
           <div
           class=" bg-[url('app/includes/img/akses.png')]  rounded-t-md mt-4 min-h-[300px] flex-grow pt-2 flex justify-center items-center"
         >
-          <form action="" class=" p-52 md:p-28 rounded-lg" style="background-color: rgba(217, 217, 217, 0.60);" >
+          <form action="" class=" p-20 md:p-28 rounded-lg" style="background-color: rgba(217, 217, 217, 0.60);" >
             <div class="my-8 ">
-                <input class="p-3 md:p-4 rounded-2xl shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nama depan">
+                <input class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nama depan">
             </div>
             <div class="my-8 ">
-                <input class="p-3 md:p-4 rounded-2xl shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="email" placeholder="Masukkan Email">
+                <input class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="email" placeholder="Masukkan Email">
             </div>
             <div class="my-8 ">
-                <input class="p-3 md:p-4 rounded-2xl shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nim">
+                <input class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nim">
             </div>
             <div class="flex justify-center">
                 <button type="submit" class="p-3 px-6 bg-[#AFD0BC] rounded-xl hover:shadow-xl focus:bg-green-700 font-semibold">Simpan</button>

@@ -102,28 +102,28 @@ endif;
               <?php foreach ($allLaporanSaya as $index => $laporan): ?>
               <tr class="text-xs md:text-lg">
                 <td
-                  class="rounded-xl shadow-xl text-center align-middle bg-[#E6E6E6]"
+                  class="rounded-xl shadow-md md:shadow-xl text-center align-middle bg-[#E6E6E6]"
                 >
                     <?= $index + 1; ?>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]"
+                  class="rounded-xl shadow-md md:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]"
                 >
                     <span class="font-bold">Aset:</span> <?= $laporan['Nama_Aset']; ?><br>
                     <span class="font-bold">Masalah:</span> <?= $laporan['Deskripsi_Masalah']; ?>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center"
+                  class="rounded-xl shadow-md md:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center"
                 >
                   <div><?= $laporan['Nama_Lab']; ?></div>
                 </td>
                 <td
-                  class="rounded-xl shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
+                  class="rounded-xl shadow-md md:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
                 >
                   <div><?= date("d/m/Y", strtotime($laporan['Tanggal_Pelaporan'])); ?></div>
                 </td>
                 <td
-                    class="rounded-xl shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle text-sm"
+                    class="rounded-xl shadow-md md:shadow-xl md:px-2 md:py-2 py-1 bg-[#E6E6E6] text-center align-middle text-sm"
                 >
                 <?php
                     $statusMasalah = $laporan['Status_Masalah'];
@@ -136,7 +136,7 @@ endif;
                         <form action="index.php" method="get">
                             <input type="hidden" name="action" value="getEditLaporan">
                             <input type="hidden" name="id_masalah" value="<?= $laporan['ID_Masalah']; ?>">
-                            <button type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-xl">
+                            <button type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 w-full p-2 shadow-md md:shadow-xl">
                                 Edit
                             </button>
                         </form>
@@ -178,7 +178,8 @@ endif;
                     id="lab"
                     class="w-full bg-[#D9D9D9] text-md text-center align-middle rounded-l-md"
                   >
-                  <?php foreach ($labs as $lab): ?>
+                  <?php if (isset($labs) && !empty($labs)): ?>
+                    <?php foreach ($labs as $lab): ?>
                         <option value="<?= $lab['ID_Lab'] ?>"
                             <?php if (isset($dataDetailLaporan['ID_Lab']) && $dataDetailLaporan['ID_Lab'] == $lab['ID_Lab']) {
                                 echo 'selected';
@@ -186,6 +187,10 @@ endif;
                             <?= $lab['Nama_Lab'] ?>
                         </option>
                     <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">-</option>
+                <?php endif; ?>
+
                   </select>
                 </td>
               </tr>
@@ -197,14 +202,18 @@ endif;
                     id="aset"
                     class="w-full bg-[#D9D9D9] rounded-l-md text-center align-middle text-md"
                   >
-                  <?php foreach ($asets as $aset): ?>
-                    <option value="<?= $aset['ID_Aset'] ?>"
-                        <?php if (isset($dataDetailLaporan['ID_Aset']) && $dataDetailLaporan['ID_Aset'] == $aset['ID_Aset']) {
-                            echo 'selected';
-                        } ?>>
-                        <?= $aset['Nama_Aset'] ?>
-                    </option>
-                <?php endforeach; ?>
+                  <?php if (isset($asets) && !empty($asets)): ?>
+                    <?php foreach ($asets as $aset): ?>
+                        <option value="<?= $aset['ID_Aset'] ?>"
+                            <?php if (isset($dataDetailLaporan['ID_Aset']) && $dataDetailLaporan['ID_Aset'] == $aset['ID_Aset']) {
+                                echo 'selected';
+                            } ?>>
+                            <?= $aset['Nama_Aset'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">-</option>
+                <?php endif; ?>
                   </select>
                 </td>
               </tr>
@@ -258,7 +267,7 @@ endif;
         <div
           class="hidden lg:flex bg-[#B2B2B2] p-2 mt-4 lg:w-[497px] lg:h-[140px] rounded-md shadow-xl items-center justify-center"
         >
-          <img src="img/LogoFikom_Putih.png" alt="" class="w-56" />
+          <img src="app/includes/img/LogoFikom_Putih.png" alt="" class="w-56" />
         </div>
       </div>
     </div>
