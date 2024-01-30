@@ -25,13 +25,20 @@
       <div
         class="bg-[#B2B2B2] mt-24 md:mx-4 lg:w-[1180px] lg:h-[738px] rounded-md shadow-xl flex flex-col"
       >
-        <div class="flex justify-center mt-7 mb-2">
-          <p class=" text-lg  md:text-2xl font-semibold">Data Asisten</p>
+      <div class="flex flex-col items-center justify-center mb-2">
+            <?php if (isset($_SESSION['success_message']) || isset($_SESSION['failed_message'])): ?>
+                <p id="messageBox" class="w-full flex justify-center bg-[#81A55E] p-5">
+                    <?= $_SESSION['success_message'] ?? $_SESSION['failed_message'] ?>
+                </p>
+            <?php
+                unset($_SESSION['success_message']);
+                unset($_SESSION['failed_message']);
+            endif; ?>
+            <p class=" text-lg  md:text-2xl font-semibold">Data Asisten</p>
         </div>
         <div
           class="bg-[#D9D9D9] rounded-t-md mt-4 min-h-[300px] flex-grow pt-2"
         >
-          <form action="?action=peranBaru">
             <table
               class="min-w-full table-auto w-full text-left whitespace-no-wrap border-spacing-1 md:border-spacing-2"
             >
@@ -58,7 +65,7 @@
                 >
                   Edit
                 </th>
-                <th rowspan="100" class="bg-black">
+                <th rowspan="100" class="bg-black w-1">
                   <div class="border-l h-full"></div>
                 </th>
                 <th
@@ -67,55 +74,38 @@
                   Aksi
                 </th>
               </tr>
-<?php foreach ($dataAsisten as $index => $asisten): ?>
-              <tr class="text-xs md:text-lg">
-                <td
-                  class="rounded-xl shadow-md hover:shadow-xl text-center align-middle bg-[#E6E6E6]"
-                >
-                    <?php echo $index + 1;  ?>
-                </td>
-                <td
-                  class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]"
-                >
-                    <?php echo $asisten['Nama_Depan'] . " " . $asisten['Nama_Belakang'];  ?>
-                </td>
-                <td
-                  class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center"
-                >
-                    <div><?php echo $asisten['Nama_Peran']; // Displaying the role ?></div>
-                </td>
-                <td
-                  class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle"
-                >
-                <select
-                name="peranBaru"
-                id="peranBaru"
-                class="w-full text-center bg-[#E6E6E6] text-xs"
-              >
-                <option value="" disabled selected>Pilih peran Baru</option>
-                <option value="2">Laboran</option>
-                <option value="3">Korlab</option>
-                <option value="1">Asisten</option>
-              </select>
-                </td>
-                <td
-                  class="rounded-xl shadow-md hover:shadow-xl bg-[#E6E6E6] flex justify-center"
-                >
-                <input type="hidden" name="id_masalah" value="<?= $asisten['ID_Pengguna']; ?>">
-                    <button
-                        type="submit"
-                        class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1  p-2 shadow-xl"
-                    >
-                        Simpan
-                    </button>
-                    <div class="border-l-2 border-black mx-2 h-11"></div>
-                    </div>
-                    <a href="?action=detailUser" class="p-2 bg-[#A69B9B] hover:border hover:border-black">Detail</a>
-                </td>
-              </tr>
-<?php endforeach; ?>
+              <?php foreach ($dataAsisten as $index => $asisten): ?>
+                    <form action="?action=peranBaru" method="post">
+                        <tr class="text-xs md:text-lg">
+                            <td class="rounded-xl shadow-md hover:shadow-xl text-center align-middle bg-[#E6E6E6]">
+                                <?php echo $index + 1; ?>
+                            </td>
+                            <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6]">
+                                <?php echo $asisten['Nama_Depan'] . " " . $asisten['Nama_Belakang']; ?>
+                            </td>
+                            <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center">
+                                <div><?php echo $asisten['Nama_Peran']; ?></div>
+                            </td>
+                            <td class="rounded-xl shadow-md hover:shadow-xl md:px-4 md:py-2 py-1 ps-2 bg-[#E6E6E6] text-center align-middle">
+                                <select name="id_peran" class="w-full text-center bg-[#E6E6E6] text-xs">
+                                    <option value="" disabled selected>Pilih peran Baru</option>
+                                    <option value="2">Laboran</option>
+                                    <option value="3">Korlab</option>
+                                    <option value="1">Asisten</option>
+                                </select>
+                                <input type="hidden" name="id_pengguna" value="<?= $asisten['ID_Pengguna']; ?>">
+                            </td>
+                            <td class="rounded-xl shadow-md hover:shadow-xl bg-[#E6E6E6] flex justify-center">
+                                <button type="submit" class="bg-[#AFD0BC] hover:bg-[#98BCA7] rounded-sm hover:border hover:border-black ms-1 p-2 shadow-xl">
+                                    Simpan
+                                </button>
+                                <div class="border-l-2 border-black mx-2 h-11"></div>
+                                <a href="?action=detailUser" class="p-2 bg-[#A69B9B] hover:border hover:border-black">Detail</a>
+                            </td>
+                        </tr>
+                    </form>
+                <?php endforeach; ?>
             </table>
-          </form>
         </div>
       </div>
       </div>
@@ -153,6 +143,17 @@
     >
       <img src="app/includes/img/LogoFikom_Putih.png" alt="" class="w-56 shadow-inner" />
     </div>
+
+
+    <!-- js -->
+    <script>
+        setTimeout(function() {
+            var messageBox = document.getElementById('messageBox');
+            if (messageBox) {
+                messageBox.style.display = 'none';
+            }
+        }, 5000);
+    </script>
 
   </body>
 </html>

@@ -124,7 +124,7 @@ switch ($action) {
         showAccessView($conn);
         break;
     case 'peranBaru':
-        editPeran($conn);
+        processEditPeran($conn);
         break;
     default:
         echo "404 Not Found";
