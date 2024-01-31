@@ -28,4 +28,46 @@ function processEditPeran($conn) {
     include('/var/www/html/app/views/access/access.php');
 }
 
+function detailDataById($conn){
+    if(isset($_GET['id_pengguna'])) {
+        $id_pengguna = $_GET['id_pengguna'];
+        $data = getDetailDataById($conn, $id_pengguna);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+}
+
+function processDeletePengguna($conn) {
+    $id_pengguna = $_GET['id_pengguna'] ?? null;
+    if ($id_pengguna) {
+        $result = deleteUserById($conn, $id_pengguna);
+        if ($result) {
+            // Penghapusan berhasil
+            // Set flash message atau redirect
+            header('Location: index.php?action=access&message=deleteSuccess');
+        } else {
+            // Penghapusan gagal
+            // Set flash message atau redirect
+            header('Location: index.php?action=access&message=deleteFail');
+        }
+    }
+}
+
+function processResetPassword($conn) {
+    $id_pengguna = $_GET['id_pengguna'] ?? null;
+    if ($id_pengguna) {
+        $result = resetPasswordById($conn, $id_pengguna);
+        if ($result) {
+            // Reset password berhasil
+            // Set flash message atau redirect
+            header('Location: index.php?action=access&message=resetSuccess');
+        } else {
+            // Reset password gagal
+            // Set flash message atau redirect
+            header('Location: index.php?action=access&message=resetFail');
+        }
+    }
+}
+
+
 ?>

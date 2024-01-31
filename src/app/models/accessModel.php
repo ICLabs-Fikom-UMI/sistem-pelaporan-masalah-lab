@@ -48,5 +48,62 @@ function editPeran($conn, $id_pengguna, $id_peran) {
     return $result;
 }
 
+function getDetailDataById($conn, $id_pengguna) {
+    // SQL query to join master_user and master_roles tables
+    $sql = "SELECT master_user.ID_Pengguna,
+                   master_user.Nama_Depan,
+                   master_user.Nama_Belakang,
+                   master_user.Nim,
+                   master_user.Email,
+                   master_roles.Nama_Peran
+            FROM master_user
+            INNER JOIN master_roles ON master_user.ID_Peran = master_roles.ID_Peran
+            WHERE master_user.ID_Pengguna = ?";
+
+    // Persiapkan statement SQL
+    $stmt = mysqli_prepare($conn, $sql);
+
+    // Ikat parameter ke statement (user ID)
+    mysqli_stmt_bind_param($stmt, "i", $id_pengguna);
+
+    // Eksekusi statement
+    mysqli_stmt_execute($stmt);
+
+    // Dapatkan hasilnya
+    $result = mysqli_stmt_get_result($stmt);
+
+    // Fetch the user data as an associative array
+    $userData = mysqli_fetch_assoc($result);
+
+    // Tutup statement
+    mysqli_stmt_close($stmt);
+
+    return $userData;
+}
+
+function deleteUserById($conn, $id_pengguna) {
+    // SQL untuk menghapus pengguna
+    $sql = "DELETE FROM master_user WHERE  ID_Pengguna = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id_pengguna);
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return $result;
+}
+function resetPasswordById($conn, $id_pengguna) {
+    $passwordDefault = 'fikom12345';
+    $hashedPassword = password_hash($passwordDefault, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE master_user SET Kata_Sandi = ? WHERE ID_Pengguna = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "si", $hashedPassword, $id_pengguna);
+
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
+
+
 
 ?>

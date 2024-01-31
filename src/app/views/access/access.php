@@ -13,7 +13,34 @@
         border-collapse: separate;
         border-spacing: 0.1rem; /* Atur nilai sesuai kebutuhan */
       }
+      #overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        z-index: 99; /* Below the popup but above other content */
+    }
+      .popup-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%; /* Adjust as needed */
+        height: 70%; /* Adjust as needed */
+        background-color: white; /* Or any other color */
+        z-index: 100; /* Make sure this is above other content */
+        border: 1px solid #000; /* Optional border */
+        border-radius: 10px; /* Optional rounded corners */
+        padding: 20px; /* Optional padding */
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); /* Optional shadow */
+    }
     </style>
+
   </head>
   <body>
     <!-- navbar -->
@@ -100,7 +127,7 @@
                                     Simpan
                                 </button>
                                 <div class="border-l-2 border-black mx-2 h-11"></div>
-                                <a href="?action=detailUser" class="p-2 bg-[#A69B9B] hover:border hover:border-black">Detail</a>
+                                <p class="cursor-pointer p-2 bg-[#A69B9B] hover:border hover:border-black" onclick="showPopup(); loadData(<?= $asisten['ID_Pengguna']; ?>);  event.preventDefault();">Detail</p>
                             </td>
                         </tr>
                     </form>
@@ -109,6 +136,20 @@
         </div>
       </div>
       </div>
+      <!-- pop up detail -->
+      <div id="overlay" style="display: none;"></div>
+      <div id="popupDiv" class="popup-container" style="display: none;">
+        <!-- x mark -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 384 512" onclick="closePopup()"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7L86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256L41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256z"/></svg>
+        <!-- Popup Content Here -->
+        <div class="flex justify-center mt-16">
+            <table id="detailTable">
+            <!-- Tabel akan diisi dengan data di sini -->
+            </table>
+        </div>
+    </div>
+
+      <!-- Tambah user section -->
       <div class="flex justify-center mb-10">
         <div
         class="bg-[#B2B2B2] mt-2 mx-2 md:mx-4 lg:w-[1180px] lg:h-[700px] h-[550px] rounded-md shadow-xl flex flex-col"
@@ -134,7 +175,7 @@
             </div>
           </form>
         </div>
-        </div>
+        </div><div id="overlay" style="display: none;"></div>
       </div>
 
     </div>
@@ -153,6 +194,96 @@
                 messageBox.style.display = 'none';
             }
         }, 5000);
+
+    //   pop up
+    function showPopup() {
+        var popupDiv = document.getElementById("popupDiv");
+        var overlay = document.getElementById("overlay");
+
+        if (popupDiv.style.display === "none") {
+            popupDiv.style.display = "block";
+            overlay.style.display = "block";
+        } else {
+            popupDiv.style.display = "none";
+            overlay.style.display = "none";
+        }
+    }
+    function closePopup() {
+        var popupDiv = document.getElementById("popupDiv");
+        var overlay = document.getElementById("overlay");
+        popupDiv.style.display = "none";
+        overlay.style.display = "none";
+    }
+
+    // ajax for detail user
+    function loadData(id_pengguna) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                fillTable(data);
+            }
+        };
+        xhr.open("GET", "index.php?action=detailPengguna&id_pengguna=" + id_pengguna,  true);
+        xhr.send();
+    }
+    function fillTable(data) {
+        var table = document.getElementById("detailTable");
+        table.innerHTML = `
+        <tr><td class="font-semibold pr-40 py-4">Id Pengguna</td><td>: ${data.ID_Pengguna || ''}</td></tr>
+        <tr><td class="font-semibold pr-40 py-4">Nama Lengkap</td><td>: ${(data.Nama_Depan || '') + ' ' + (data.Nama_Belakang || '')}</td></tr>
+        <tr><td class="font-semibold pr-40 py-4">Nim</td><td>: ${data.Nim || ''}</td></tr>
+        <tr><td class="font-semibold pr-40 py-4">Email</td><td>: ${data.Email || ''}</td></tr>
+        <tr><td class="font-semibold pr-40 py-4">Peran</td><td>: ${data.Nama_Peran || ''}</td></tr>
+        <tr>
+        <td colspan="2" class="text-center pt-16">
+            <a href="#" class="bg-red-700 p-3 rounded-lg hover:shadow-xl" onclick="return confirmAction('delete', ${data.ID_Pengguna});">Hapus</a>
+            <a href="#" class="bg-neutral-400 p-3 rounded-lg hover:shadow-xl" onclick="return confirmAction('reset', ${data.ID_Pengguna});">Reset Password</a>
+        </td>
+        </tr>
+        `;
+    }
+    // confirmm for detail user
+    function confirmAction(actionType, id_pengguna) {
+    let message = '';
+    let actionURL = '';
+
+    if (actionType === 'delete') {
+        message = 'Apakah Anda yakin ingin menghapus data ini?';
+        actionURL = 'index.php?action=deletePengguna&id_pengguna=' + id_pengguna;
+    } else if (actionType === 'reset') {
+        message = 'Apakah Anda yakin ingin mereset password pengguna ini?';
+        actionURL = 'index.php?action=resetPassword&id_pengguna=' + id_pengguna;
+    }
+
+    if (confirm(message)) {
+        window.location = actionURL;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// // pesan
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        const message = params.get('message');
+
+        if (message === 'resetSuccess') {
+            alert('Pengaturan ulang password berhasil!');
+        } else if (message === 'resetFail') {
+            alert('Gagal mengatur ulang password.');
+        } else if (message === 'deleteSuccess') {
+            alert('Data berhasil di hapus.');
+        } else if (message === 'deleteFail') {
+            alert('Gagal Menghapus data.');
+        }
+        // Tambahkan lebih banyak kondisi jika diperlukan
+    }
+
+
+
+
     </script>
 
   </body>

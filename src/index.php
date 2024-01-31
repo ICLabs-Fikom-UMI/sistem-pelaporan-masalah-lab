@@ -126,6 +126,15 @@ switch ($action) {
     case 'peranBaru':
         processEditPeran($conn);
         break;
+    case 'detailPengguna':
+        detailDataById($conn);
+        break;
+    case 'deletePengguna':
+        processDeletePengguna($conn);
+        break;
+    case 'resetPassword':
+        processResetPassword($conn);
+        break;
     default:
         echo "404 Not Found";
 }
