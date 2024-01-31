@@ -91,7 +91,7 @@ function deleteUserById($conn, $id_pengguna) {
     return $result;
 }
 function resetPasswordById($conn, $id_pengguna) {
-    $passwordDefault = 'fikom12345';
+  $passwordDefault = 'fikom12345';
     $hashedPassword = password_hash($passwordDefault, PASSWORD_DEFAULT);
 
     $sql = "UPDATE master_user SET Kata_Sandi = ? WHERE ID_Pengguna = ?";
@@ -103,6 +103,22 @@ function resetPasswordById($conn, $id_pengguna) {
 
     return $result;
 }
+
+function tambahUser($conn, $namaDepan, $email, $nim) {
+    $passwordDefault = 'fikom12345';
+    $hashedPassword = password_hash($passwordDefault, PASSWORD_DEFAULT);
+    $id_peran = 1;
+    // SQL untuk menyimpan data pengguna baru
+    $sql = "INSERT INTO master_user (Nama_Depan, Email, Nim, Kata_sandi, ID_Peran) VALUES (?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ssssi", $namaDepan, $email, $nim, $hashedPassword, $id_peran);
+
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $result;
+}
+
 
 
 

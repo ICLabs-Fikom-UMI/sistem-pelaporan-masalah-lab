@@ -23,21 +23,19 @@
         right: 0;
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-        z-index: 99; /* Below the popup but above other content */
+        z-index: 99;
     }
       .popup-container {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 50%; /* Adjust as needed */
-        height: 70%; /* Adjust as needed */
-        background-color: white; /* Or any other color */
-        z-index: 100; /* Make sure this is above other content */
-        border: 1px solid #000; /* Optional border */
-        border-radius: 10px; /* Optional rounded corners */
-        padding: 20px; /* Optional padding */
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); /* Optional shadow */
+        background-color: white;
+        z-index: 100;
+        border: 1px solid #000;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     }
     </style>
 
@@ -138,7 +136,7 @@
       </div>
       <!-- pop up detail -->
       <div id="overlay" style="display: none;"></div>
-      <div id="popupDiv" class="popup-container" style="display: none;">
+      <div id="popupDiv" class="popup-container w-11/12  md:w-[40%] h-[70%]" style="display: none;">
         <!-- x mark -->
         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 384 512" onclick="closePopup()"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7L86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256L41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256z"/></svg>
         <!-- Popup Content Here -->
@@ -160,15 +158,15 @@
           <div
           class=" bg-[url('app/includes/img/akses.png')]  rounded-t-md mt-4 min-h-[300px] flex-grow pt-2 flex justify-center items-center"
         >
-          <form action="" class=" p-20 md:p-28 rounded-lg" style="background-color: rgba(217, 217, 217, 0.60);" >
+          <form action="?action=tambahUser" method="post"  class=" p-20 md:p-28 rounded-lg" style="background-color: rgba(217, 217, 217, 0.60);" >
             <div class="my-8 ">
-                <input class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nama depan">
+                <input name="nama_depan" class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nama depan" required>
             </div>
             <div class="my-8 ">
-                <input class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="email" placeholder="Masukkan Email">
+                <input name="email" class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="email" placeholder="Masukkan Email" required>
             </div>
             <div class="my-8 ">
-                <input class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nim">
+                <input name="nim" class="p-3 md:p-4 rounded-2xl shadow-md hover:shadow-xl text-center text-gray-500 md:font-semibold text-sm" type="text" placeholder="Masukkan Nim" required>
             </div>
             <div class="flex justify-center">
                 <button type="submit" class="p-3 px-6 bg-[#AFD0BC] rounded-xl hover:shadow-xl focus:bg-green-700 font-semibold">Simpan</button>
@@ -230,11 +228,11 @@
     function fillTable(data) {
         var table = document.getElementById("detailTable");
         table.innerHTML = `
-        <tr><td class="font-semibold pr-40 py-4">Id Pengguna</td><td>: ${data.ID_Pengguna || ''}</td></tr>
-        <tr><td class="font-semibold pr-40 py-4">Nama Lengkap</td><td>: ${(data.Nama_Depan || '') + ' ' + (data.Nama_Belakang || '')}</td></tr>
-        <tr><td class="font-semibold pr-40 py-4">Nim</td><td>: ${data.Nim || ''}</td></tr>
-        <tr><td class="font-semibold pr-40 py-4">Email</td><td>: ${data.Email || ''}</td></tr>
-        <tr><td class="font-semibold pr-40 py-4">Peran</td><td>: ${data.Nama_Peran || ''}</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Id Pengguna</td><td>: ${data.ID_Pengguna || ''}</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Nama Lengkap</td><td>: ${(data.Nama_Depan || '') + ' ' + (data.Nama_Belakang || '')}</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Nim</td><td>: ${data.Nim || ''}</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Email</td><td>: ${data.Email || ''}</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Peran</td><td>: ${data.Nama_Peran || ''}</td></tr>
         <tr>
         <td colspan="2" class="text-center pt-16">
             <a href="#" class="bg-red-700 p-3 rounded-lg hover:shadow-xl" onclick="return confirmAction('delete', ${data.ID_Pengguna});">Hapus</a>
@@ -277,12 +275,14 @@
             alert('Data berhasil di hapus.');
         } else if (message === 'deleteFail') {
             alert('Gagal Menghapus data.');
+        } else if(message === 'nimInvalidLength'){
+            alert('Nim harus 11 Karakter!.');
+        }else if(message === 'addUserSuccess'){
+            alert('Berhasil Menambahkan Pengguna.');
+        }else if(message === 'addUserFail'){
+            alert('!!Gagal Menambahkan Pengguna.!!');
         }
-        // Tambahkan lebih banyak kondisi jika diperlukan
     }
-
-
-
 
     </script>
 

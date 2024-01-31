@@ -135,6 +135,9 @@ switch ($action) {
     case 'resetPassword':
         processResetPassword($conn);
         break;
+    case 'tambahUser':
+        processTambahUser($conn);
+        break;
     default:
         echo "404 Not Found";
 }

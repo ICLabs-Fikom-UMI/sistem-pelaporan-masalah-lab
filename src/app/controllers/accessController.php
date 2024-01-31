@@ -69,5 +69,31 @@ function processResetPassword($conn) {
     }
 }
 
+function processTambahUser($conn) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $namaDepan = $_POST['nama_depan'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $nim = $_POST['nim'] ?? '';
+
+        // Validasi panjang NIM
+        if (strlen($nim) != 11) {
+            // Gagal, NIM tidak 11 karakter
+            header('Location: index.php?action=access&message=nimInvalidLength');
+            exit; // Pastikan eksekusi dihentikan di sini
+        }
+
+        // Jika semua validasi berhasil, lanjutkan dengan penyimpanan data
+        $result = tambahUser($conn, $namaDepan, $email, $nim);
+
+        if ($result) {
+            // Berhasil menyimpan data
+            header('Location: index.php?action=access&message=addUserSuccess');
+        } else {
+            // Gagal menyimpan data
+            header('Location: index.php?action=access&message=addUserFail');
+        }
+    }
+}
+
 
 ?>
