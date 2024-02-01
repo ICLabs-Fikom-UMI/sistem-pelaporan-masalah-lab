@@ -41,8 +41,8 @@
     ?>
 <!-- pop up -->
 <?php
-if (isset($_SESSION['setuju_message']) || isset($_SESSION['tolak_message'])):
-    $message = isset($_SESSION['setuju_message']) ? $_SESSION['setuju_message'] : $_SESSION['tolak_message'];
+if (isset($_SESSION['setuju_message']) || isset($_SESSION['gagal_message'])):
+    $message = isset($_SESSION['setuju_message']) ? $_SESSION['setuju_message'] : $_SESSION['gagal_message'];
 ?>
     <div id="popup" class="popup fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
         <div class="content bg-[#78B992] p-8 rounded text-center text-xl">
@@ -53,7 +53,7 @@ if (isset($_SESSION['setuju_message']) || isset($_SESSION['tolak_message'])):
     <?php
     // Clear the messages after use
     unset($_SESSION['setuju_message']);
-    unset($_SESSION['tolak_message']);
+    unset($_SESSION['gagal_message']);
 endif;
 ?>
 
@@ -186,7 +186,7 @@ endif;
                 <th class="font-semibold text-left w-44">Deskripsi</th>
                 <td>
                   <textarea
-                    name="name="deskripsi_masalah_<?= $dataDetailLaporan['ID_Masalah'] ?? '' ?>""
+                    name="deskripsi_masalah_<?= $dataDetailLaporan['ID_Masalah'] ?? '' ?>"
                     id=""
                     cols="20"
                     rows="4"

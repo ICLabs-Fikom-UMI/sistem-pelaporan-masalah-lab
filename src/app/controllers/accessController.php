@@ -4,10 +4,16 @@ function showAccessView($conn){
     $dataAsisten =getDataPengguna($conn);
     include('/var/www/html/app/views/access/access.php');
 }
-
 function processEditPeran($conn) {
     $id_pengguna = $_POST['id_pengguna'];
     $id_peran = $_POST['id_peran'];
+
+    // Check if id_peran is empty
+    if (empty($id_peran)) {
+        // Redirect back to the access page
+        header("Location: /app/views/access/access.php");
+        exit;
+    }
 
     // Memanggil fungsi editPeran dan menyimpan hasilnya
     $result = editPeran($conn, $id_pengguna, $id_peran);

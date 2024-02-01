@@ -68,8 +68,8 @@ function getTaskById($conn, $id_masalah) {
     return $taskDetail;
 }
 
-function updateDatabaseWithFile($conn, $id_masalah, $fileName, $komentar){
-    $targetFilePath = $fileName;
+function updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar){
+    $targetFilePath = $fileNameInDb;
     $status = 'Selesai';
 
     $query = "UPDATE txn_lab_issues SET Foto_Path = ?, Komentar = ?, Status_Masalah = ? WHERE ID_Masalah = ?";

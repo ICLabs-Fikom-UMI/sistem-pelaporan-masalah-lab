@@ -1,6 +1,6 @@
 <?php
 
-//include
+//require_once
 include('app/core/db.php');
 include('app/controllers/loginController.php');
 include('app/controllers/homeController.php');
@@ -69,22 +69,7 @@ switch ($action) {
             break;
         }
     case 'berikanTugas':
-        foreach ($_POST['id_masalah'] as $id_masalah) {
-            // Construct the names of the dynamic fields
-            $batasWaktuField = 'batas_waktu_' . $id_masalah;
-            $idTeknisiField = 'id_teknisi_' . $id_masalah;
-            $deskripsiMasalahField = 'deskripsi_masalah_' . $id_masalah; // Field baru untuk deskripsi masalah
-
-            // Check if these fields exist in $_POST
-            if (isset($_POST[$batasWaktuField]) && isset($_POST[$idTeknisiField])) {
-                $batas_waktu = $_POST[$batasWaktuField];
-                $id_teknisi = $_POST[$idTeknisiField];
-                $deskripsi_masalah = $_POST[$deskripsiMasalahField] ?? null; // Mengambil deskripsi masalah, jika ada
-
-                // Call the function with these values
-                setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi, $deskripsi_masalah);
-            }
-        }
+        setujuiLaporan($conn);
         break;
     case 'tolakLaporan':
         $id_masalah = $_GET['id_masalah'] ?? null;
@@ -107,6 +92,12 @@ switch ($action) {
         break;
     case 'editLaporan':
         editLaporan($conn);
+        break;
+    case 'DetailSelesai':
+        // $data = $_GET['id_masalah'];
+        // echo 'Action DetailSelesai terpanggil ';
+        // echo $data;
+        processDetailSelesai($conn);
         break;
     case 'tasks':
         showTasksView($conn);

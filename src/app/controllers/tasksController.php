@@ -17,7 +17,7 @@ function taskDetail($conn){
 function tasksPenyelesaian($conn) {
     $id_masalah = $_POST['id_masalah'];
     $foto_path = $_FILES['foto'];
-    $komentar = $_POST['komentar'];
+    $komentar = isset($_POST['komentar']) ? $_POST['komentar'] : '-';
     $targetDir = "public/foto/";
     $fileType = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
 
@@ -46,7 +46,6 @@ function tasksPenyelesaian($conn) {
 
     if ($uploadSuccess) {
         $fileNameInDb = "public/foto/{$fileName}";
-        echo $fileNameInDb;
         $updateResult = updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar);
         if ($updateResult) {
             $_SESSION['Success_Message'] = "Anda berhasil Menyelesaikan tugas.";

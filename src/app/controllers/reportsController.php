@@ -9,11 +9,34 @@ function showViewReportKorlab($conn) {
     include('/var/www/html/app/views/reports/reportsKorlab.php');
 }
 
-function setujuiLaporan($conn, $id_masalah, $batas_waktu, $id_teknisi, $Deskripsi_Masalah = null) {
-    approveReport($conn, $id_masalah, $batas_waktu, $id_teknisi, $Deskripsi_Masalah);
-    $_SESSION['setuju_message'] = "Laporan Telah Disetujui";
+function setujuiLaporan($conn) {
+    $allSuccess = true;
+
+    foreach ($_POST['id_masalah'] as $id_masalah) {
+        $batasWaktuField = 'batas_waktu_' . $id_masalah;
+        $idTeknisiField = 'id_teknisi_' . $id_masalah;
+        $deskripsiMasalahField = 'deskripsi_masalah_' . $id_masalah;
+
+        if (isset($_POST[$batasWaktuField]) && isset($_POST[$idTeknisiField])) {
+            $batas_waktu = $_POST[$batasWaktuField];
+            $id_teknisi = $_POST[$idTeknisiField];
+            $deskripsi_masalah = $_POST[$deskripsiMasalahField] ?? null;
+
+            if (!approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_masalah, $id_teknisi)) {
+                $allSuccess = false;
+                $_SESSION['gagal_message'] = "Persetujuan Laporan Gagal";
+                break;
+            }
+        }
+    }
+
+    if ($allSuccess) {
+        $_SESSION['setuju_message'] = "Laporan Telah Disetujui";
+    }
+
     header("Location: index.php?action=reports");
 }
+
 
 function tolakLaporan($conn, $id_masalah){
     $users = getUser($conn);
@@ -59,5 +82,14 @@ function editLaporan($conn) {
     submitEditLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
     $allLaporanSaya = getAllLaporanSaya($conn);
     include('/var/www/html/app/views/reports/reportsAsisten.php');
+}
+
+function processDetailSelesai($conn){
+    if(isset($_GET['id_masalah'])) {
+        $id_masalah = $_GET['id_masalah'];
+        $data = detailSelesai($conn, $id_masalah);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 }
 ?>

@@ -16,16 +16,25 @@ function getDataLaporan($conn) {
 }
 
 
-function approveReport($conn, $id_masalah, $batas_waktu, $id_teknisi) {
-    // First, update the Batas_Waktu in txn_lab_issues
-    $query_issues = "UPDATE txn_lab_issues SET Batas_Waktu = ?, Status_Masalah = 'Disetujui' WHERE ID_Masalah = ?";
-    $stmt_issues = mysqli_prepare($conn, $query_issues);
+function approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_masalah,$id_teknisi) {
+     // Mempersiapkan pernyataan SQL dengan placeholder
+     $sql = "UPDATE txn_lab_issues
+     SET Batas_Waktu = ?,
+         Status_Masalah = 'Disetujui',
+         Deskripsi_Masalah = ?
+     WHERE ID_Masalah = ?";
 
-    if (!$stmt_issues || !mysqli_stmt_bind_param($stmt_issues, "si", $batas_waktu, $id_masalah) || !mysqli_stmt_execute($stmt_issues)) {
-        return false;
-    }
+    // Mempersiapkan pernyataan
+    $stmt = mysqli_prepare($conn, $sql);
 
-    mysqli_stmt_close($stmt_issues);
+    // Mengikat parameter
+    mysqli_stmt_bind_param($stmt, 'ssi', $batas_waktu, $deskripsi_masalah, $id_masalah);
+
+    // Menjalankan query
+    mysqli_stmt_execute($stmt);
+
+    // Menutup statement
+    mysqli_stmt_close($stmt);
 
     // Second, update or insert the ID_Teknisi in master_teknisi_task
     // Check if a record already exists for this ID_Masalah
@@ -141,4 +150,41 @@ function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, 
     }
 
 }
+
+function detailSelesai($conn, $id_masalah){
+    // Mempersiapkan query SQL dengan JOIN dan kondisi Status_Masalah
+    $query = "SELECT ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah,
+                     tli.Foto_Path, tli.Tanggal_Pelaporan, tli.Komentar, mu.Nama_Depan AS Nama_Teknisi
+              FROM txn_lab_issues tli
+              INNER JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
+              INNER JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
+              INNER JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
+              INNER JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
+              WHERE tli.ID_Masalah = ? AND tli.Status_Masalah = 'Selesai'";
+
+    // Mempersiapkan pernyataan
+    if ($stmt = mysqli_prepare($conn, $query)) {
+        // Mengikat parameter
+        mysqli_stmt_bind_param($stmt, "i", $id_masalah);
+
+        // Menjalankan pernyataan
+        mysqli_stmt_execute($stmt);
+
+        // Mengambil hasil
+        $result = mysqli_stmt_get_result($stmt);
+
+        // Memeriksa apakah hasilnya ada
+        if ($row = mysqli_fetch_assoc($result)) {
+            // Kembalikan data jika ditemukan
+            return $row;
+        } else {
+            // Kembalikan null jika tidak ada data
+            return null;
+        }
+    } else {
+        // Menangani error dalam pembuatan statement
+        return null;
+    }
+}
+
 ?>

@@ -61,10 +61,10 @@ endif;
           <p class="text-xl md:text-2xl font-semibold">Laporan Saya</p>
         </div>
         <div
-          class="bg-[#D9D9D9] rounded-t-md mt-4 min-h-[300px] flex-grow pt-2"
+          class="bg-[#D9D9D9] rounded-md mt-4 min-h-[300px] overflow-y-auto flex-grow pt-2 "
         >
             <table
-              class="min-w-full table-auto w-full text-left whitespace-no-wrap border-spacing-1 md:border-spacing-2"
+              class="min-w-full table-auto w-full text-left whitespace-no-wrap border-spacing-1 md:border-spacing-2 "
             >
               <tr
                 class="text-md md:text-lg font-semibold tracking-wide uppercase border-b bg-[#C2B8B8]"
@@ -131,6 +131,9 @@ endif;
                         echo 'Sedang dikerjakan';
                     } elseif ($statusMasalah === 'Selesai') {
                         echo 'Telah diselesaikan';
+                        $id_masalah = $laporan['ID_Masalah'];
+                        echo '<p class="cursor-pointer underline font-semibold text-blue-400" onclick="showPopup(); loadData(' . $id_masalah . '); event.preventDefault();">Detail</p>';
+
                     } else {
                         ?>
                         <form action="index.php" method="get">
@@ -147,6 +150,11 @@ endif;
             </table>
         </div>
       </div>
+      <!-- pop up -->
+      <?php
+        include('/var/www/html/app/includes/pop-up.php');
+        ?>
+      <!-- pop up end -->
       <div>
         <div
           class="bg-[#B2B2B2] mt-2 md:mt-24 lg:w-[497px] lg:min-h-[583px] mb-24 md:mb-0 rounded-md shadow-xl flex flex-col"
@@ -296,6 +304,56 @@ endif;
           }
         }, 1000);
       };
+
+          // ajax detail
+        function loadData(id_masalah) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    fillTable(data);
+                }
+            };
+            xhr.open("GET", "index.php?action=DetailSelesai&id_masalah=" + id_masalah, true);
+            xhr.send();
+        }
+        function fillTable(data) {
+            var table = document.getElementById("detailTable");
+            table.innerHTML = `
+                <tr><td colspan="2" class="font-bold text-center">Permasalahan</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Nama Lab:</td><td> ${data.Nama_Lab || ''}</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Nama Aset:</td><td> ${data.Nama_Aset || ''}</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Nomor Unit:</td><td> ${data.Nomor_Unit || ''}</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Nama Teknisi:</td><td> ${data.Nama_Teknisi || ''}</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Deskripsi Masalah:</td><td> ${data.Deskripsi_Masalah || ''}</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Waktu diselesaikan:</td><td> ${data.Tanggal_Pelaporan || ''}</td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Foto:</td><td> <img src="${data.Foto_Path || ''}" alt="Foto Masalah" class="w-32 h-32 rounded-md shadow-xl" id="fotoView" onclick="showFullSizeImage('${data.Foto_Path || ''}')"  /></td></tr>
+                <tr><td class="font-semibold md:pr-24 py-2">Komentar:</td><td> ${data.Komentar || ''}</td></tr>
+            `;
+        }
+        function showFullSizeImage(imageSrc) {
+        if (imageSrc) {
+            // Open a new window
+            var imageWindow = window.open('', '_blank');
+
+            // Add HTML content to the new window
+            imageWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Full Size Image</title>
+                </head>
+                <body style="background-color: rgba(0, 0, 0, 0.5); ">
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <button onclick="window.close();">Close</button>
+                        <img src="${imageSrc}" style="max-width: 100%; height: 90vh;">
+                    </div>
+                </body>
+                </html>
+            `);
+        }
+    }
+
     </script>
   </body>
 </html>

@@ -204,6 +204,7 @@ endif;
                     name="foto"
                     id=""
                     class="w-full h-full text-xs"
+                    required
                   />
                 </td>
               </tr>
