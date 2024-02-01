@@ -8,6 +8,7 @@ include('app/controllers/reportsController.php');
 include('app/controllers/tasksController.php');
 include('app/controllers/labsController.php');
 include('app/controllers/accessController.php');
+include('app/controllers/profileController.php');
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
@@ -49,6 +50,9 @@ switch ($action) {
             header('Location: index.php');
             exit;
         }
+        break;
+    case 'profile':
+        showViewProfile($conn);
         break;
     case 'laporan-cepat':
         laporanCepat($conn);

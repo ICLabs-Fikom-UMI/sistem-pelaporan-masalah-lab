@@ -68,13 +68,16 @@
           <?php endif; ?>
           <?php if (isset($_SESSION['user_id'])): ?>
                 <!-- Tombol Logout -->
-                <button
-                onclick="window.location.href='?action=logout';"
-                class="py-3 px-4 transition-all duration-300 rounded hover:text-red-400 hover:bg-indigo-600 text-black"
-                style="background-color: #d9d9d9"
-                >
-                Logout
-                </button>
+                <div class="relative">
+                    <!-- <img src="path_to_profile_image.jpg" alt="Profile" class="rounded-full w-10 h-10" onclick="toggleDropdown()"> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" onclick="toggleDropdown()"><path fill="currentColor" fill-rule="evenodd" d="M8 7a4 4 0 1 1 8 0a4 4 0 0 1-8 0m0 6a5 5 0 0 0-5 5a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3a5 5 0 0 0-5-5z" clip-rule="evenodd"/></svg>
+
+                    <!-- Dropdown Menu -->
+                    <div id="profileDropdown" class="hidden absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl">
+                    <a href="?action=profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="?action=logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                    </div>
+                </div>
             <?php else: ?>
                 <!-- Tombol Login -->
                 <button
@@ -157,6 +160,13 @@
           mobileMenu.classList.add("hidden");
         }
       }
+
+          //   toggle dropdown navbar
+            // JavaScript for Dropdown Toggle
+            function toggleDropdown() {
+                var dropdown = document.getElementById("profileDropdown");
+                dropdown.classList.toggle("hidden");
+            }
     </script>
   </body>
 </html>
