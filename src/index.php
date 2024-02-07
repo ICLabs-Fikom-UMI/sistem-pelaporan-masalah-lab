@@ -14,7 +14,7 @@ require_once('app/controllers/profileController.php');
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
 
 // Check if the user is logged in for actions other than login-related ones
-if (!in_array($action, ['showLoginForm', 'processLogin'])) {
+if (!in_array($action, ['showLoginForm', 'processLogin', 'beranda', 'detailPengguna'])) {
     if (!isset($_SESSION['user_id'])) {
         header('Location: index.php?action=showLoginForm');
         exit;
@@ -45,11 +45,15 @@ switch ($action) {
         break;
     case 'home':
         if(isset($_SESSION['user_id'])){
-            showViewHome($conn);
+            // header('Location: app/views/home/home-baru.php');
+            include('app/views/home/home-baru.php');
         } else{
             header('Location: index.php');
             exit;
         }
+        break;
+    case 'beranda':
+        getPermasalahanLabAjax($conn);
         break;
     case 'profile':
         showViewProfile($conn);

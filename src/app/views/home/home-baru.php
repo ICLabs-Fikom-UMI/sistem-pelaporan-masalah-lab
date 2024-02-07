@@ -1,8 +1,4 @@
 <?php
- if(!isset($_SESSION['user_id'])){
-    header('Location: index.php');
-    exit;
- }
         include('/var/www/html/app/views/templates/header.php');
 ?>
 

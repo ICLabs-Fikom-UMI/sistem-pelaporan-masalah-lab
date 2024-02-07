@@ -3,16 +3,15 @@
 include_once('/var/www/html/app/models/homeModel.php');
 include_once('/var/www/html/app/models/utility/dataModel.php');
 
-function showViewHome($conn) {
-    $permasalahanLab = getAllPermasalahanLab($conn);
-    foreach ($permasalahanLab as $key => $permasalahan) {
-        $permasalahanLab[$key]['teknisi'] = getTeknisiByMasalah($conn, $permasalahan['ID_Masalah']);
+    function getPermasalahanLabAjax($conn) {
+        $permasalahanLab = getAllPermasalahanLab($conn);
+        foreach ($permasalahanLab as $key => $permasalahan) {
+            $permasalahanLab[$key]['teknisi'] = getTeknisiByMasalah($conn, $permasalahan['ID_Masalah']);
+        }
+        header('Content-Type: application/json');
+        echo json_encode($permasalahanLab);
     }
-    $asets = getDataAset($conn);
-    $labs = getDataLab($conn);
-    include('/var/www/html/app/views/home/home-baru.php');
 
-}
 function laporanCepat($conn) {
     $id_lab = $_POST['id_lab'];
     $id_aset = $_POST['id_aset'];

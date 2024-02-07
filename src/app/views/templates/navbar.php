@@ -20,8 +20,8 @@
             <div id="profileDropdown"
                 class="hidden border border-gray-400 absolute right-0 mt-36 py-2 mr-4 w-40 bg-[#F9F9FB] rounded-md ">
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#375679] hover:text-white"
-                    id="profileBtn">Profile</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#375679] hover:text-white">Logout</a>
+                    id="profileBtn" onclick="loadData(<?php echo $_SESSION['user_id']; ?>)">Profile</a>
+                <a href="index.php?action=logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#375679] hover:text-white">Logout</a>
             </div>
         </div>
         </div>

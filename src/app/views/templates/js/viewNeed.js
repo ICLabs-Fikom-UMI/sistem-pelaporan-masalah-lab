@@ -103,14 +103,14 @@ document
     showForm("laporanSayaForm");
   });
 
-document
-  .getElementById("buatLaporanBtn")
-  .addEventListener("click", function () {
+document.querySelectorAll(".buatLaporanBtn").forEach(function (button) {
+  button.addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
     showForm("buatLaporanForm");
   });
+});
 
 document.getElementById("tugasBtn").addEventListener("click", function () {
   resetButtons(); // Mengatur ulang semua tombol ke state default

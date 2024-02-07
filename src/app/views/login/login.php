@@ -1,6 +1,6 @@
 <!-- include header -->
 <?php
-        include('/var/www/html/app/includes/header.php');
+        include('/var/www/html/app/views/templates/header.php');
 ?>
 <div class="flex justify-center lg:justify-between items-center h-screen px-2 lg:px-20" id="container">
         <div class="hidden lg:flex flex-col justify-center items-center ps-44" id="container-child1">
@@ -9,7 +9,7 @@
                 <p>with a system."</p>
             </div>
             <div>
-                <img src="app/includes/img/login-illustrations.png" alt="" class="h-[332px]" />
+                <img src="app/views/templates/img/login-illustrations.png" alt="" class="h-[332px]" />
             </div>
         </div>
         <div id="container-child2">
@@ -17,7 +17,7 @@
                 class="w-full lg:w-[544px] h-[514px] lg:h-[414px] bg-[#F9F9FB] border-4 border-white rounded-xl pt-10 p-5 lg:pt-10 lg:p-8">
                 <div class="flex justify-between items-center font-semibold text-2xl lg:text-xl tracking-wide">
                     <p>Selamat Datang!</p>
-                    <img src="app/includes/img/laporan-lab-biru.png" alt="logo-web" class="w-20 h-20 lg:w-16 lg:h-16" />
+                    <img src="app/views/templates/img/laporan-lab-biru.png" alt="logo-web" class="w-20 h-20 lg:w-16 lg:h-16" />
                 </div>
                 <div class="font-semibold text-lg">
                     <form action="?action=processLogin" method="post">

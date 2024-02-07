@@ -3,7 +3,7 @@
                 <div class="flex justify-between items-center mt-7 w-full  lg:w-[calc(100vw-300px)]">
                     <div>
                         <a href="#"
-                            class="p-3 bg-[#375679] text-white font-medium lg:font-semibold rounded-md hover:bg-[#2D4764] ">Buat
+                            class="buatLaporanBtn p-3 bg-[#375679] text-white font-medium lg:font-semibold rounded-md hover:bg-[#2D4764] ">Buat
                             Laporan</a>
                     </div>
                     <div class="flex items-center pe-[0px] lg:pe-[66px]">
@@ -44,20 +44,10 @@
                                 <th>Status</th>
                                 <th>Detail</th>
                             </tr>
-                            <tr class="border-b-2">
-                                <td class="py-2">1</td>
-                                <td>Startup</td>
-                                <td>Monitor</td>
-                                <td>22,23</td>
-                                <td>02-03-2003</td>
-                                <td>Dikerjakan</td>
-                                <td class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="28" height="28" viewBox="0 0 24 24" class="cursor-pointer">
-                                        <path fill="black"
-                                            d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2M4 19V5h16l.002 14z" />
-                                        <path fill="black" d="M6 7h12v2H6zm0 4h12v2H6zm0 4h6v2H6z" /></svg></td>
-                            </tr>
                         </table>
                     </div>
                 </div>
             </div>
+
+
+<script src="app/views/templates/js/ajax/beranda.js"></script>

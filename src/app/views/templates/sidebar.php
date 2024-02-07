@@ -36,7 +36,7 @@
                     class="hidden flex text-lg flex-col ps-1 md:ps-20   transition-all duration-300 transform -translate-y-5 opacity-0 bg-gray-100">
                     <!-- Dropdown items -->
                     <a href="#"
-                        class="block py-2 border border-gray-100  hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
+                        class="buatLaporanBtn block py-2 border border-gray-100  hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
                         id="buatLaporanBtn">Buat
                         Laporan</a>
                     <a href="#" class="block py-2   hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
