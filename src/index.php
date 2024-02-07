@@ -1,14 +1,14 @@
 <?php
 
 //require_once
-include('app/core/db.php');
-include('app/controllers/loginController.php');
-include('app/controllers/homeController.php');
-include('app/controllers/reportsController.php');
-include('app/controllers/tasksController.php');
-include('app/controllers/labsController.php');
-include('app/controllers/accessController.php');
-include('app/controllers/profileController.php');
+require_once('app/core/db.php');
+require_once('app/controllers/loginController.php');
+require_once('app/controllers/homeController.php');
+require_once('app/controllers/reportsController.php');
+require_once('app/controllers/tasksController.php');
+require_once('app/controllers/labsController.php');
+require_once('app/controllers/accessController.php');
+require_once('app/controllers/profileController.php');
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
@@ -98,9 +98,6 @@ switch ($action) {
         editLaporan($conn);
         break;
     case 'DetailSelesai':
-        // $data = $_GET['id_masalah'];
-        // echo 'Action DetailSelesai terpanggil ';
-        // echo $data;
         processDetailSelesai($conn);
         break;
     case 'tasks':
@@ -136,10 +133,6 @@ switch ($action) {
     default:
         echo "404 Not Found";
 }
-
-
-// Menutup koneksi setelah selesai digunakan
-mysqli_close($conn);
 
 
 ?>

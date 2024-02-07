@@ -10,7 +10,7 @@ function showViewHome($conn) {
     }
     $asets = getDataAset($conn);
     $labs = getDataLab($conn);
-    include('/var/www/html/app/views/home/home.php');
+    include('/var/www/html/app/views/home/home-baru.php');
 
 }
 function laporanCepat($conn) {

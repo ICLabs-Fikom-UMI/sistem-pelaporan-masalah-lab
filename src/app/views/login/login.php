@@ -1,76 +1,40 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <style>
-    </style>
-  </head>
-  <body>
-  <?php
-        include('/var/www/html/app/includes/navbar.php');
-    ?>
-    <!-- isi -->
-    <div
-      class="flex justify-center items-center h-screen flex-col w-full lg:mt-10"
-    >
-      <h1 class="text-center font-bold text-2xl mb-5">
-        <span class="text-[#EFEEEE]">Sistem Pelaporan LAB</span>
-      </h1>
-      <div
-        class="bg-gray-200 w-5/6 h-2/4 md:w-3/4 md:h-2/4 lg:w-[544px] lg:h-[620px] rounded-t-3xl p-14 shadow-2xl flex flex-wrap"
-        style="background-color: rgba(235, 232, 232, 0.68)"
-      >
-        <div class="flex justify-center items-center w-full">
-          <div class="flex justify-between items-center w-full">
-            <div class="mr-4 invisible">Placeholder</div>
-            <h1 class="font-bold lg:text-3xl text-xl text-[#0B1741]">LOGIN</h1>
-            <div class="mr-4 invisible">Placeholder</div>
-            <!-- Placeholder untuk menyelaraskan -->
-          </div>
-        </div>
-        <div class="text-xs text-gray-800">
-        <form action="?action=processLogin" method="post">
-            <input
-              type="text"
-              name="emailNim"
-              id=""
-              placeholder="Masukkan Email atau Nim"
-              class="md:p-6 p-4 my-6 rounded-lg w-full shadow-xl"
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              id=""
-              placeholder="Masukkan Password"
-              class="md:p-6 p-4 lg:mb-12 mb-8 rounded-lg w-full shadow-xl"
-              required
-            />
-            <div class="flex justify-center">
-              <button
-                type="submit"
-                class="bg-white lg:p-4 p-3 rounded-full lg:px-14 px-8 lg:text-lg text-sm shadow-xl font-bold transition duration-300 ease-in-out hover:bg-[#AFD0BC] text-[#0B1741]"
-                id="button-login"
-              >
-                Login
-              </button>
+<!-- include header -->
+<?php
+        include('/var/www/html/app/includes/header.php');
+?>
+<div class="flex justify-center lg:justify-between items-center h-screen px-2 lg:px-20" id="container">
+        <div class="hidden lg:flex flex-col justify-center items-center ps-44" id="container-child1">
+            <div class="text-center mb-10 font-bold text-2xl z-10 tracking-wider" style="margin-top: -60px">
+                <p class="p-3">"Improve productivity</p>
+                <p>with a system."</p>
             </div>
-            <div class="flex justify-center lg:mt-20 md:mt-12 mt-12">
-              <p class="text-sm md:text-lg">
-                Lupa Password Anda?
-                <a href="/" class="text-blue-600 underline hover:text-blue-800"
-                  >klik disini</a
-                >
-              </p>
+            <div>
+                <img src="app/includes/img/login-illustrations.png" alt="" class="h-[332px]" />
             </div>
-          </form>
         </div>
-      </div>
+        <div id="container-child2">
+            <div
+                class="w-full lg:w-[544px] h-[514px] lg:h-[414px] bg-[#F9F9FB] border-4 border-white rounded-xl pt-10 p-5 lg:pt-10 lg:p-8">
+                <div class="flex justify-between items-center font-semibold text-2xl lg:text-xl tracking-wide">
+                    <p>Selamat Datang!</p>
+                    <img src="app/includes/img/laporan-lab-biru.png" alt="logo-web" class="w-20 h-20 lg:w-16 lg:h-16" />
+                </div>
+                <div class="font-semibold text-lg">
+                    <form action="?action=processLogin" method="post">
+                        <p>Silahkan Login terlebih dahulu..</p>
+                        <div class="font-normal mt-6">
+                            <input type="text" name="emailNim" placeholder="Masukkan Nim atau Email anda"
+                                class="w-full rounded-lg p-3 mt-2 mb-8 border border-black opacity-50 placeholder-opacity-100" />
+                            <input type="password" name="password" placeholder="Masukkan Password anda"
+                                class="w-full rounded-lg p-3 mt-1 mb-8 border border-black opacity-50 placeholder-opacity-100" />
+                        </div>
+                        <div class="flex justify-center">
+                            <button class="p-3 px-5 bg-[#0C2C67] rounded-md text-white hover:bg-[#071939]">
+                                MASUK
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-  </body>
-</html>
