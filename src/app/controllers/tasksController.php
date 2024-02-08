@@ -1,8 +1,9 @@
 <?php
 include_once('/var/www/html/app/models/tasksModel.php');
-function showTasksView($conn) {
+function getTugasAjax($conn) {
     $reports =getAllTaskById($conn);
-    include('/var/www/html/app/views/tasks/tasks.php');
+    header('Content-Type: application/json');
+    echo json_encode($reports);
 }
 
 function taskDetail($conn){

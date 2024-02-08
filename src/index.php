@@ -14,12 +14,12 @@ require_once('app/controllers/profileController.php');
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
 
 // Check if the user is logged in for actions other than login-related ones
-if (!in_array($action, ['showLoginForm', 'processLogin', 'beranda', 'detailPengguna'])) {
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: index.php?action=showLoginForm');
-        exit;
-    }
-}
+// if (!in_array($action, ['showLoginForm', 'processLogin', 'beranda', 'detailPengguna'])) {
+//     if (!isset($_SESSION['user_id'])) {
+//         header('Location: index.php?action=showLoginForm');
+//         exit;
+//     }
+// }
 // Restrict access to 'tasks' for 'Laboran' and 'Korlab' roles
 if ($action == 'tasks' && isset($_SESSION['role']) && in_array($_SESSION['role'], ['Laboran', 'Korlab'])) {
     header('Location: index.php?action=home');
@@ -55,8 +55,17 @@ switch ($action) {
     case 'beranda':
         getPermasalahanLabAjax($conn);
         break;
+    case 'laporan-saya':
+        getLaporanSayaAjax($conn);
+        break;
+    case 'laporan-masuk':
+        getLaporanMasukAjax($conn);
+        break;
     case 'profile':
         showViewProfile($conn);
+        break;
+    case 'tugas':
+        getTugasAjax($conn);
         break;
     case 'laporan-cepat':
         laporanCepat($conn);

@@ -16,7 +16,6 @@ function loadData(id_pengguna) {
 }
 
 function fillTable(data) {
-  console.log(data);
   var tableHTML = `
         <tr class="flex justify-start items-center">
             <th class="font-semibold w-80 p-5 mb-2 text-start">Nama Pengguna</th>
@@ -50,10 +49,3 @@ function fillTable(data) {
     console.error("Tabel tidak ditemukan");
   }
 }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   document.getElementById("profileBtn").addEventListener("click", function (e) {
-//     e.preventDefault(); // Mencegah link melakukan navigasi
-
-//   });
-// });

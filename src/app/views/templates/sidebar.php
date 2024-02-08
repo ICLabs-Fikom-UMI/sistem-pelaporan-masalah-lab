@@ -40,16 +40,16 @@
                         id="buatLaporanBtn">Buat
                         Laporan</a>
                     <a href="#" class="block py-2   hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
-                        id="laporanSayaBtn">Laporan
+                        id="laporanSayaBtn" onclick="loadLaporanSaya()">Laporan
                         Saya</a>
                     <a href="#" class="block py-2   hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
-                        id="laporanBtn">Laporan
+                        id="laporanBtn" onclick="loadLaporanMasuk()">Laporan
                         Masuk</a>
                 </div>
             </div>
             <div id="tugas" class="flex items-center  py-2 md:pl-14  ">
                 <div class="flex text-black items-center justify-center md:justify-start  hover:bg-[#375679] hover:text-white rounded-s-md py-0 px-0  md:py-2 md:px-4 w-full"
-                    id="tugasBtn">
+                    id="tugasBtn" onclick="loadTugas()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="me-3">
                         <g fill="none" fill-rule="evenodd">
                             <path

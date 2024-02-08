@@ -1,12 +1,10 @@
 <?php
 include_once('/var/www/html/app/models/reportsModel.php');
 include_once('/var/www/html/app/models/utility/dataModel.php');
-function showViewReportKorlab($conn) {
-    $users = getUser($conn); // Fetch user data
+function getLaporanMasukAjax($conn) {
     $dataLaporan = getDataLaporan($conn); // Fetch report data
-
-
-    include('/var/www/html/app/views/reports/reportsKorlab.php');
+    header('Content-Type: application/json');
+    echo json_encode($dataLaporan);
 }
 
 function setujuiLaporan($conn) {
@@ -55,9 +53,10 @@ function detailLaporan($conn, $id_masalah){
 
 
 // reports asisten
-function showViewReportAsisten($conn) {
+function getLaporanSayaAjax($conn) {
     $allLaporanSaya = getAllLaporanSaya($conn);
-    include('/var/www/html/app/views/reports/reportsAsisten.php');
+    header('Content-Type: application/json');
+    echo json_encode($allLaporanSaya);
 }
 
 function dataEditLaporan($conn){
