@@ -67,6 +67,9 @@ switch ($action) {
     case 'tugas':
         getTugasAjax($conn);
         break;
+    case 'beri-akses':
+        getBeriAksesAjax($conn);
+        break;
     case 'laporan-cepat':
         laporanCepat($conn);
         break;

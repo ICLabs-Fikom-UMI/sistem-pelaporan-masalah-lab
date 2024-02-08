@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: db
--- Waktu pembuatan: 23 Jan 2024 pada 04.53
+-- Host: my-mysql:3306
+-- Waktu pembuatan: 08 Feb 2024 pada 17.32
 -- Versi server: 8.2.0
 -- Versi PHP: 8.2.8
 
@@ -133,7 +133,13 @@ INSERT INTO `master_teknisi_task` (`ID_Pengguna`, `ID_Masalah`) VALUES
 (2, 2),
 (2, 4),
 (2, 5),
-(3, 6);
+(3, 6),
+(3, 7),
+(3, 8),
+(3, 13),
+(2, 14),
+(3, 18),
+(3, 19);
 
 -- --------------------------------------------------------
 
@@ -148,17 +154,18 @@ CREATE TABLE `master_user` (
   `Nim` char(11) DEFAULT NULL,
   `Email` varchar(254) DEFAULT NULL,
   `Kata_Sandi` char(72) DEFAULT NULL,
-  `ID_Peran` int DEFAULT NULL
+  `ID_Peran` int DEFAULT NULL,
+  `Foto_Path` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `master_user`
 --
 
-INSERT INTO `master_user` (`ID_Pengguna`, `Nama_Depan`, `Nama_Belakang`, `Nim`, `Email`, `Kata_Sandi`, `ID_Peran`) VALUES
-(1, 'akbar', 'muhammad', '13120210008', 'akbar@gmail.com', '$2y$10$a3F8Y5OR8TrmsD1Y59WFpOGdo4hmYlPJsgTgg6nXBtqIl9jwE.ajS', 3),
-(2, 'lab', NULL, '13120210007', 'lab@gmail.com', '$2y$10$a3F8Y5OR8TrmsD1Y59WFpOGdo4hmYlPJsgTgg6nXBtqIl9jwE.ajS', 1),
-(3, 'iyakah', NULL, '13120210006', 'iya@gmail.com', '$2y$10$a3F8Y5OR8TrmsD1Y59WFpOGdo4hmYlPJsgTgg6nXBtqIl9jwE.ajS', 1);
+INSERT INTO `master_user` (`ID_Pengguna`, `Nama_Depan`, `Nama_Belakang`, `Nim`, `Email`, `Kata_Sandi`, `ID_Peran`, `Foto_Path`) VALUES
+(1, 'akbar', 'muhammad', '13120210008', 'akbar@gmail.com', '$2y$10$a3F8Y5OR8TrmsD1Y59WFpOGdo4hmYlPJsgTgg6nXBtqIl9jwE.ajS', 3, NULL),
+(2, 'lab', NULL, '13120210007', 'lab@gmail.com', '$2y$10$a3F8Y5OR8TrmsD1Y59WFpOGdo4hmYlPJsgTgg6nXBtqIl9jwE.ajS', 1, NULL),
+(3, 'iyakah', NULL, '13120210006', 'iya@gmail.com', '$2y$10$a3F8Y5OR8TrmsD1Y59WFpOGdo4hmYlPJsgTgg6nXBtqIl9jwE.ajS', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -169,28 +176,33 @@ INSERT INTO `master_user` (`ID_Pengguna`, `Nama_Depan`, `Nama_Belakang`, `Nim`, 
 CREATE TABLE `txn_lab_issues` (
   `ID_Masalah` int NOT NULL,
   `Deskripsi_Masalah` text,
-  `Tanggal_Pelaporan` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `Tanggal_Pelaporan` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `ID_Lab` int DEFAULT NULL,
   `ID_Aset` int DEFAULT NULL,
   `ID_Pelapor` int DEFAULT NULL,
-  `Foto_Path` varchar(50) DEFAULT NULL,
+  `Foto_Path` varchar(255) DEFAULT NULL,
   `Status_Masalah` enum('Diproses','Disetujui','Selesai') DEFAULT NULL,
   `Batas_Waktu` date DEFAULT NULL,
-  `Nomor_Unit` varchar(20) DEFAULT NULL
+  `Nomor_Unit` varchar(20) DEFAULT NULL,
+  `Komentar` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `txn_lab_issues`
 --
 
-INSERT INTO `txn_lab_issues` (`ID_Masalah`, `Deskripsi_Masalah`, `Tanggal_Pelaporan`, `ID_Lab`, `ID_Aset`, `ID_Pelapor`, `Foto_Path`, `Status_Masalah`, `Batas_Waktu`, `Nomor_Unit`) VALUES
-(2, 'dsafasdf', '2024-01-21 02:57:28', 1, 1, 1, NULL, 'Disetujui', '2024-01-30', '1'),
-(4, 'belum berfungsi dengan baik', '2024-01-22 15:28:35', 1, 1, 1, NULL, 'Disetujui', '2024-01-30', '1,2'),
-(5, 'iyakah', '2024-01-22 15:30:51', 1, 1, 1, NULL, 'Disetujui', '2024-01-31', '11'),
-(6, 'coba', '2024-01-22 15:32:28', 1, 1, 1, NULL, 'Disetujui', '2024-01-31', '12'),
-(7, 'tidak menyala', '2024-01-22 17:14:24', 2, 1, 1, NULL, 'Diproses', NULL, '22'),
-(8, 'bocor', '2024-01-22 17:22:57', 3, 10, 1, NULL, 'Diproses', NULL, '1'),
-(9, 'freeze', '2024-01-22 17:26:02', 4, 2, 1, NULL, 'Diproses', NULL, '25');
+INSERT INTO `txn_lab_issues` (`ID_Masalah`, `Deskripsi_Masalah`, `Tanggal_Pelaporan`, `ID_Lab`, `ID_Aset`, `ID_Pelapor`, `Foto_Path`, `Status_Masalah`, `Batas_Waktu`, `Nomor_Unit`, `Komentar`) VALUES
+(2, 'dsafasdf', '2024-01-27 16:52:52', 1, 1, 1, 'public/foto/task_2_1706374372.png', 'Selesai', '2024-01-30', '1', 'sudah selesai guys'),
+(4, 'belum berfungsi dengan baik', '2024-01-22 15:28:35', 1, 1, 1, NULL, 'Disetujui', '2024-01-30', '1,2', NULL),
+(5, 'iyakah', '2024-01-22 15:30:51', 1, 1, 1, NULL, 'Disetujui', '2024-01-31', '11', NULL),
+(6, 'coba', '2024-01-22 15:32:28', 1, 1, 1, NULL, 'Disetujui', '2024-01-31', '12', NULL),
+(7, 'tidak menyala', '2024-01-22 17:14:24', 2, 1, 1, NULL, 'Disetujui', '2024-01-31', '22', NULL),
+(8, 'bocor', '2024-01-22 17:22:57', 3, 10, 1, NULL, 'Disetujui', '2024-01-31', '1', NULL),
+(13, 'freeze\r\n', '2024-01-23 09:06:04', 4, 2, 1, NULL, 'Disetujui', '2024-01-31', '1', NULL),
+(14, 'doble klick', '2024-01-25 03:47:56', 5, 3, 1, NULL, 'Disetujui', '2024-02-21', '3', NULL),
+(18, 'tidak ada suara kan kan kan', '2024-01-26 14:05:09', 1, 1, 2, NULL, 'Disetujui', '2024-01-31', '0', NULL),
+(19, 'ada beberapa yang tidak bisa berfungsi keyboard nya', '2024-01-27 04:55:50', 7, 6, 1, NULL, 'Disetujui', '2024-01-31', '25', NULL),
+(20, 'bocor', '2024-01-27 05:17:54', 1, 10, 1, NULL, 'Diproses', NULL, '0', NULL);
 
 --
 -- Indexes for dumped tables
@@ -284,7 +296,7 @@ ALTER TABLE `master_user`
 -- AUTO_INCREMENT untuk tabel `txn_lab_issues`
 --
 ALTER TABLE `txn_lab_issues`
-  MODIFY `ID_Masalah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_Masalah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

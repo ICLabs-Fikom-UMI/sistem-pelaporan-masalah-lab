@@ -1,8 +1,9 @@
 <?php
 include_once('/var/www/html/app/models/accessModel.php');
-function showAccessView($conn){
+function getBeriAksesAjax($conn){
     $dataAsisten =getDataPengguna($conn);
-    include('/var/www/html/app/views/access/access.php');
+    header('Content-Type: application/json');
+    echo json_encode($dataAsisten);
 }
 function processEditPeran($conn) {
     $id_pengguna = $_POST['id_pengguna'];
