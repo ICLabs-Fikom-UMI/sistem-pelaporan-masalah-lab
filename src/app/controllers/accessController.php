@@ -75,8 +75,9 @@ function processResetPassword($conn) {
         }
     }
 }
-
 function processTambahUser($conn) {
+    $response = array('success' => false, 'message' => '');
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $namaDepan = $_POST['nama_depan'] ?? '';
         $email = $_POST['email'] ?? '';
@@ -85,8 +86,9 @@ function processTambahUser($conn) {
         // Validasi panjang NIM
         if (strlen($nim) != 11) {
             // Gagal, NIM tidak 11 karakter
-            header('Location: index.php?action=access&message=nimInvalidLength');
-            exit; // Pastikan eksekusi dihentikan di sini
+            $response['message'] = 'NIM harus 11 karakter.';
+            echo json_encode($response);
+            exit;
         }
 
         // Jika semua validasi berhasil, lanjutkan dengan penyimpanan data
@@ -94,13 +96,20 @@ function processTambahUser($conn) {
 
         if ($result) {
             // Berhasil menyimpan data
-            header('Location: index.php?action=access&message=addUserSuccess');
+            $response['success'] = true;
+            $response['message'] = 'User berhasil ditambahkan.';
         } else {
             // Gagal menyimpan data
-            header('Location: index.php?action=access&message=addUserFail');
+            $response['message'] = 'Gagal menambahkan user.';
         }
+    } else {
+        $response['message'] = 'Invalid request method.';
     }
+
+    echo json_encode($response);
+    exit;
 }
+
 
 
 ?>
