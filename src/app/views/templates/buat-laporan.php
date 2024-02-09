@@ -26,11 +26,11 @@
                                         <th class="font-semibold w-80 p-5 text-start">Nomor</th>
                                         <td class="font-normal w-full "><input
                                                 class="w-full border border-gray-300 p-3 rounded-md" type="text"
-                                                placeholder="Masukkan nomor unit. Contohnya: 1,2 atau 1-5"></td>
+                                                placeholder="Masukkan nomor unit. Contohnya: 1,2 atau 1-5" name="no_unit"></td>
                                     </tr>
                                     <tr class="flex justify-start items-center ">
                                         <th class="font-semibold w-80 p-5 text-start">Deskripsi</th>
-                                        <td class="font-normal w-full  text-start"><textarea name="deskripsi" id=""
+                                        <td class="font-normal w-full  text-start"><textarea name="deskripsi" id="deskripsi"
                                                 cols="20" rows="3" class="border border-gray-300 w-full p-3 rounded-md"
                                                 placeholder="Masukkan detail permasalahan"></textarea>
                                         </td>
@@ -43,9 +43,7 @@
                                             <button class="py-3 px-8 bg-[#375679] hover:bg-[#273C54] text-white rounded-md"
                                                 type="submit">kirim</button>
                                         </th>
-
                                     </tr>
-
                                 </table>
                             </form>
                         </div>
