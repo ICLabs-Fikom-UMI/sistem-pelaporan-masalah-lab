@@ -35,6 +35,3 @@
                     </div>
                 </div>
             </div>
-
-
-            <script src="app/views/templates/js/ajax/laporan-saya.js"></script>

@@ -13,7 +13,7 @@
       }
     </style>
   </head>
-  <body class="bg-[#F3F4F8]">
+  <body class="tracking-wide bg-[#F3F4F8]">
                 <!-- popup -->
                 <?php
                 include('app/views/templates/pop-up.php');

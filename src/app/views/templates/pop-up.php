@@ -60,6 +60,8 @@
         }
     }
     function closePopup() {
+        var table = document.getElementById("detailTable");
+        table.innerHTML = ""; // Mengosongkan isi dari elemen dengan id "detailTable"
         var popupDiv = document.getElementById("popupDiv");
         var overlay = document.getElementById("overlay");
         popupDiv.style.display = "none";

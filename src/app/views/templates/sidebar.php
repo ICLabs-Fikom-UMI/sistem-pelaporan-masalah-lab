@@ -37,7 +37,7 @@
                     <!-- Dropdown items -->
                     <a href="#"
                         class="buatLaporanBtn block py-2 border border-gray-100  hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
-                        id="buatLaporanBtn" onclick="loadJenisBarang(); loadNamaLab() ">Buat
+                        id="buatLaporanBtn" onclick="loadJenisBarang(); loadNamaLab(); ">Buat
                         Laporan</a>
                     <a href="#" class="block py-2   hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
                         id="laporanSayaBtn" onclick="loadLaporanSaya()">Laporan

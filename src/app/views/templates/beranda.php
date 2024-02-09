@@ -49,8 +49,3 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-<script src="app/views/templates/js/ajax/beranda.js"></script>

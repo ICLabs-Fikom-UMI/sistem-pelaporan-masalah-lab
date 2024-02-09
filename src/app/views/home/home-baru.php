@@ -18,61 +18,63 @@ endif;
 ?>
 
 <!-- isi -->
-<body class="tracking-wide bg-[#F3F4F8]">
+
     <!-- navbar -->
     <?php
-        include('/var/www/html/app/views/templates/navbar.php');
+        include('app/views/templates/navbar.php');
     ?>
     <div class="flex">
         <!-- sidebar -->
         <?php
-            include('/var/www/html/app//views/templates/sidebar.php');
+            include('app//views/templates/sidebar.php');
         ?>
         <!-- main -->
         <div>
             <!-- beranda -->
             <?php
-                include('/var/www/html/app/views/templates/beranda.php');
+                include('app/views/templates/beranda.php');
+            ?>
+            <!-- profile -->
+            <!-- lihat profile -->
+            <?php
+                include('app/views/templates/profile.php');
+            ?>
+            <!-- ubah data profile -->
+            <?php
+                include('app/views/templates/ubah-data-profile.php');
             ?>
             <!-- Laporan -->
             <!-- Laporan Masuk -->
             <?php
-                include('/var/www/html/app/views/templates/laporan-masuk.php');
+                include('app/views/templates/laporan-masuk.php');
             ?>
             <!-- Laporan saya -->
             <?php
-                include('/var/www/html/app/views/templates/laporan-saya.php');
+                include('app/views/templates/laporan-saya.php');
             ?>
             <!-- Buat laporan -->
             <?php
-                include('/var/www/html/app/views/templates/buat-laporan.php');
+                include('app/views/templates/buat-laporan.php');
             ?>
             <!-- Tugas -->
             <?php
-                include('/var/www/html/app/views/templates/tugas.php');
+                include('app/views/templates/tugas.php');
             ?>
             <!-- akses -->
             <!-- beri akses -->
             <?php
-                include('/var/www/html/app/views/templates/beri-akses.php');
+                include('app/views/templates/beri-akses.php');
             ?>
             <!-- Tambah Pengguna -->
             <?php
-                include('/var/www/html/app/views/templates/tambah-pengguna.php');
+                include('app/views/templates/tambah-pengguna.php');
             ?>
-            <!-- ubah data profile -->
-            <?php
-                include('/var/www/html/app/views/templates/ubah-data-profile.php');
-            ?>
-            <!-- profile -->
-            <?php
-                include('/var/www/html/app/views/templates/profile.php');
-            ?>
-
         </div>
     </div>
     </div>
 
     <!-- script js -->
-    <script src="app/views/templates/js/viewNeed.js"></script>
+    <?php
+        include('app/views/templates/script-js.php');
+    ?>
 </body>

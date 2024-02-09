@@ -39,8 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // detail data beranda
 function loadDetailDataBeranda(id_masalah) {
-  console.log(id_masalah);
-  console.log("di panggil");
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {

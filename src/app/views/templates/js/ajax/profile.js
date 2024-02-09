@@ -44,6 +44,11 @@ function fillTable(data) {
   const tableProfile = document.getElementById("tableProfile");
   if (tableProfile) {
     tableProfile.innerHTML = tableHTML;
+    document
+      .getElementById("ubahDataBtn")
+      .addEventListener("click", function () {
+        showForm("ubahDataForm");
+      });
   } else {
     console.error("Tabel tidak ditemukan");
   }

@@ -10,5 +10,3 @@
                     </div>
                 </div>
             </div>
-
-            <script src="app/views/templates/js/ajax/tugas.js"></script>

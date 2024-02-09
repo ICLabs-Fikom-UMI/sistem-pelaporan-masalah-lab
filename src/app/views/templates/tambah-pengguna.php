@@ -43,5 +43,3 @@
                     </div>
                 </div>
             </div>
-
-            <script src="app/views/templates/js/ajax/tambah-pengguna.js"></script>

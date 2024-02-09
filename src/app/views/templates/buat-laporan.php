@@ -50,7 +50,3 @@
                     </div>
                 </div>
             </div>
-
-            <script src="app/views/templates/js/ajax/buat-laporan.js"></script>
-            <script src="app/views/templates/js/ajax/utility/jenis-barang.js"></script>
-            <script src="app/views/templates/js/ajax/utility/nama-lab.js"></script>
