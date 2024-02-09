@@ -52,4 +52,34 @@ function getTeknisiByMasalah($conn, $idMasalah) {
     return $teknisiNames;
 }
 
+
+function getDetailDataBerandaById($conn, $id_masalah) {
+    $query = "SELECT tli.ID_Masalah, mal.Nama_Aset, ml.Nama_Lab, tli.Nomor_Unit,
+                     tli.Deskripsi_Masalah, tli.Batas_Waktu, tli.Status_Masalah, mu.Nama_Depan AS Nama_Pengguna
+              FROM txn_lab_issues tli
+              JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
+              JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
+              LEFT JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
+              LEFT JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
+              WHERE tli.Status_Masalah = 'Disetujui' AND tli.ID_Masalah = ?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id_masalah);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $permasalahanLab = [];
+    while ($row = $result->fetch_assoc()) {
+        // Panggil fungsi getTeknisiByMasalah dengan ID Masalah yang dikirim dari user
+        $teknisi = getTeknisiByMasalah($conn, $row['ID_Masalah']);
+
+        // Masukkan hasilnya ke dalam kolom baru 'teknisi'
+        $row['teknisi'] = $teknisi;
+
+        // Tambahkan baris masalah dengan informasi teknisi ke dalam array
+        $permasalahanLab[] = $row;
+    }
+
+    return $permasalahanLab;
+}
 ?>

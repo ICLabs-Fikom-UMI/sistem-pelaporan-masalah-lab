@@ -14,7 +14,7 @@ function fillTableLaporanSaya(data) {
   var table = document.getElementById("laporan-saya-table");
   var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200">
                         <th class="py-2">No</th>
-                        <th>Nama Ruangan</th>
+                        <th >Nama Ruangan</th>
                         <th>Jenis Barang</th>
                         <th>Nomor</th>
                         <th>Tanggal</th>
@@ -32,7 +32,7 @@ function fillTableLaporanSaya(data) {
                         <td>${item.Status_Masalah}</td>
                         <td class="flex items-center justify-center w-52 ">
                                     <div class="flex">
-                                        <div class="cursor-pointer">
+                                        <div class="cursor-pointer" onclick="showPopup();  event.preventDefault();">
                                             <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
                                                     viewBox="0 0 24 24">
                                                     <path fill="black"
@@ -41,14 +41,14 @@ function fillTableLaporanSaya(data) {
                                             </div>
                                             <p class="text-xs">Edit</p>
                                         </div>
-                                        <div class="px-6 cursor-pointer">
+                                        <div class="px-6 cursor-pointer" onclick="showPopup();  event.preventDefault();">
                                             <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
                                                     viewBox="0 0 24 24">
                                                     <path fill="black"
                                                         d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2M4 19V5h16l.002 14z" />
                                                     <path fill="black" d="M6 7h12v2H6zm0 4h12v2H6zm0 4h6v2H6z" /></svg>
                                             </div>
-                                            <p class="text-xs">Detail</p>
+                                            <p class="text-xs" >Detail</p>
                                         </div>
                                         <div class="cursor-pointer">
                                             <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"

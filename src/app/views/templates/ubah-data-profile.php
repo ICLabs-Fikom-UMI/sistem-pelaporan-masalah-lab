@@ -1,10 +1,10 @@
-<div class="w-full ps-4 md:ps-10 form hidden " id="ubahDataForm">
+<div class="w-full ps-4 md:ps-10 form hidden" id="ubahDataForm">
                 <p class="text-2xl lg:text-3xl font-bold mt-6">Ubah Data</p>
                 <div class="mt-7 w-full lg:w-[calc(100vw-300px)]">
                     <div id="buatLaporanIsi" class="mt-16 mr-0 md:mr-16 ">
                         <div
                             class="w-full h-[71vh] bg-[#F9F9FB] p-4 md:p-16 rounded-md border-white border-4 shadow-lg flex justify-center">
-                            <table class="w-full" id="ubah-data-profile-table">
+                            <table class="w-full" id="ubah-data-table">
                                 <tr class="flex justify-start items-center">
                                     <th class="font-semibold w-80 p-5 mb-2  text-start">Nama Pengguna</th>
                                     <td class="font-normal w-full">
@@ -41,7 +41,7 @@
                                             type="reset" id="kembaliProfile">Kembali</button>
                                         <a href="#"
                                             class="py-4 px-8 bg-[#375679] hover:bg-[#273C54] text-white rounded-md"
-                                            id="ubahDataBtn">Simpan</a>
+                                            id="simpanBtn">Simpan</a>
                                     </th>
 
                                 </tr>

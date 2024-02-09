@@ -54,6 +54,9 @@ switch ($action) {
     case 'beranda':
         getPermasalahanLabAjax($conn);
         break;
+    case 'beranda-detail':
+        detailDataBerandaById($conn);
+        break;
     case 'laporan-saya':
         getLaporanSayaAjax($conn);
         break;

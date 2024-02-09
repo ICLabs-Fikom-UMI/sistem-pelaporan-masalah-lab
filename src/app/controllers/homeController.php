@@ -35,7 +35,7 @@ include_once('/var/www/html/app/models/utility/dataModel.php');
             $ID_Pelapor = $_SESSION['user_id'] ?? '';
 
             // Validasi input
-            if (empty($id_lab) || empty($id_aset) || empty($no_unit) || empty($deskripsi)) {
+            if (empty($id_lab) || empty($id_aset)  || empty($deskripsi)) {
                 $response['message'] = 'Semua field harus diisi.';
                 echo json_encode($response);
                 exit;
@@ -59,6 +59,15 @@ include_once('/var/www/html/app/models/utility/dataModel.php');
         // Mengembalikan respons dalam format JSON
         echo json_encode($response);
         exit;
+    }
+
+    function detailDataBerandaById($conn){
+        if(isset($_GET['id_masalah'])) {
+            $id_masalah = $_GET['id_masalah'];
+            $data = getDetailDataBerandaById($conn, $id_masalah);
+            header('Content-Type: application/json');
+            echo json_encode($data);
+        }
     }
 
 

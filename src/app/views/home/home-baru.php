@@ -60,14 +60,15 @@ endif;
             <?php
                 include('/var/www/html/app/views/templates/tambah-pengguna.php');
             ?>
-            <!-- profile -->
-            <?php
-                include('/var/www/html/app/views/templates/profile.php');
-            ?>
             <!-- ubah data profile -->
             <?php
                 include('/var/www/html/app/views/templates/ubah-data-profile.php');
             ?>
+            <!-- profile -->
+            <?php
+                include('/var/www/html/app/views/templates/profile.php');
+            ?>
+
         </div>
     </div>
     </div>

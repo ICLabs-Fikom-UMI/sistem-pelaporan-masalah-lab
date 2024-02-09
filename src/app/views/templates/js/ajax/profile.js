@@ -1,6 +1,5 @@
 function loadData(id_pengguna) {
   var xhr = new XMLHttpRequest();
-  console.log(id_pengguna);
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = JSON.parse(xhr.responseText);
@@ -35,7 +34,7 @@ function fillTable(data) {
         </tr>
         <tr class="flex justify-start items-center mt-10">
             <th class="font-semibold  p-5 text-center  w-full" colspan="2">
-                <button class="py-3 px-8 bg-[#C2C2C2] rounded-md me-5 hover:bg-[#8A8888] hover:text-white" type="reset">Ubah Password</button>
+                <button class="py-3 px-8 bg-[#C2C2C2] rounded-md me-5 hover:bg-[#8A8888] hover:text-white" type="reset" onclick="showPopup();  event.preventDefault();">Ubah Password</button>
                 <a href="#" class="py-4 px-8 bg-[#375679] hover:bg-[#273C54] text-white rounded-md" id="ubahDataBtn">Ubah data</a>
             </th>
         </tr>

@@ -1,9 +1,10 @@
+
 <div class="w-full ps-4 md:ps-10 form block" id="berandaForm">
                 <p class="text-2xl lg:text-3xl font-bold mt-6">Beranda</p>
                 <div class="flex justify-between items-center mt-7 w-full  lg:w-[calc(100vw-300px)]">
                     <div>
                         <a href="#"
-                            class="buatLaporanBtn p-3 bg-[#375679] text-white font-medium lg:font-semibold rounded-md hover:bg-[#2D4764] ">Buat
+                            class="buatLaporanBtn p-3 bg-[#375679] text-white font-medium lg:font-semibold rounded-md hover:bg-[#2D4764] " onclick="loadJenisBarang(); loadNamaLab() ">Buat
                             Laporan</a>
                     </div>
                     <div class="flex items-center pe-[0px] lg:pe-[66px]">
@@ -40,7 +41,7 @@
                                 <th class="">Nama Ruangan</th>
                                 <th>Jenis Barang</th>
                                 <th>Nomor</th>
-                                <th>Tanggal</th>
+                                <th>Batas Waktu</th>
                                 <th>Status</th>
                                 <th>Detail</th>
                             </tr>
@@ -48,6 +49,8 @@
                     </div>
                 </div>
             </div>
+
+
 
 
 <script src="app/views/templates/js/ajax/beranda.js"></script>

@@ -1,5 +1,5 @@
 <div class="w-full ps-4 md:ps-10 form hidden" id="laporanSayaForm">
-                <p class="text-2xl lg:text-3xl font-bold mt-6">Laporan Saya</p>
+                <p class="text-2xl lg:text-3xl font-bold mt-6" >Laporan Saya</p>
                 <div class="flex justify-end items-center mt-7 w-full  lg:w-[calc(100vw-300px)]">
                     <div class="flex items-center pe-[0px] lg:pe-[66px]">
                         <!-- Icon filter -->
@@ -35,5 +35,6 @@
                     </div>
                 </div>
             </div>
+
 
             <script src="app/views/templates/js/ajax/laporan-saya.js"></script>

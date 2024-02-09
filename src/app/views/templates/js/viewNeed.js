@@ -87,6 +87,13 @@ document.getElementById("berandaBtn").addEventListener("click", function () {
   showForm("berandaForm");
 });
 
+document.getElementById("profileBtn").addEventListener("click", function () {
+  resetButtons(); // Mengatur ulang semua tombol ke state default
+  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+  showForm("profileForm");
+});
+
 document.getElementById("laporanBtn").addEventListener("click", function () {
   resetButtons(); // Mengatur ulang semua tombol ke state default
   this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
@@ -121,8 +128,8 @@ document.getElementById("tugasBtn").addEventListener("click", function () {
 
 document.getElementById("ubahDataBtn").addEventListener("click", function () {
   resetButtons(); // Mengatur ulang semua tombol ke state default
-  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+  //   this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+  //   this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
   showForm("ubahDataForm");
 });
 
@@ -142,12 +149,6 @@ document
     showForm("tambahPenggunaForm");
   });
 
-document.getElementById("profileBtn").addEventListener("click", function () {
-  resetButtons(); // Mengatur ulang semua tombol ke state default
-  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-  showForm("profileForm");
-});
 document
   .getElementById("kembaliProfile")
   .addEventListener("click", function () {
