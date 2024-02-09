@@ -2,9 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("index.php?action=beranda") // Sesuaikan URL sesuai dengan setup Anda
     .then((response) => response.json())
     .then((data) => {
-      const table = document.getElementById("myTable");
+      const table = document.getElementById("beranda-table");
       let tableHTML = "";
       data.forEach((item, index) => {
+        let statusText;
+        if (item.Status_Masalah === "Selesai") {
+          statusText = "Selesai";
+        } else if (item.Status_Masalah === "Disetujui") {
+          statusText = "Dikerjakan";
+        } else {
+          statusText = item.Status_Masalah;
+        }
         tableHTML += `
                 <tr class="border-b-2">
                     <td class="py-2">${index + 1}</td>
@@ -12,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${item.Nama_Aset}</td>
                     <td>${item.Nomor_Unit}</td>
                     <td>${item.Batas_Waktu}</td>
-                    <td>${item.Status_Masalah}</td>
+                    <td>${statusText}</td>
                     <td class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg"
                                         width="28" height="28" viewBox="0 0 24 24" class="cursor-pointer">
                                         <path fill="black"

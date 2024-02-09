@@ -45,7 +45,6 @@ switch ($action) {
         break;
     case 'home':
         if(isset($_SESSION['user_id'])){
-            // header('Location: app/views/home/home-baru.php');
             include('app/views/home/home-baru.php');
         } else{
             header('Location: index.php');
@@ -70,8 +69,18 @@ switch ($action) {
     case 'beri-akses':
         getBeriAksesAjax($conn);
         break;
+    case 'tambahUser':
+        processTambahUser($conn);
+        break;
     case 'laporan-cepat':
         laporanCepat($conn);
+        break;
+    // templates
+    case 'jenis-barang':
+        getJenisBarangAjax($conn);
+        break;
+    case 'nama-lab':
+        getNamaLabAjax($conn);
         break;
     case 'reports':
         if(isset($_SESSION['user_id'])){
@@ -132,6 +141,7 @@ switch ($action) {
         showAccessView($conn);
         break;
     case 'peranBaru':
+        echo '<script>console.log("Anda berhasil mengakses peran baru");</script>';
         processEditPeran($conn);
         break;
     case 'detailPengguna':
@@ -143,9 +153,7 @@ switch ($action) {
     case 'resetPassword':
         processResetPassword($conn);
         break;
-    case 'tambahUser':
-        processTambahUser($conn);
-        break;
+
     default:
         echo "404 Not Found";
 }

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var form = document.getElementById("formTambahPengguna");
+  var form = document.getElementById("formBuatLaporan");
 
   form.addEventListener("submit", function (event) {
     event.preventDefault(); // Mencegah pengiriman formulir secara default
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var xhr = new XMLHttpRequest();
 
     // Konfigurasi request
-    xhr.open("POST", "index.php?action=tambahUser", true);
+    xhr.open("POST", "index.php?action=laporan-cepat", true); // Ganti 'path_ke_server_anda.php' dengan endpoint yang benar
 
     // Set up a handler for when the request finishes
     xhr.onload = function () {
@@ -19,8 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
         var response = JSON.parse(xhr.responseText);
         if (response.success) {
           alert(response.message);
+          // Opsional: Redirect atau update UI
         } else {
           alert(response.message);
+          // Opsional: Tampilkan error di UI
         }
       } else {
         console.error("Request failed. Returned status of " + xhr.status);

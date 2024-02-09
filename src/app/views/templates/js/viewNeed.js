@@ -24,7 +24,7 @@ function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase(); // Konversi filter ke huruf besar
-  table = document.getElementById("myTable");
+  table = document.getElementById("beranda-table"); // Ganti 'beranda-table' dengan ID tabel yang benar
   tr = table.getElementsByTagName("tr");
 
   for (i = 1; i < tr.length; i++) {

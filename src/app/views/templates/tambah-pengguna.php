@@ -5,7 +5,7 @@
                         <div
                             class="w-full h-[71vh] bg-[#F9F9FB] p-4 md:p-16 rounded-md border-white border-4 shadow-lg ">
                             <form id="formTambahPengguna" action="">
-                                <table class="w-full" id="myTable">
+                                <table class="w-full" id="tambah-pengguna-table">
                                     <tr class="flex justify-start items-center">
                                         <th class="font-semibold w-80 p-5 mb-2  text-start">Nama Depan</th>
                                         <td class="font-normal w-full">

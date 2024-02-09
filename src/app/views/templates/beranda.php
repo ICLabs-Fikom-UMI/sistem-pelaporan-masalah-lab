@@ -34,7 +34,7 @@
                 <div id="isi" class="mt-4 mr-0 md:mr-16">
                     <div
                         class="w-full h-[71vh] bg-[#F9F9FB] rounded-md border-white border-4 shadow-lg overflow-x-auto">
-                        <table class="w-full  text-center min-w-max" id="myTable">
+                        <table class="w-full  text-center min-w-max" id="beranda-table">
                             <tr class="font-semibold border-b-2 border-gray-200">
                                 <th class="py-2">No</th>
                                 <th class="">Nama Ruangan</th>

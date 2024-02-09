@@ -6,33 +6,40 @@ function getBeriAksesAjax($conn){
     echo json_encode($dataAsisten);
 }
 function processEditPeran($conn) {
-    $id_pengguna = $_POST['id_pengguna'];
-    $id_peran = $_POST['id_peran'];
+    $id_pengguna = isset($_POST['id_pengguna']) ? $_POST['id_pengguna'] : null;
+    $id_peran = isset($_POST['id_peran']) ? $_POST['id_peran'] : null;
 
-    // Check if id_peran is empty
-    if (empty($id_peran)) {
-        // Redirect back to the access page
-        header("Location: /app/views/access/access.php");
-        exit;
-    }
+    // Cetak nilai id_pengguna dan id_peran dalam format JSON
+    header('Content-Type: application/json');
+    echo json_encode([
+        'id_pengguna' => $id_pengguna,
+        'id_peran' => $id_peran,
+    ]);
 
-    // Memanggil fungsi editPeran dan menyimpan hasilnya
-    $result = editPeran($conn, $id_pengguna, $id_peran);
+    // // Check if id_peran is empty
+    // if (empty($id_peran)) {
+    //     // Return a JSON response
+    //     header('Content-Type: application/json');
+    //     echo json_encode(['error' => 'ID peran tidak boleh kosong']);
+    //     exit;
+    // }
 
-    // Mengecek apakah operasi berhasil atau tidak
-    if ($result) {
-        // Mengatur pesan sukses di sesi
-        $_SESSION['success_message'] = 'Peran pengguna berhasil diubah.';
-    } else {
-        // Mengatur pesan gagal di sesi
-        $_SESSION['failed_message'] = 'Gagal mengubah peran pengguna.';
-    }
+    // // Memanggil fungsi editPeran dan menyimpan hasilnya
+    // $result = editPeran($conn, $id_pengguna, $id_peran);
 
-    // Mengambil data pengguna terbaru
-    $dataAsisten = getDataPengguna($conn);
-
-    // Mengarahkan kembali ke view
-    include('/var/www/html/app/views/access/access.php');
+    // // Mengecek apakah operasi berhasil atau tidak
+    // if ($result) {
+    //     // Mengatur pesan sukses di sesi
+    //     $_SESSION['success_message'] = 'Peran pengguna berhasil diubah.';
+    //     // Return a JSON response
+    //     header('Content-Type: application/json');
+    //     echo json_encode(['success' => 'Peran pengguna berhasil diubah.']);
+    // } else {
+    //     // Return a JSON response
+    //     header('Content-Type: application/json');
+    //     echo json_encode(['error' => 'Terjadi kesalahan saat mengubah peran pengguna.']);
+    // }
+    exit;
 }
 
 function detailDataById($conn){
