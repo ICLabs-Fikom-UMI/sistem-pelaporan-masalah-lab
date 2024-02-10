@@ -68,20 +68,32 @@ function processDeletePengguna($conn) {
 }
 
 function processResetPassword($conn) {
-    $id_pengguna = $_GET['id_pengguna'] ?? null;
+    $response = array('success' => false, 'message' => '');
+
+    // Asumsikan menggunakan metode POST untuk peningkatan keamanan
+    $id_pengguna = $_POST['id_pengguna'] ?? null;
+
     if ($id_pengguna) {
         $result = resetPasswordById($conn, $id_pengguna);
         if ($result) {
             // Reset password berhasil
-            // Set flash message atau redirect
-            header('Location: index.php?action=access&message=resetSuccess');
+            $response['success'] = true;
+            $response['message'] = 'Password berhasil direset.';
         } else {
             // Reset password gagal
-            // Set flash message atau redirect
-            header('Location: index.php?action=access&message=resetFail');
+            $response['message'] = 'Gagal mereset password.';
         }
+    } else {
+        $response['message'] = 'ID pengguna tidak ditemukan.';
     }
+
+    // Mengatur header sebagai JSON
+    header('Content-Type: application/json');
+    // Mengirim response
+    echo json_encode($response);
+    exit;
 }
+
 function processTambahUser($conn) {
     $response = array('success' => false, 'message' => '');
 

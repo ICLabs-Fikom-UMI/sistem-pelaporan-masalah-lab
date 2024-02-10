@@ -114,6 +114,9 @@ function fillPopUpDataAsistenById(data) {
                       </tr>
                       <tr>
                         <td colspan="2" class="mt-10 w-full text-center">
+                            <button  class="mt-6 px-5 py-3 rounded-md bg-[#C2C2C2] text-black hover:bg-[#8A8888]" type="button" onclick="confirmResetPassword(${
+                              detailData.ID_Pengguna
+                            })">Reset Password</button>
                             <button  class="mt-6 px-5 py-3 rounded-md bg-[#375679] text-white hover:bg-[#2D4764]" type="button" onclick="saveChanges(${
                               detailData.ID_Pengguna
                             })">Simpan</button>
@@ -159,4 +162,53 @@ function saveChanges(idPengguna) {
   };
   xhr.send(formData);
   closePopup();
+}
+// reset password pengguna
+function resetPasswordPengguna(idPengguna) {
+  var formData = new FormData();
+  formData.append("id_pengguna", idPengguna);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "index.php?action=resetPassword", true);
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      // Parse respons JSON dari server
+      var response = JSON.parse(xhr.responseText); // Menambahkan parsing JSON
+
+      // Cek apakah operasi berhasil
+      if (response.success) {
+        // Operasi berhasil, tampilkan pesan sukses
+        alert(response.message);
+        loadBeriTugas(); // Memuat ulang data
+        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+      } else {
+        // Operasi gagal, tampilkan pesan error
+        alert(response.message);
+      }
+    } else {
+      // Terjadi kesalahan pada request HTTP, tampilkan pesan error
+      console.error("Request failed. Returned status of " + xhr.status);
+    }
+  };
+  xhr.onerror = function () {
+    alert("Gagal mengirimkan request");
+  };
+  xhr.send(formData);
+  closePopup();
+}
+
+// confirm reset password
+function confirmResetPassword(idPengguna) {
+  // Tampilkan dialog konfirmasi
+  var isConfirmed = confirm(
+    "Apakah Anda yakin ingin mereset password pengguna ini?"
+  );
+
+  // Jika pengguna mengklik "OK", lanjutkan dengan menyimpan perubahan
+  if (isConfirmed) {
+    resetPasswordPengguna(idPengguna);
+  } else {
+    // Jika pengguna mengklik "Batal", batalkan operasi
+    alert("Operasi dibatalkan");
+  }
 }
