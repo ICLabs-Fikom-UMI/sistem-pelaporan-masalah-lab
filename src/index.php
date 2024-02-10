@@ -144,7 +144,6 @@ switch ($action) {
         showAccessView($conn);
         break;
     case 'peranBaru':
-        echo '<script>console.log("Anda berhasil mengakses peran baru");</script>';
         processEditPeran($conn);
         break;
     case 'detailPengguna':

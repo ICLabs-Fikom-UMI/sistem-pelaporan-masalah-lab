@@ -7,7 +7,8 @@ function getDataPengguna($conn) {
     $sql = "SELECT master_user.ID_Pengguna, master_user.Nama_Depan, master_user.Nama_Belakang, master_user.Foto_Path, master_roles.Nama_Peran
             FROM master_user
             INNER JOIN master_roles ON master_user.ID_Peran = master_roles.ID_Peran
-            WHERE master_user.ID_Pengguna != ?";
+            WHERE master_user.ID_Pengguna != ?
+            ORDER BY master_user.ID_Peran DESC";
 
     // Persiapkan statement SQL
     $stmt = mysqli_prepare($conn, $sql);
