@@ -78,19 +78,41 @@ function getLaporanSayaByIdEditAjax($conn) {
         echo json_encode($allLaporanSayaById);
     }
 }
+function editLaporanSayaAjax($conn) {
+    header('Content-Type: application/json');
+    $response = array('success' => false, 'message' => '');
 
-function dataEditLaporan($conn){
-    $id_masalah = $_GET['id_masalah'] ?? null;
-    $asets = getDataAset($conn);
-    $labs = getDataLab($conn);
-    $allLaporanSaya = getAllLaporanSaya($conn);
-    $dataDetailLaporan=getDetailLaporan($conn, $id_masalah);
-    include('/var/www/html/app/views/reports/reportsAsisten.php');
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id_masalah = $_POST['id_masalah'] ?? '';
+        $id_lab = $_POST['id_lab'] ?? '';
+        $id_aset = $_POST['id_aset'] ?? '';
+        $nomor_unit = $_POST['nomor_unit'] ?? '';
+        $deskripsi_masalah = $_POST['deskripsi_masalah'] ?? '';
 
+        // Anda bisa menambahkan validasi disini jika perlu
+
+        // Jika validasi berhasil, lanjutkan dengan update data
+        $result = submitEditLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah);
+
+        if ($result) {
+            // Berhasil update data
+            $response['success'] = true;
+            $response['message'] = 'Laporan berhasil diperbarui.';
+        } else {
+            // Gagal update data
+            $response['message'] = 'Gagal memperbarui laporan.';
+        }
+    } else {
+        $response['message'] = 'Invalid request method.';
+    }
+
+    echo json_encode($response);
+    exit;
 }
 
-function editLaporan($conn) {
-    $id_masalah = $_POST['id_Masalah'];
+
+function editLaporanSaya($conn) {
+    $id_masalah = $_POST['id_masalah'];
     $id_lab = $_POST['lab'];
     $id_aset = $_POST['aset'];
     $nomor_unit = $_POST['aset_no'];
@@ -102,6 +124,7 @@ function editLaporan($conn) {
     $allLaporanSaya = getAllLaporanSaya($conn);
     include('/var/www/html/app/views/reports/reportsAsisten.php');
 }
+
 
 function processDetailSelesai($conn){
     if(isset($_GET['id_masalah'])) {

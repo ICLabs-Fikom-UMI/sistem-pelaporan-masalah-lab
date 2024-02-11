@@ -174,7 +174,7 @@ function fillPopUpDetailLaporanSayaDetail(data) {
     let htmlContent = `
            <tr>
             <td class="font-semibold md:pr-40 py-4">Nama Ruangan</td>
-            <td><select id="namaLab" class="w-full border border-gray-300 p-3 rounded-md">
+            <td><select id="id_lab" class="w-full border border-gray-300 p-3 rounded-md">
                 <option value="${data.ID_Lab}">${data.Nama_Lab}</option>
                 <option value="1">Start Up</option>
                 <option value="2">IoT</option>
@@ -188,7 +188,7 @@ function fillPopUpDetailLaporanSayaDetail(data) {
           </tr>
           <tr>
             <td class="font-semibold md:pr-40 py-4">Jenis Barang</td>
-            <td><select id="namaAset" class="w-full border border-gray-300 p-3 rounded-md">
+            <td><select id="id_aset" class="w-full border border-gray-300 p-3 rounded-md">
                 <option value="${data.ID_Aset}">${data.Nama_Aset}</option>
                 <option value="1">Monitor</option>
                 <option value="2">PC</option>
@@ -205,13 +205,13 @@ function fillPopUpDetailLaporanSayaDetail(data) {
           </tr>
           <tr>
             <td class="font-semibold md:pr-40 py-4">Nomor</td>
-            <td><input class="border border-gray-300 p-3 rounded-md" type="text" id="nomorUnit" value="${
+            <td><input class="border border-gray-300 p-3 rounded-md" type="text" id="nomor_unit" value="${
               data.Nomor_Unit || ""
             }" class="input-detail"></td>
           </tr>
           <tr>
             <td class="font-semibold md:pr-40 py-4 w-48">Deskripsi Masalah</td>
-            <td><textarea id="deskripsiMasalah" class="border border-gray-300 p-3 rounded-md">${
+            <td><textarea id="deskripsi_masalah" class="border border-gray-300 p-3 rounded-md">${
               data.Deskripsi_Masalah || ""
             }</textarea></td>
           </tr>
@@ -219,11 +219,14 @@ function fillPopUpDetailLaporanSayaDetail(data) {
             <td class="font-semibold md:pr-40 py-4">Status</td>
             <td>
                 <p>${data.Status_Masalah || ""}</p>
+                <p>${data.ID_Aset || "tidak ada"}</p>
             </td>
           </tr>
           <tr>
             <td colspan="2" class="text-center py-4">
-              <button onclick="submitEditLaporan()" class="mt-6 px-5 py-3 rounded-md bg-[#375679] text-white hover:bg-[#2D4764]">Kirim</button>
+              <button onclick="submitEditLaporanSaya(${
+                data.ID_Masalah
+              })" class="mt-6 px-5 py-3 rounded-md bg-[#375679] text-white hover:bg-[#2D4764]">Kirim</button>
             </td>
           </tr>
         `;
@@ -235,3 +238,53 @@ function fillPopUpDetailLaporanSayaDetail(data) {
 }
 
 // POST request untuk mengirim data laporan yang telah diedit
+
+function submitEditLaporanSaya(idMasalah) {
+  var idLab = document.getElementById("id_lab").value;
+  var idAset = document.getElementById("id_aset").value;
+  var nomorUnit = document.getElementById("nomor_unit").value;
+  var deskripsiMasalah = document.getElementById("deskripsi_masalah").value;
+  console.log(idMasalah, idLab, idAset, nomorUnit, deskripsiMasalah);
+  console.log("ID Lab: ", document.getElementById("id_lab").value);
+  console.log("ID Aset: ", document.getElementById("id_aset").value);
+  console.log("Nomor Unit: ", document.getElementById("nomor_unit").value);
+  console.log(
+    "Deskripsi Masalah: ",
+    document.getElementById("deskripsi_masalah").value
+  );
+
+  var formData = new FormData();
+  formData.append("id_masalah", idMasalah);
+  formData.append("id_lab", idLab);
+  formData.append("id_aset", idAset);
+  formData.append("nomor_unit", nomorUnit);
+  formData.append("deskripsi_masalah", deskripsiMasalah);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "index.php?action=laporan-saya-submit-edit", true);
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      // Parse respons JSON dari server
+      var response = JSON.parse(xhr.responseText); // Menambahkan parsing JSON
+
+      // Cek apakah operasi berhasil
+      if (response.success) {
+        // Operasi berhasil, tampilkan pesan sukses
+        alert(response.message);
+        loadLaporanSaya(); // Memuat ulang data
+        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+      } else {
+        // Operasi gagal, tampilkan pesan error
+        alert(response.message);
+      }
+    } else {
+      // Terjadi kesalahan pada request HTTP, tampilkan pesan error
+      console.error("Request failed. Returned status of " + xhr.status);
+    }
+  };
+  xhr.onerror = function () {
+    alert("Gagal mengirimkan request");
+  };
+  xhr.send(formData);
+  closePopup();
+}

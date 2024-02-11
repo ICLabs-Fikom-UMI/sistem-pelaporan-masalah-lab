@@ -146,40 +146,22 @@ function getLaporanSayaEdit($conn, $idMasalah) {
     return $laporan;
 }
 
-
-
-function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah) {
-    // Prepare the SQL statement to update the record
-    $sql = "UPDATE txn_lab_issues
-            SET ID_Lab = ?, ID_Aset = ?, Nomor_Unit = ?, Deskripsi_Masalah = ?
-            WHERE ID_Masalah = ?";
-
-    // Use prepared statements to prevent SQL injection
+function submitEditLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah) {
+    $sql = "UPDATE txn_lab_issues SET ID_Lab = ?, ID_Aset = ?, Nomor_Unit = ?, Deskripsi_Masalah = ? WHERE ID_Masalah = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
-        // Bind the parameters
-        mysqli_stmt_bind_param($stmt, "iissi", $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah, $id_masalah);
-
-        // Execute the statement
-        if (mysqli_stmt_execute($stmt)) {
-            // Update successful
-            echo "Record updated successfully!";
-        } else {
-            // Update failed
-            echo "Error updating record: " . mysqli_error($conn);
-        }
-
-        // Close the statement
+        mysqli_stmt_bind_param($stmt, "iissi", $id_lab, $id_aset, $nomor_unit, $deskripsi_masalah, $id_masalah);
+        $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
+        return $result; // Mengembalikan true jika berhasil, false jika gagal
     } else {
-        // Error in preparing the statement
-        echo "Error preparing statement: " . mysqli_error($conn);
+        return false; // Gagal menyiapkan statement
     }
-
 }
+
 
 function getLaporanByIdMasalah($conn, $id_masalah){
     // Mempersiapkan query SQL dengan JOIN dan kondisi Status_Masalah
-    $query = "SELECT ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Status_Masalah,
+    $query = "SELECT ml.Nama_Lab, ml.ID_Lab,mal.ID_Aset, mal.Nama_Aset, tli.ID_Masalah, tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Status_Masalah,
             tli.Foto_Path, tli.Tanggal_Pelaporan, tli.Komentar, mu.Nama_Depan AS Nama_Teknisi
             FROM txn_lab_issues tli
             INNER JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
