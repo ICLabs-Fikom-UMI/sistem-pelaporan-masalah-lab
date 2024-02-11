@@ -43,15 +43,24 @@ function tolakLaporan($conn, $id_masalah){
     $_SESSION['tolak_message'] = "Laporan Telah Di Tolak...";
     header("Location: index.php?action=reports");
 }
-function detailLaporan($conn, $id_masalah){
-    $users = getUser($conn);
-    $dataLaporan = getDataLaporan($conn);
-    $dataDetailLaporan =getDetailLaporan($conn, $id_masalah);
-    include('/var/www/html/app/views/reports/reportsKorlab.php');
 
+// feat develop
+// Laporan Masuk
+function detailLaporanMasukAjax($conn, $id_masalah){
+    $dataUser = getUser($conn);
+    $dataDetailLaporan = getDetailLaporanMasuk($conn, $id_masalah);
+
+    // Gabungkan kedua set data ke dalam satu array asosiatif
+    $dataLaporanMasukById = [
+        'dataUser' => $dataUser,
+        'dataDetailLaporan' => $dataDetailLaporan
+    ];
+
+    header('Content-Type: application/json');
+
+    // Encode dan kirim data sebagai JSON
+    echo json_encode($dataLaporanMasukById);
 }
-
-
 
 
 // reports asisten

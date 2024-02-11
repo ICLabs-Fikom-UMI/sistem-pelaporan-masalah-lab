@@ -77,7 +77,9 @@ function rejectReport($conn, $id_masalah){
     return true;
 }
 
-function getDetailLaporan($conn, $id_masalah) {
+// next fitur feat keep
+// Laporan Masuk
+function getDetailLaporanMasuk($conn, $id_masalah) {
     $query = "SELECT tli.ID_Masalah, tli.Tanggal_Pelaporan, tli.ID_Lab, ml.Nama_Lab, tli.ID_Aset, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
@@ -158,7 +160,8 @@ function submitEditLaporan($conn, $id_masalah, $id_lab, $id_aset, $nomor_unit, $
     }
 }
 
-
+// fungsi untuk mengambil lengkap data laporan saya berdasarkan ID_Masalah
+// bisa di gunakan hingga 3 fitur
 function getLaporanByIdMasalah($conn, $id_masalah){
     // Mempersiapkan query SQL dengan JOIN dan kondisi Status_Masalah
     $query = "SELECT ml.Nama_Lab, ml.ID_Lab,mal.ID_Aset, mal.Nama_Aset, tli.ID_Masalah, tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Status_Masalah,

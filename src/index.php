@@ -120,13 +120,8 @@ switch ($action) {
             showViewReportKorlab($conn);
         }
         break;
-    case 'detailLaporan':
-        $id_masalah = $_GET['id_masalah'] ?? null;
-        if($id_masalah){
-            detailLaporan($conn, $id_masalah);
-        }else{
-            showViewReportKorlab($conn);
-        }
+    case 'detailLaporanMasuk':
+        detailLaporanMasukAjax($conn, $_GET['id_masalah']);
         break;
     case 'getEditLaporan':
         dataEditLaporan($conn);

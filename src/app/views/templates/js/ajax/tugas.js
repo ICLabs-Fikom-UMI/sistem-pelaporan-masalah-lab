@@ -11,7 +11,6 @@ function loadTugas() {
 }
 
 function fillTableTugas(data) {
-  console.log(data);
   var table = document.getElementById("tugas-table");
   var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200">
                             <th class="py-2">No</th>

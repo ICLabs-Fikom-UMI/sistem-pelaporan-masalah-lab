@@ -244,14 +244,6 @@ function submitEditLaporanSaya(idMasalah) {
   var idAset = document.getElementById("id_aset").value;
   var nomorUnit = document.getElementById("nomor_unit").value;
   var deskripsiMasalah = document.getElementById("deskripsi_masalah").value;
-  console.log(idMasalah, idLab, idAset, nomorUnit, deskripsiMasalah);
-  console.log("ID Lab: ", document.getElementById("id_lab").value);
-  console.log("ID Aset: ", document.getElementById("id_aset").value);
-  console.log("Nomor Unit: ", document.getElementById("nomor_unit").value);
-  console.log(
-    "Deskripsi Masalah: ",
-    document.getElementById("deskripsi_masalah").value
-  );
 
   var formData = new FormData();
   formData.append("id_masalah", idMasalah);
