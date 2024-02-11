@@ -51,12 +51,27 @@ function detailLaporan($conn, $id_masalah){
 
 }
 
+if(isset($_GET['id_pengguna'])) {
+    $id_pengguna = $_GET['id_pengguna'];
+    $data = getDetailDataById($conn, $id_pengguna);
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
 
 // reports asisten
 function getLaporanSayaAjax($conn) {
     $allLaporanSaya = getAllLaporanSaya($conn);
     header('Content-Type: application/json');
     echo json_encode($allLaporanSaya);
+}
+function getLaporanSayaByIdAjax($conn) {
+    if(isset($_GET['id_masalah'])) {
+        $id_masalah = $_GET['id_masalah'];
+        $allLaporanSayaById = getLaporanByIdMasalah($conn, $id_masalah);
+        header('Content-Type: application/json');
+        echo json_encode($allLaporanSayaById);
+    }
 }
 
 function dataEditLaporan($conn){

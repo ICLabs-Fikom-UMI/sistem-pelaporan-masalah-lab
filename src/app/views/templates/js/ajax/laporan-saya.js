@@ -27,7 +27,7 @@ function fillTableLaporanSaya(data) {
                         <td class="py-2">${index + 1}</td>
                         <td>${item.Nama_Lab}</td>
                         <td>${item.Nama_Aset}</td>
-                        <td>${item.ID_Masalah}</td>
+                        <td>${item.Nomor_Unit}</td>
                         <td>${item.Tanggal_Pelaporan}</td>
                         <td>${item.Status_Masalah}</td>
                         <td class="flex items-center justify-center w-52 ">
@@ -41,7 +41,9 @@ function fillTableLaporanSaya(data) {
                                             </div>
                                             <p class="text-xs">Edit</p>
                                         </div>
-                                        <div class="px-6 cursor-pointer" onclick="showPopup();  event.preventDefault();">
+                                        <div class="px-6 cursor-pointer" onclick="showPopup(); loadDetailLaporanSayaById(${
+                                          item.ID_Masalah
+                                        });  event.preventDefault();">
                                             <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
                                                     viewBox="0 0 24 24">
                                                     <path fill="black"
@@ -66,4 +68,76 @@ function fillTableLaporanSaya(data) {
   });
 
   table.innerHTML = tableHTML;
+}
+
+// detail
+function loadDetailLaporanSayaById(id_masalah) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var data = JSON.parse(xhr.responseText);
+      fillPopUpDetailLaporanSaya(data);
+    }
+  };
+  xhr.open(
+    "GET",
+    "index.php?action=laporan-saya-by-id&id_masalah=" + id_masalah,
+    true
+  );
+  xhr.send();
+}
+function fillPopUpDetailLaporanSaya(data) {
+  if (data && data.hasOwnProperty("Nama_Lab")) {
+    let statusText;
+    if (data.Status_Masalah === "Selesai") {
+      statusText = "Selesai";
+    } else if (data.Status_Masalah === "Disetujui") {
+      statusText = "Dikerjakan";
+    } else {
+      statusText = data.Status_Masalah;
+    }
+
+    var table = document.getElementById("detailTable");
+    let htmlContent = `
+        <tr><td class="font-semibold md:pr-40 py-4">Nama Ruangan</td><td>: ${
+          data.Nama_Lab || ""
+        }</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Jenis Barang</td><td>: ${
+          data.Nama_Aset || ""
+        }</td></tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Nomor</td><td>: ${
+          data.Nomor_Unit || ""
+        }</td></tr>
+        <tr>
+        <td class="font-semibold md:pr-40 py-4 w-48">Deskripsi Masalah</td>
+        <td>: ${data.Deskripsi_Masalah || ""}</td>
+        </tr>
+        <tr><td class="font-semibold md:pr-40 py-4">Status</td><td>: ${
+          statusText || ""
+        }</td></tr>
+      `;
+
+    // Jika status masalah adalah Selesai, tambahkan foto (jika ada) dan komentar
+    if (data.Status_Masalah === "Selesai") {
+      // Tambahkan row untuk foto jika ada path foto
+      if (data.Foto_Path) {
+        htmlContent += `
+            <tr><td class="font-semibold md:pr-40 py-4">Foto</td>
+            <td>: <img src="${data.Foto_Path}" alt="Foto Masalah" style="width:100px;height:auto;"/></td></tr>
+          `;
+      }
+
+      // Tambahkan row untuk komentar jika ada komentar
+      if (data.Komentar) {
+        htmlContent += `
+            <tr><td class="font-semibold md:pr-40 py-4">Komentar</td>
+            <td>: ${data.Komentar}</td></tr>
+          `;
+      }
+    }
+
+    table.innerHTML = htmlContent;
+  } else {
+    console.log("Data tidak ditemukan"); // Jika tidak ada data yang ditemukan
+  }
 }

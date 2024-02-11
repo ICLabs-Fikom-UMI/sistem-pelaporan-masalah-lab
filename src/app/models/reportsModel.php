@@ -104,11 +104,12 @@ function getDetailLaporan($conn, $id_masalah) {
 function getAllLaporanSaya($conn) {
     $idPelapor = $_SESSION['user_id']; // Mengambil ID pengguna dari session
 
-    $query = "SELECT tli.ID_Masalah, ml.Nama_Lab, mal.Nama_Aset, tli.Deskripsi_Masalah, tli.Tanggal_Pelaporan, tli.Status_Masalah
+    $query = "SELECT tli.ID_Masalah, ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Tanggal_Pelaporan, tli.Status_Masalah
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
-              WHERE tli.ID_Pelapor = ?";
+              WHERE tli.ID_Pelapor = ?
+              ORDER BY FIELD(tli.Status_Masalah, 'Selesai', 'Disetujui', 'Diproses')";
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $idPelapor);
@@ -120,6 +121,8 @@ function getAllLaporanSaya($conn) {
 
     return $laporan;
 }
+
+// getLaporanSayaBYId
 
 
 function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah) {
@@ -151,16 +154,16 @@ function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, 
 
 }
 
-function detailSelesai($conn, $id_masalah){
+function getLaporanByIdMasalah($conn, $id_masalah){
     // Mempersiapkan query SQL dengan JOIN dan kondisi Status_Masalah
-    $query = "SELECT ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah,
-                     tli.Foto_Path, tli.Tanggal_Pelaporan, tli.Komentar, mu.Nama_Depan AS Nama_Teknisi
-              FROM txn_lab_issues tli
-              INNER JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
-              INNER JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
-              INNER JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
-              INNER JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
-              WHERE tli.ID_Masalah = ? AND tli.Status_Masalah = 'Selesai'";
+    $query = "SELECT ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Status_Masalah,
+            tli.Foto_Path, tli.Tanggal_Pelaporan, tli.Komentar, mu.Nama_Depan AS Nama_Teknisi
+            FROM txn_lab_issues tli
+            INNER JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
+            INNER JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
+            LEFT JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
+            LEFT JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
+            WHERE tli.ID_Masalah = ?";
 
     // Mempersiapkan pernyataan
     if ($stmt = mysqli_prepare($conn, $query)) {
