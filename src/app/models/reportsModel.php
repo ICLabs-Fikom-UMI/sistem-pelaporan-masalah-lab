@@ -123,6 +123,29 @@ function getAllLaporanSaya($conn) {
 }
 
 // getLaporanSayaBYId
+// edit
+function getLaporanSayaEdit($conn, $idMasalah) {
+    $idPelapor = $_SESSION['user_id']; // Mengambil ID pengguna dari session
+
+    // Menambahkan kondisi WHERE untuk ID_Masalah
+    $query = "SELECT tli.ID_Masalah, ml.ID_Lab , ml.Nama_Lab, mal.Nama_Aset, tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Tanggal_Pelaporan, tli.Status_Masalah
+              FROM txn_lab_issues tli
+              JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
+              JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
+              WHERE tli.ID_Pelapor = ? AND tli.ID_Masalah = ?"; // Menambahkan kondisi untuk ID_Masalah
+
+    $stmt = mysqli_prepare($conn, $query);
+    // Menambahkan parameter untuk ID_Masalah dalam mysqli_stmt_bind_param
+    mysqli_stmt_bind_param($stmt, "ii", $idPelapor, $idMasalah);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $laporan = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_stmt_close($stmt);
+
+    return $laporan;
+}
+
 
 
 function submitEditLaporan($conn, $id_masalah, $nama_lab, $nama_aset, $aset_no, $deskripsi_masalah) {

@@ -51,12 +51,7 @@ function detailLaporan($conn, $id_masalah){
 
 }
 
-if(isset($_GET['id_pengguna'])) {
-    $id_pengguna = $_GET['id_pengguna'];
-    $data = getDetailDataById($conn, $id_pengguna);
-    header('Content-Type: application/json');
-    echo json_encode($data);
-}
+
 
 
 // reports asisten
@@ -65,10 +60,20 @@ function getLaporanSayaAjax($conn) {
     header('Content-Type: application/json');
     echo json_encode($allLaporanSaya);
 }
+// get data laporan saya by id #detail
 function getLaporanSayaByIdAjax($conn) {
     if(isset($_GET['id_masalah'])) {
         $id_masalah = $_GET['id_masalah'];
         $allLaporanSayaById = getLaporanByIdMasalah($conn, $id_masalah);
+        header('Content-Type: application/json');
+        echo json_encode($allLaporanSayaById);
+    }
+}
+// get data laporan saya by id #edit
+function getLaporanSayaByIdEditAjax($conn) {
+    if(isset($_GET['id_masalah'])) {
+        $id_masalah = $_GET['id_masalah'];
+        $allLaporanSayaById = getLaporanSayaEdit($conn, $id_masalah);
         header('Content-Type: application/json');
         echo json_encode($allLaporanSayaById);
     }
