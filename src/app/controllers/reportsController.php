@@ -6,34 +6,38 @@ function getLaporanMasukAjax($conn) {
     header('Content-Type: application/json');
     echo json_encode($dataLaporan);
 }
+function setujuiLaporanAjax($conn) {
+    header('Content-Type: application/json');
+    $response = array('success' => false, 'message' => '');
 
-function setujuiLaporan($conn) {
-    $allSuccess = true;
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id_masalah = $_POST['id_masalah'] ?? '';
+        $batas_waktu = $_POST['batas_waktu'] ?? '';
+        $deskripsi_tambahan = $_POST['deskripsi_tambahan'] ?? '';
+        $teknisi = $_POST['teknisi'] ?? []; // Asumsikan teknisi dikirim sebagai array
 
-    foreach ($_POST['id_masalah'] as $id_masalah) {
-        $batasWaktuField = 'batas_waktu_' . $id_masalah;
-        $idTeknisiField = 'id_teknisi_' . $id_masalah;
-        $deskripsiMasalahField = 'deskripsi_masalah_' . $id_masalah;
+        // Anda bisa menambahkan validasi disini jika perlu
+        // Misalnya, validasi apakah semua field wajib terisi
 
-        if (isset($_POST[$batasWaktuField]) && isset($_POST[$idTeknisiField])) {
-            $batas_waktu = $_POST[$batasWaktuField];
-            $id_teknisi = $_POST[$idTeknisiField];
-            $deskripsi_masalah = $_POST[$deskripsiMasalahField] ?? null;
+        // Jika validasi berhasil, lanjutkan dengan proses penyimpanan data
+        $result = approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_tambahan, $teknisi);
 
-            if (!approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_masalah, $id_teknisi)) {
-                $allSuccess = false;
-                $_SESSION['gagal_message'] = "Persetujuan Laporan Gagal";
-                break;
-            }
+        if ($result) {
+            // Berhasil menyimpan data
+            $response['success'] = true;
+            $response['message'] = 'Tugas berhasil diberikan kepada teknisi.';
+        } else {
+            // Gagal menyimpan data
+            $response['message'] = 'Gagal memberikan tugas.';
         }
+    } else {
+        $response['message'] = 'Invalid request method.';
     }
 
-    if ($allSuccess) {
-        $_SESSION['setuju_message'] = "Laporan Telah Disetujui";
-    }
-
-    header("Location: index.php?action=reports");
+    echo json_encode($response);
+    exit;
 }
+
 
 
 function tolakLaporan($conn, $id_masalah){

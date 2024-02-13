@@ -15,56 +15,52 @@ function getDataLaporan($conn) {
     return $laporan;
 }
 
-
-function approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_masalah,$id_teknisi) {
-     // Mempersiapkan pernyataan SQL dengan placeholder
-     $sql = "UPDATE txn_lab_issues
-     SET Batas_Waktu = ?,
-         Status_Masalah = 'Disetujui',
-         Deskripsi_Masalah = ?
-     WHERE ID_Masalah = ?";
+function approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_tambahan, $teknisi) {
+    // Perbarui txn_lab_issues dengan Batas_Waktu, Status_Masalah, dan Deskripsi_Tambahan
+    $sql = "UPDATE txn_lab_issues
+            SET Batas_Waktu = ?,
+                Status_Masalah = 'Disetujui',
+                Deskripsi_Tambahan = ?
+            WHERE ID_Masalah = ?";
 
     // Mempersiapkan pernyataan
     $stmt = mysqli_prepare($conn, $sql);
 
     // Mengikat parameter
-    mysqli_stmt_bind_param($stmt, 'ssi', $batas_waktu, $deskripsi_masalah, $id_masalah);
+    mysqli_stmt_bind_param($stmt, 'ssi', $batas_waktu, $deskripsi_tambahan, $id_masalah);
 
     // Menjalankan query
-    mysqli_stmt_execute($stmt);
+    if (!mysqli_stmt_execute($stmt)) {
+        mysqli_stmt_close($stmt);
+        return false; // Gagal menjalankan query
+    }
 
     // Menutup statement
     mysqli_stmt_close($stmt);
 
-    // Second, update or insert the ID_Teknisi in master_teknisi_task
-    // Check if a record already exists for this ID_Masalah
-    $query_check = "SELECT * FROM master_teknisi_task WHERE ID_Masalah = ?";
-    $stmt_check = mysqli_prepare($conn, $query_check);
-    mysqli_stmt_bind_param($stmt_check, "i", $id_masalah);
-    mysqli_stmt_execute($stmt_check);
-    $result_check = mysqli_stmt_get_result($stmt_check);
-    mysqli_stmt_close($stmt_check);
+    // Hapus semua entri teknisi sebelumnya untuk ID_Masalah ini
+    $delete_query = "DELETE FROM master_teknisi_task WHERE ID_Masalah = ?";
+    $stmt_delete = mysqli_prepare($conn, $delete_query);
+    mysqli_stmt_bind_param($stmt_delete, "i", $id_masalah);
+    mysqli_stmt_execute($stmt_delete);
+    mysqli_stmt_close($stmt_delete);
 
-    if ($result_check && mysqli_num_rows($result_check) > 0) {
-        // If a record exists, update it
-        $query_teknisi = "UPDATE master_teknisi_task SET ID_Pengguna = ? WHERE ID_Masalah = ?";
-        $stmt_teknisi = mysqli_prepare($conn, $query_teknisi);
-        if (!$stmt_teknisi || !mysqli_stmt_bind_param($stmt_teknisi, "ii", $id_teknisi, $id_masalah) || !mysqli_stmt_execute($stmt_teknisi)) {
-            return false;
+    // Insert semua teknisi baru untuk ID_Masalah ini
+    foreach ($teknisi as $id_teknisi_single) {
+        $insert_query = "INSERT INTO master_teknisi_task (ID_Pengguna, ID_Masalah) VALUES (?, ?)";
+        $stmt_insert = mysqli_prepare($conn, $insert_query);
+        if (!$stmt_insert || !mysqli_stmt_bind_param($stmt_insert, "ii", $id_teknisi_single, $id_masalah) || !mysqli_stmt_execute($stmt_insert)) {
+            mysqli_stmt_close($stmt_insert);
+            return false; // Gagal memasukkan data teknisi
         }
-        mysqli_stmt_close($stmt_teknisi);
-    } else {
-        // If no record exists, insert a new one
-        $query_teknisi = "INSERT INTO master_teknisi_task (ID_Pengguna, ID_Masalah) VALUES (?, ?)";
-        $stmt_teknisi = mysqli_prepare($conn, $query_teknisi);
-        if (!$stmt_teknisi || !mysqli_stmt_bind_param($stmt_teknisi, "ii", $id_teknisi, $id_masalah) || !mysqli_stmt_execute($stmt_teknisi)) {
-            return false;
-        }
-        mysqli_stmt_close($stmt_teknisi);
+        mysqli_stmt_close($stmt_insert);
     }
 
-    return true;
+    return true; // Sukses
 }
+
+
+
 function rejectReport($conn, $id_masalah){
     $query = "DELETE FROM txn_lab_issues WHERE ID_Masalah = ?";
     $stmt = mysqli_prepare($conn, $query);

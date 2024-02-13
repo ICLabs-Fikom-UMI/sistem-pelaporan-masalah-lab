@@ -19,20 +19,29 @@ function toggleDropdownMenu(menuId) {
     }, 300); // Waktu sesuai durasi transisi
   }
 }
-// filter data table
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase(); // Konversi filter ke huruf besar
-  table = document.getElementById("beranda-table"); // Ganti 'beranda-table' dengan ID tabel yang benar
-  tr = table.getElementsByTagName("tr");
 
-  for (i = 1; i < tr.length; i++) {
-    // Asumsi status berada di kolom ke-5 (indeks 4)
-    td = tr[i].getElementsByTagName("td")[5]; // Sesuaikan indeks dengan posisi kolom "Status"
+// dropdown pilih teknisi
+function toggleDropdownPilihTeknisi() {
+  const dropdown = document.getElementById("dropdownPilihTeknisi");
+  dropdown.classList.toggle("hidden");
+}
+// filter data table
+function myFunction(selectElement) {
+  var filter = selectElement.value.toUpperCase(); // Ambil nilai filter
+  var tableId = selectElement.getAttribute("data-table-id"); // Ambil ID tabel dari data attribute
+  var table = document.getElementById(tableId);
+  if (!table) {
+    console.log("Tabel tidak ditemukan: ", tableId);
+    return; // Keluar dari fungsi jika tabel tidak ditemukan
+  }
+
+  var tr = table.getElementsByTagName("tr");
+
+  for (var i = 1; i < tr.length; i++) {
+    var td = tr[i].getElementsByTagName("td")[5]; // Anggap kolom status adalah kolom ke-6
     if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (filter === "SEMUA" || txtValue.toUpperCase() === filter) {
+      var txtValue = td.textContent || td.innerText;
+      if (filter === "SEMUA" || txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";

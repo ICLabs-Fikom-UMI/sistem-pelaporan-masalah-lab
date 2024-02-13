@@ -94,6 +94,9 @@ switch ($action) {
     case 'nama-lab':
         getNamaLabAjax($conn);
         break;
+    case 'berikanTugas':
+        setujuiLaporanAjax($conn);
+        break;
     case 'reports':
         if(isset($_SESSION['user_id'])){
             // Check if the user's role is 'korlab'
@@ -109,9 +112,7 @@ switch ($action) {
         }
             break;
         }
-    case 'berikanTugas':
-        setujuiLaporan($conn);
-        break;
+
     case 'tolakLaporan':
         $id_masalah = $_GET['id_masalah'] ?? null;
         if($id_masalah){

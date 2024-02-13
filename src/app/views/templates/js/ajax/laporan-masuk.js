@@ -58,13 +58,11 @@ function loadDataLaporanMasukById(id_masalah) {
   );
   xhr.send();
 }
+
 function fillPopUpDataLaporanMasuk(data) {
   if (data && data.dataDetailLaporan.hasOwnProperty("Nama_Lab")) {
     let detailLaporan = data.dataDetailLaporan;
     let users = data.dataUser;
-
-    console.log("detailLaporan:", detailLaporan);
-    console.log("di fungsi fillPopUpDataLaporanMasuk:");
     let statusText;
     if (data.Status_Masalah === "Selesai") {
       statusText = "Selesai";
@@ -76,40 +74,98 @@ function fillPopUpDataLaporanMasuk(data) {
 
     var table = document.getElementById("detailTable");
     let htmlContent = `
-          <tr><td class="font-semibold md:pr-28 py-4">Nama Ruangan</td><td>: ${
-            detailLaporan.Nama_Lab || ""
-          }</td></tr>
-          <tr><td class="font-semibold md:pr-28 py-4">Jenis Barang</td><td>: ${
-            detailLaporan.Nama_Aset || ""
-          }</td></tr>
-          <tr><td class="font-semibold pr-12 md:pr-24 py-4">Nomor</td><td>: ${
-            detailLaporan.Nomor_Unit || ""
-          }</td></tr>
-          <tr>
-          <td class="font-semibold md:pr-28 py-4">Deskripsi Masalah</td>
-          <td>: ${detailLaporan.Deskripsi_Masalah || ""}</td>
-          </tr>
-          <tr><td class="font-semibold md:pr-28 py-4">Tanggal Laporan</td><td>: ${
-            detailLaporan.Tanggal_Pelaporan || ""
-          }</td></tr>
-          <tr ><td class="font-semibold md:pr-28 py-4">Pilih Teknisi</td><td> <select multiple id="teknisiDropdown" class="w-full border border-gray-300 p-2 rounded-md">
-        `;
+            <tr><td class="font-semibold md:pr-28 py-4">Nama Ruangan</td><td>: ${
+              detailLaporan.Nama_Lab || ""
+            }</td></tr>
+            <tr><td class="font-semibold md:pr-28 py-4">Jenis Barang</td><td>: ${
+              detailLaporan.Nama_Aset || ""
+            }</td></tr>
+            <tr><td class="font-semibold pr-12 md:pr-24 py-4">Nomor</td><td>: ${
+              detailLaporan.Nomor_Unit || ""
+            }</td></tr>
+            <tr>
+            <td class="font-semibold md:pr-28 py-4">Deskripsi Masalah</td>
+            <td>: ${detailLaporan.Deskripsi_Masalah || ""}</td>
+            </tr>
+            <tr><td class="font-semibold md:pr-28 py-4">Tanggal Laporan</td><td>: ${
+              detailLaporan.Tanggal_Pelaporan || ""
+            }</td></tr>
+            <tr>
+            <td class="font-semibold md:pr-28 py-4">Pilih Teknisi</td>
+            <td>
+                <div id="teknisiContainer" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+    `;
 
-    // Menambahkan options ke dropdown dari dataUser
-    users.forEach((user) => {
-      htmlContent += `<option value="${user.ID}">${user.Nama_Depan}</option>`;
+    // Menambahkan checkbox untuk setiap teknisi dengan container scrollable dan grid layout
+    users.forEach((user, index) => {
+      // Pastikan setiap id unik dengan menggunakan index atau user.ID
+      const checkboxId = `teknisi${user.ID_Pengguna}`;
+      htmlContent += `<div><input type="checkbox" id="${checkboxId}" name="teknisi[]" value="${user.ID_Pengguna}">
+      <label for="${checkboxId}">${user.Nama_Depan}</label></div>`;
     });
 
-    htmlContent += `</select></td></tr>`;
-
+    htmlContent += `
+                </div>
+            </td>
+            </tr>
+            <!-- Isi tabel setelahnya -->
+    `;
     // Baris baru untuk input "Batas Waktu"
-    htmlContent += `<tr><td class="font-semibold md:pr-28 py-4">Batas Waktu</td><td><input id="batas_waktu" type="date" class="w-full border border-gray-300 p-2 rounded-md"></td></tr>`;
+    htmlContent += `<tr><td class="font-semibold md:pr-28 py-4">Batas Waktu</td><td><input name="batas_waktu" id="batas_waktu" type="date" class="w-full border border-gray-300 p-2 rounded-md"></td></tr>`;
 
     // Baris baru untuk input "Deskripsi Tambahan"
-    htmlContent += `<tr><td class="font-semibold md:pr-28 py-4">Deskripsi Tambahan</td><td><textarea class="w-full border border-gray-300 p-2 rounded-md"></textarea></td></tr>`;
+    htmlContent += `<tr><td class="font-semibold md:pr-28 py-4">Deskripsi Tambahan</td><td><textarea id="deskripsi_tambahan" class="w-full border border-gray-300 p-2 rounded-md"></textarea></td></tr>`;
+    // Tombol untuk mengirim data
+    htmlContent += `
+        <tr><td colspan="2" class="text-center py-4"><button type="button" class="px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none" onclick="submitSetujuLaporanMasuk(${detailLaporan.ID_Masalah})">Kirim</button></td></tr>
+    `;
 
     table.innerHTML = htmlContent;
   } else {
     console.log("Data tidak ditemukan");
   }
+}
+
+// setujui laporan masuk
+
+// Mengadaptasi `submitSetujuLaporanMasuk` untuk digunakan di sini
+function submitSetujuLaporanMasuk(idMasalah) {
+  var batasWaktu = document.getElementById("batas_waktu").value;
+  var deskripsiTambahan = document.getElementById("deskripsi_tambahan").value;
+  var formData = new FormData();
+  formData.append("id_masalah", idMasalah);
+  formData.append("batas_waktu", batasWaktu);
+  formData.append("deskripsi_tambahan", deskripsiTambahan);
+
+  // Mengumpulkan ID teknisi yang dipilih
+  // Pastikan nama selector sesuai dengan nama checkbox saat ditambahkan
+  var checkboxes = document.querySelectorAll('input[name="teknisi[]"]:checked'); // Sesuaikan nama berdasarkan atribut `name` dari checkbox
+  checkboxes.forEach((checkbox) => {
+    formData.append("teknisi[]", checkbox.value); // Sesuaikan nama parameter sesuai kebutuhan backend/API
+  });
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "index.php?action=berikanTugas", true);
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      var response = JSON.parse(xhr.responseText); // Menambahkan parsing JSON
+      // Cek apakah operasi berhasil
+      if (response.success) {
+        // Operasi berhasil, tampilkan pesan sukses
+        alert(response.message);
+        loadLaporanMasuk(); // Memuat ulang data
+        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+      } else {
+        // Operasi gagal, tampilkan pesan error
+        alert(response.message);
+      }
+    } else {
+      // Handle error
+      console.error("Error status:", xhr.status);
+    }
+  };
+  xhr.onerror = function () {
+    console.error("Request error.");
+  };
+  xhr.send(formData);
 }
