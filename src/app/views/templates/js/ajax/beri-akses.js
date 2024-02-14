@@ -12,7 +12,7 @@ function loadBeriTugas() {
 
 function fillTableBeriAkses(data) {
   var table = document.getElementById("beri-akses-table");
-  var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200">
+  var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
                             <th class="py-2">No</th>
                             <th>Foto</th>
                             <th>Nama Pengguna</th>
@@ -161,7 +161,7 @@ function saveChanges(idPengguna) {
     alert("Gagal mengirimkan request");
   };
   xhr.send(formData);
-  closePopup();
+  pup();
 }
 // reset password pengguna
 function resetPasswordPengguna(idPengguna) {

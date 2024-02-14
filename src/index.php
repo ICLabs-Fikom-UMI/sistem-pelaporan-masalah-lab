@@ -87,6 +87,12 @@ switch ($action) {
     case 'laporan-cepat':
         laporanCepat($conn);
         break;
+    case 'tasksDetail':
+        taskDetailAjax($conn);
+        break;
+    case 'tasksPenyelesaian':
+        tasksPenyelesaianAjax($conn);
+        break;
     // templates
     case 'jenis-barang':
         getJenisBarangAjax($conn);
@@ -133,12 +139,7 @@ switch ($action) {
     case 'tasks':
         showTasksView($conn);
         break;
-    case 'tasksDetail':
-        taskDetail($conn);
-        break;
-    case 'tasksPenyelesaian':
-        tasksPenyelesaian($conn);
-        break;
+
     case 'labs':
         showLabsView($conn);
         break;

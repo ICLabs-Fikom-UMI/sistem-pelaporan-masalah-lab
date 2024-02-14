@@ -12,7 +12,7 @@ function loadLaporanSaya() {
 
 function fillTableLaporanSaya(data) {
   var table = document.getElementById("laporan-saya-table");
-  var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200">
+  var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
                         <th class="py-2">No</th>
                         <th >Nama Ruangan</th>
                         <th>Jenis Barang</th>

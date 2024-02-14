@@ -37,7 +37,7 @@ function getAllTaskById($conn) {
 function getTaskById($conn, $id_masalah) {
     // Prepare the SQL query
     $query = "SELECT tli.ID_Masalah, tli.Tanggal_Pelaporan, ml.Nama_Lab, mal.Nama_Aset,
-                     tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Batas_Waktu,
+                     tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Deskripsi_Tambahan,tli.Batas_Waktu, tli.Status_Masalah,
                      mu.Nama_Depan as Teknisi
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab

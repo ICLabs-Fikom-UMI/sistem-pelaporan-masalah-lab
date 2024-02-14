@@ -12,7 +12,7 @@ function loadLaporanMasuk() {
 
 function fillTableLaporanMasuk(data) {
   var table = document.getElementById("laporan-masuk-table");
-  var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200">
+  var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
                           <th class="py-2">No</th>
                           <th>Nama Ruangan</th>
                           <th>Jenis Barang</th>
@@ -139,10 +139,6 @@ function submitSetujuLaporanMasuk(idMasalah) {
 
   // Mengumpulkan ID teknisi yang dipilih
   // Pastikan nama selector sesuai dengan nama checkbox saat ditambahkan
-  var checkboxes = document.querySelectorAll('input[name="teknisi[]"]:checked'); // Sesuaikan nama berdasarkan atribut `name` dari checkbox
-  checkboxes.forEach((checkbox) => {
-    formData.append("teknisi[]", checkbox.value); // Sesuaikan nama parameter sesuai kebutuhan backend/API
-  });
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "index.php?action=berikanTugas", true);

@@ -6,56 +6,61 @@ function getTugasAjax($conn) {
     echo json_encode($reports);
 }
 
-function taskDetail($conn){
+function taskDetailAjax($conn){
     $id_masalah = $_GET['id_masalah'] ?? null;
-
-    // fetch data reports and reports by id
-    $reports =getAllTaskById($conn);
-    $reportsById = getTaskById($conn, $id_masalah);
-    include('/var/www/html/app/views/tasks/tasks.php');
+    if($id_masalah){
+        $reportsById = getTaskById($conn, $id_masalah);
+        header('Content-Type: application/json');
+        echo json_encode($reportsById);
+    } else {
+        $response = [
+            'error' => 'ID Masalah tidak ditemukan'
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
 }
+function tasksPenyelesaianAjax($conn) {
+    header('Content-Type: application/json');
+    $response = array('success' => false, 'message' => '');
 
-function tasksPenyelesaian($conn) {
-    $id_masalah = $_POST['id_masalah'];
-    $foto_path = $_FILES['foto'];
-    $komentar = isset($_POST['komentar']) ? $_POST['komentar'] : '-';
-    $targetDir = "public/foto/";
-    $fileType = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
+    // Pastikan request adalah POST dan file telah diupload
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['foto_input']['name'])) {
+        $id_masalah = $_POST['id_masalah'] ?? '';
+        $komentar = $_POST['komentar_input'] ?? '-';
+        $targetDir = "public/foto/";
+        $fileType = pathinfo($_FILES["foto_input"]["name"], PATHINFO_EXTENSION);
 
-    // Membuat nama file baru dengan format task_[id_masalah]_[timestamp].[ekstensi]
-    $timestamp = time();
-    $fileName = "task_{$id_masalah}_{$timestamp}.{$fileType}";
-    $targetFilePath = $targetDir . $fileName;
+        // Membuat nama file baru
+        $timestamp = time();
+        $fileName = "task_{$id_masalah}_{$timestamp}.{$fileType}";
+        $targetFilePath = $targetDir . $fileName;
 
-    $uploadSuccess = false;
-
-    if(isset($_POST["submit"]) && !empty($_FILES["foto"]["name"])){
         // Izinkan format file tertentu
         $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
         if(in_array($fileType, $allowTypes)){
             // Unggah file ke server
-            if(move_uploaded_file($_FILES["foto"]["tmp_name"], $targetFilePath)){
-                // File berhasil diunggah
-                $uploadSuccess = true;
+            if(move_uploaded_file($_FILES["foto_input"]["tmp_name"], $targetFilePath)){
+                $fileNameInDb = "public/foto/{$fileName}";
+                $updateResult = updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar);
+                if ($updateResult) {
+                    $response['success'] = true;
+                    $response['message'] = "Anda berhasil menyelesaikan tugas.";
+                } else {
+                    $response['message'] = "Gagal memperbarui database.";
+                }
             } else{
-                $error_msg = "Gagal mengunggah file Anda.";
+                $response['message'] = "Gagal mengunggah file.";
             }
         } else{
-            $error_msg = "Maaf, hanya file JPG, JPEG, PNG, & GIF yang diizinkan.";
+            $response['message'] = "Maaf, hanya file JPG, JPEG, PNG, & GIF yang diizinkan.";
         }
+    } else {
+        $response['message'] = "Tidak ada data atau file yang dikirim.";
     }
 
-    if ($uploadSuccess) {
-        $fileNameInDb = "public/foto/{$fileName}";
-        $updateResult = updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar);
-        if ($updateResult) {
-            $_SESSION['Success_Message'] = "Anda berhasil Menyelesaikan tugas.";
-        } else {
-            $_SESSION['Error_Message'] = "Gagal memperbarui data.";
-        }
-    }
-
-    $reports = getAllTaskById($conn);
-    include('/var/www/html/app/views/tasks/tasks.php');
+    echo json_encode($response);
+    exit;
 }
+
 ?>

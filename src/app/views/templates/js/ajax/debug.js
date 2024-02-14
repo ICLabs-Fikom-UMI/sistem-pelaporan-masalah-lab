@@ -134,7 +134,7 @@ function saveChanges(idPengguna) {
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       alert("Data berhasil disimpan");
-      closePopup(); // Tutup modal
+      // Tutup modal
       // Opsional: Segarkan data pada halaman
     } else {
       alert("Terjadi kesalahan saat menyimpan data");
