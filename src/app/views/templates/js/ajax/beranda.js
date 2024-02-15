@@ -53,7 +53,6 @@ function loadDetailDataBeranda(id_masalah) {
   );
   xhr.send();
 }
-
 function fillPopUpDetailBeranda(data) {
   if (data.length > 0) {
     const detailData = data[0]; // Mengambil objek pertama dari array
@@ -65,34 +64,79 @@ function fillPopUpDetailBeranda(data) {
     } else {
       statusText = detailData.Status_Masalah;
     }
+
     var table = document.getElementById("detailTable");
+
+    let fotoRow = ""; // Inisialisasi string kosong untuk baris foto
+    let komentarRow = ""; // Inisialisasi string kosong untuk baris komentar
+
+    // Menambahkan baris foto jika Foto_Path tidak kosong atau Status_Masalah adalah "Selesai"
+    if (detailData.Foto_Path || detailData.Status_Masalah === "Selesai") {
+      fotoRow = `<tr><td class="font-semibold md:pr-40 py-4">Foto</td><td class="flex items-center">: <img src="${
+        detailData.Foto_Path || "#"
+      }" alt="Foto Masalah" class="w-36 h-36" onclick="showFullSizeImage('${
+        detailData.Foto_Path
+      }')"></td></tr>`;
+    }
+
+    // Menambahkan baris komentar jika Status_Masalah adalah "Selesai"
+    if (detailData.Status_Masalah === "Selesai") {
+      komentarRow = `<tr><td class="font-semibold md:pr-40 py-4">Komentar</td><td>: ${
+        detailData.Komentar || "Tidak ada komentar"
+      }</td></tr>`;
+    }
+
     table.innerHTML = `
-            <tr><td class="font-semibold md:pr-40 py-4">Nama Ruangan</td><td>: ${
-              (detailData.Nama_Lab || "") +
-              " " +
-              (detailData.Nama_Belakang || "")
-            }</td></tr>
-            <tr><td class="font-semibold md:pr-40 py-4">Jenis Barang</td><td>: ${
-              detailData.Nama_Aset || ""
-            }</td></tr>
-            <tr><td class="font-semibold md:pr-40 py-4">Nomor</td><td>: ${
-              detailData.Nomor_Unit || ""
-            }</td></tr>
-            <tr>
-            <td class="font-semibold md:pr-40 py-4 w-48">Deskripsi Masalah</td>
-            <td>: ${detailData.Deskripsi_Masalah || ""}</td>
-            </tr>
-            <tr><td class="font-semibold md:pr-40 py-4">Teknisi</td><td>: ${
-              detailData.teknisi || ""
-            }</td></tr>
-            <tr><td class="font-semibold md:pr-40 py-4">Status</td><td>: ${
-              statusText || ""
-            }</td></tr>
-            <tr><td class="font-semibold md:pr-40 py-4">Batas Waktu</td><td>: ${
-              detailData.Batas_Waktu || ""
-            }</td></tr>
-            `;
+              <tr><td class="font-semibold md:pr-40 py-4">Nama Ruangan</td><td>: ${
+                detailData.Nama_Lab || ""
+              }</td></tr>
+              <tr><td class="font-semibold md:pr-40 py-4">Jenis Barang</td><td>: ${
+                detailData.Nama_Aset || ""
+              }</td></tr>
+              <tr><td class="font-semibold md:pr-40 py-4">Nomor</td><td>: ${
+                detailData.Nomor_Unit || ""
+              }</td></tr>
+              <tr>
+              <td class="font-semibold md:pr-40 py-4 w-48">Deskripsi Masalah</td>
+              <td>: ${detailData.Deskripsi_Masalah || ""}</td>
+              </tr>
+              <tr><td class="font-semibold md:pr-40 py-4">Teknisi</td><td>: ${
+                detailData.teknisi || ""
+              }</td></tr>
+              <tr><td class="font-semibold md:pr-40 py-4">Status</td><td>: ${
+                statusText || ""
+              }</td></tr>
+              <tr><td class="font-semibold md:pr-40 py-4">Batas Waktu</td><td>: ${
+                detailData.Batas_Waktu || ""
+              }</td></tr>
+              ${fotoRow}
+              ${komentarRow}
+              `;
   } else {
     console.log("Data tidak ditemukan"); // Jika tidak ada data yang ditemukan
+  }
+}
+
+// fullscreen image
+function showFullSizeImage(imageSrc) {
+  if (imageSrc) {
+    // Open a new window
+    var imageWindow = window.open("", "_blank");
+
+    // Add HTML content to the new window
+    imageWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Full Size Image</title>
+            </head>
+            <body style="background-color: rgba(0, 0, 0, 0.5); ">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <button onclick="window.close();">Close</button>
+                    <img src="${imageSrc}" style="max-width: 100%; height: 90vh;">
+                </div>
+            </body>
+            </html>
+        `);
   }
 }

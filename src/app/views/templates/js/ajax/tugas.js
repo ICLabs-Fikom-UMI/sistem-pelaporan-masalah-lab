@@ -169,15 +169,10 @@ function fillPopUpDetailTugasPenyelesaian(data) {
 
 // submit penyelesaian laporan
 function submitPenyelesaianLaporan(id_masalah) {
-  console.log("id_masalah:", id_masalah);
-  console.log("submitPenyelesaianLaporan terklick");
   var xhr = new XMLHttpRequest();
   var formData = new FormData();
   var foto = document.getElementById("foto_input").files[0];
   var komentar = document.getElementById("komentar_input").value;
-
-  console.log("foto:", foto); // Debug file foto
-  console.log("komentar:", komentar);
 
   // Pastikan id ini sesuai dengan HTML Anda
   formData.append("id_masalah", id_masalah);
@@ -188,7 +183,6 @@ function submitPenyelesaianLaporan(id_masalah) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       try {
         var data = JSON.parse(xhr.responseText);
-        console.log("data:", data);
         if (data.success) {
           // Gunakan ini untuk pengecekan status
           alert(data.message);

@@ -18,7 +18,7 @@ function getAllPermasalahanLab($conn) {
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
-              WHERE tli.Status_Masalah = 'Disetujui'
+              WHERE tli.Status_Masalah = 'Disetujui' OR tli.Status_Masalah = 'Selesai'
               GROUP BY tli.ID_Masalah"; // Tambahkan GROUP BY untuk menghindari duplikasi
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_execute($stmt);
@@ -55,13 +55,14 @@ function getTeknisiByMasalah($conn, $idMasalah) {
 
 function getDetailDataBerandaById($conn, $id_masalah) {
     $query = "SELECT tli.ID_Masalah, mal.Nama_Aset, ml.Nama_Lab, tli.Nomor_Unit,
-                     tli.Deskripsi_Masalah, tli.Batas_Waktu, tli.Status_Masalah, mu.Nama_Depan AS Nama_Pengguna
+                     tli.Deskripsi_Masalah, tli.Batas_Waktu, tli.Status_Masalah,
+                     tli.Foto_Path, tli.Komentar, mu.Nama_Depan AS Nama_Pengguna
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
               LEFT JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
               LEFT JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
-              WHERE tli.Status_Masalah = 'Disetujui' AND tli.ID_Masalah = ?";
+              WHERE tli.Status_Masalah IN ('Disetujui', 'Selesai') AND tli.ID_Masalah = ?";
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $id_masalah);
@@ -82,4 +83,5 @@ function getDetailDataBerandaById($conn, $id_masalah) {
 
     return $permasalahanLab;
 }
+
 ?>
