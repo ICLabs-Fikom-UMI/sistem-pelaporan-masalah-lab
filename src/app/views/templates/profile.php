@@ -8,8 +8,8 @@
 
                             </table>
                             <div class="w-[600px] ">
-                                <img src="https://i.pinimg.com/736x/34/47/81/344781876ce2bac3ea5da07b3e1d2baa.jpg"
-                                    alt="" class="w-48 h-48 rounded-full">
+                                <img src=""
+                                    alt="" class="w-48 h-48 rounded-full" id="foto-profile">
                             </div>
                         </div>
                     </div>

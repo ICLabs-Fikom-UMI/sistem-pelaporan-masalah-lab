@@ -93,6 +93,10 @@ switch ($action) {
     case 'tasksPenyelesaian':
         tasksPenyelesaianAjax($conn);
         break;
+    // profile
+    case 'uploadFotoProfile':
+        processUploadFotoProfile($conn);
+        break;
     // templates
     case 'jenis-barang':
         getJenisBarangAjax($conn);

@@ -52,11 +52,11 @@
                                         alt="" class="w-48 h-48 rounded-full">
                                     <div class="">
                                         <!-- Input File tersembunyi -->
-                                        <input type="file" id="fileInput" style="display: none;">
+                                        <input type="file" id="fileInput" style="display: none;" class="foto_input" name="foto">
                                         <!-- Tombol untuk memicu Input File -->
-                                        <button id="uploadButton"
-                                            class="mt-5 py-1 px-6 bg-[#C2C2C2] hover:bg-[#8A8888] hover:text-white rounded-md">Upload
-                                            File</button>
+                                        <button id="uploadButton" class="mt-5 py-1 px-6 bg-[#C2C2C2] hover:bg-[#8A8888] hover:text-white rounded-md">
+                                            Upload File <span id="loadingText"></span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

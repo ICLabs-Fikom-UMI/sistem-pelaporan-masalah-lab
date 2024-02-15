@@ -56,6 +56,7 @@ function getDetailDataById($conn, $id_pengguna) {
                    master_user.Nama_Belakang,
                    master_user.Nim,
                    master_user.Email,
+                   master_user.Foto_Path,
                    master_roles.Nama_Peran
             FROM master_user
             INNER JOIN master_roles ON master_user.ID_Peran = master_roles.ID_Peran

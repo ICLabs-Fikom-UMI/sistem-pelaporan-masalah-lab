@@ -18,7 +18,9 @@ function fillTable(data) {
   var tableHTML = `
         <tr class="flex justify-start items-center">
             <th class="font-semibold w-80 p-5 mb-2 text-start">Nama Pengguna</th>
-            <td class="font-normal w-full"><p>${data.Nama_Depan}  ${data.Nama_Belakang}</p></td>
+            <td class="font-normal w-full"><p>${data.Nama_Depan}  ${
+    data.Nama_Belakang || ""
+  }</p></td>
         </tr>
         <tr class="flex justify-start items-center mb-2">
             <th class="font-semibold w-80 p-5 text-start">Email</th>
@@ -44,6 +46,16 @@ function fillTable(data) {
   const tableProfile = document.getElementById("tableProfile");
   if (tableProfile) {
     tableProfile.innerHTML = tableHTML;
+    // Set Foto_Path jika ada
+    if (data.Foto_Path) {
+      document.getElementById("foto-profile").src = data.Foto_Path;
+    } else {
+      // Jika tidak ada Foto_Path, gunakan placeholder atau sembunyikan gambar
+      document.getElementById("foto-profile").src =
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png"; // Ganti dengan path ke gambar default Anda atau kosongkan
+    }
+
+    // Tambahkan listener untuk tombol "Ubah data"
     document
       .getElementById("ubahDataBtn")
       .addEventListener("click", function () {
