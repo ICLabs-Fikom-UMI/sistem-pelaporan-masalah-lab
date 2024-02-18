@@ -1,5 +1,6 @@
 
 <script src="app/views/templates/js/ajax/profile.js"></script>
+<script src="app/views/templates/js/ajax/ubah-data-profile.js"></script>
 <script src="app/views/templates/js/ajax/beranda.js"></script>
 <script src="app/views/templates/js/ajax/beri-akses.js"></script>
 <script src="app/views/templates/js/ajax/tugas.js"></script>

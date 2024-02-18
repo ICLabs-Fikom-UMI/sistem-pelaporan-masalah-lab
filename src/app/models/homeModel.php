@@ -11,7 +11,6 @@ function setLaporanCepat($id_lab, $id_aset, $no_unit, $deskripsi, $ID_Pelapor, $
         return false;
     }
 }
-
 function getAllPermasalahanLab($conn) {
     $query = "SELECT tli.ID_Masalah, mal.Nama_Aset, ml.Nama_Lab, tli.Nomor_Unit,
                      tli.Deskripsi_Masalah, tli.Batas_Waktu, tli.Status_Masalah
@@ -19,7 +18,7 @@ function getAllPermasalahanLab($conn) {
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
               WHERE tli.Status_Masalah = 'Disetujui' OR tli.Status_Masalah = 'Selesai'
-              GROUP BY tli.ID_Masalah"; // Tambahkan GROUP BY untuk menghindari duplikasi
+              GROUP BY tli.ID_Masalah";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -29,8 +28,15 @@ function getAllPermasalahanLab($conn) {
         $permasalahanLab[] = $row;
     }
 
-    return $permasalahanLab;
+    // Menambahkan jumlah data ke dalam array yang dikembalikan
+    $responseData = [
+        'jumlahData' => count($permasalahanLab),
+        'data' => $permasalahanLab
+    ];
+
+    return $responseData;
 }
+
 
 
 function getTeknisiByMasalah($conn, $idMasalah) {

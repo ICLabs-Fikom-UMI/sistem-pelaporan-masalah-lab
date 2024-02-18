@@ -1,10 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
   fetch("index.php?action=beranda") // Sesuaikan URL sesuai dengan setup Anda
     .then((response) => response.json())
-    .then((data) => {
+    .then((responseData) => {
       const table = document.getElementById("beranda-table");
       let tableHTML = "";
-      data.forEach((item, index) => {
+      table.innerHTML = `
+      <tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
+          <th class="py-2">No</th>
+          <th class="">Nama Ruangan</th>
+          <th>Jenis Barang</th>
+          <th>Nomor</th>
+          <th>Batas Waktu</th>
+          <th>Status</th>
+          <th>Detail</th>
+      </tr>
+    `; // Menambahkan kembali header tabel
+      responseData.data.forEach((item, index) => {
         let statusText;
         if (item.Status_Masalah === "Selesai") {
           statusText = "Selesai";
@@ -32,6 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
             `;
       });
+      // Opsional: Tampilkan jumlahData jika diperlukan
+      tableHTML += `
+      <tr class="border-t-2 sticky bottom-0 bg-white">
+        <td colspan="7" class="py-2 text-center font-semibold">Total Data: ${responseData.jumlahData}</td>
+     </tr>
+    `;
       table.innerHTML += tableHTML;
     })
     .catch((error) => console.error("Error loading the table data:", error));

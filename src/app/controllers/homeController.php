@@ -3,14 +3,18 @@
 include_once('/var/www/html/app/models/homeModel.php');
 include_once('/var/www/html/app/models/utility/dataModel.php');
 
-    function getPermasalahanLabAjax($conn) {
-        $permasalahanLab = getAllPermasalahanLab($conn);
-        foreach ($permasalahanLab as $key => $permasalahan) {
-            $permasalahanLab[$key]['teknisi'] = getTeknisiByMasalah($conn, $permasalahan['ID_Masalah']);
-        }
-        header('Content-Type: application/json');
-        echo json_encode($permasalahanLab);
+function getPermasalahanLabAjax($conn) {
+    $responseData = getAllPermasalahanLab($conn);
+    $permasalahanLab = $responseData['data'];
+    foreach ($permasalahanLab as $key => $permasalahan) {
+        $permasalahanLab[$key]['teknisi'] = getTeknisiByMasalah($conn, $permasalahan['ID_Masalah']);
     }
+    $responseData['data'] = $permasalahanLab; // Update data dengan teknisi
+
+    header('Content-Type: application/json');
+    echo json_encode($responseData); // Mengembalikan data dan jumlahData
+}
+
 
     function getJenisBarangAjax($conn) {
         $jenisBarang = getDataAset($conn);

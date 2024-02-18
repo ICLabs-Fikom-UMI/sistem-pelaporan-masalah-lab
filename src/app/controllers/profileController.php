@@ -9,8 +9,8 @@ function processUploadFotoProfile($conn) {
     $response = array('success' => false, 'message' => '');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-            $foto = $_FILES['foto'];
+        if (isset($_FILES['foto_profile']) && $_FILES['foto_profile']['error'] == 0) {
+            $foto = $_FILES['foto_profile'];
             $uploadDir = "public/foto/";
             $fileName = basename($foto['name']);
             $uploadPath = $uploadDir . $fileName;

@@ -22,23 +22,28 @@ function fillTableLaporanSaya(data) {
                         <th class="w-52">Aksi</th>
                      </tr>`;
 
-  data.forEach(function (item, index) {
-    // Cek jika Status_Masalah adalah Selesai atau Disetujui
-    var actionDiv =
-      item.Status_Masalah === "Selesai" || item.Status_Masalah === "Disetujui"
-        ? `
+  if (data.length === 0) {
+    tableHTML += `<tr class="border-b-2">
+                        <td class="py-2 text-center" colspan="7">Tidak ada Laporan yang masuk</td>
+                    </tr>`;
+  } else {
+    data.forEach(function (item, index) {
+      // Cek jika Status_Masalah adalah Selesai atau Disetujui
+      var actionDiv =
+        item.Status_Masalah === "Selesai" || item.Status_Masalah === "Disetujui"
+          ? `
       <div class="cursor-pointer" title="Laporan telah di terima">
         <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="m10 10.2l4-4l3.8 3.8l-4 4l-1.4-1.4L15 9.9l-.9-.9l-2.6 2.6zm10.7-4.6l-2.3-2.3c-.2-.2-.5-.3-.7-.3c-.2 0-.5.1-.7.3l-1.8 1.8L19 8.9L20.7 7c.4-.3.4-1 0-1.4M19 21.7L17.7 23l-6.5-6.5L6.8 21H3v-3.8l4.5-4.5L1 6.3L2.3 5zm-9.2-6.6l-.9-.9L5 18.1v.9h.9z"/></svg></div>
         <p class="text-xs">Edit</p>
       </div>`
-        : `
+          : `
       <div class="cursor-pointer" onclick="showPopup(); loadDetailLaporanSayaByIdEdit(${item.ID_Masalah}); loadJenisBarang(); loadNamaLab(); event.preventDefault();">
         <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
             <path fill="black" d="m14.06 9l.94.94L5.92 19H5v-.92zm3.6-6c-.25 0-.51.1-.7.29l-1.83 1.83l3.75 3.75l1.83-1.83c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29m-3.6 3.19L3 17.25V21h3.75L17.81 9.94z"/>
         </svg></div>
         <p class="text-xs">Edit</p>
       </div>`;
-    tableHTML += `<tr class="border-b-2">
+      tableHTML += `<tr class="border-b-2">
                         <td class="py-2">${index + 1}</td>
                         <td>${item.Nama_Lab}</td>
                         <td>${item.Nama_Aset}</td>
@@ -72,8 +77,8 @@ function fillTableLaporanSaya(data) {
                                     </div>
                                 </td>
                       </tr>`;
-  });
-
+    });
+  }
   table.innerHTML = tableHTML;
 }
 

@@ -166,8 +166,3 @@ function showForm(formId) {
   }
   document.getElementById(formId).classList.remove("hidden");
 }
-
-// ubah data profile untuk foto
-document.getElementById("uploadButton").addEventListener("click", function () {
-  document.getElementById("fileInput").click(); // Memicu klik pada input file
-});

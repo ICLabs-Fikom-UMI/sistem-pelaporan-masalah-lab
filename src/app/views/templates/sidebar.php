@@ -2,7 +2,7 @@
             id="sidebar">
             <div id="beranda" class="flex items-center  py-2 md:pl-14 mt-16">
                 <div id="berandaBtn"
-                    class="flex text-black justify-center md:justify-start  hover:bg-[#375679] hover:text-white rounded-s-md py-0 px-0  md:py-2 md:px-4 w-full">
+                    class="flex  justify-center md:justify-start bg-[#375679] text-white  hover:bg-[#375679] hover:text-white rounded-s-md py-0 px-0  md:py-2 md:px-4 w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="me-3">
                         <path fill="currentColor"
                             d="M20 10a1 1 0 1 0-2 0zM6 10a1 1 0 0 0-2 0zm14.293 2.707a1 1 0 0 0 1.414-1.414zM12 3l.707-.707a1 1 0 0 0-1.414 0zm-9.707 8.293a1 1 0 1 0 1.414 1.414zM7 22h10v-2H7zm13-3v-9h-2v9zM6 19v-9H4v9zm15.707-7.707l-9-9l-1.414 1.414l9 9zm-10.414-9l-9 9l1.414 1.414l9-9zM17 22a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1zM7 20a1 1 0 0 1-1-1H4a3 3 0 0 0 3 3z" />

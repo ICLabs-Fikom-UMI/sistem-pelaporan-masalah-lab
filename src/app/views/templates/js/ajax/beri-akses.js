@@ -19,10 +19,16 @@ function fillTableBeriAkses(data) {
                             <th>Akses</th>
                             <th class="w-96">Aksi</th>
                          </tr>`;
-
-  data.forEach(function (item, index) {
-    var namaBelakang = item.Nama_Belakang || "";
-    tableHTML += `<tr class="border-b-2 w-full">
+  // Cek apakah data kosong
+  if (data.length === 0) {
+    // Tambahkan baris dengan pesan "Tidak ada tugas"
+    tableHTML += `<tr class="border-b-2">
+                    <td class="py-2 text-center" colspan="6">Tidak ada pengguna</td>
+                  </tr>`;
+  } else {
+    data.forEach(function (item, index) {
+      var namaBelakang = item.Nama_Belakang || "";
+      tableHTML += `<tr class="border-b-2 w-full">
                                 <td class="py-2">${index + 1}</td>
                                 <td>
                                     <div class="w-full flex justify-center">
@@ -46,8 +52,8 @@ function fillTableBeriAkses(data) {
                                 </td>
 
                           </tr>`;
-  });
-
+    });
+  }
   table.innerHTML = tableHTML;
 }
 
