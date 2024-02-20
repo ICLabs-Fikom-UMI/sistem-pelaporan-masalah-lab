@@ -166,3 +166,33 @@ function showForm(formId) {
   }
   document.getElementById(formId).classList.remove("hidden");
 }
+
+// fitur search di table
+function searchTable(tableId) {
+  var input, filter, table, tr, td, i, j, txtValue, found;
+  input = document.querySelector(`input[data-table='${tableId}']`); // Pastikan ini mencocokkan dengan ID tabel yang sesuai
+  filter = input.value.toUpperCase();
+  table = document.getElementById(tableId);
+  tr = table.getElementsByTagName("tr");
+
+  // Loop melalui semua baris dan sembunyikan yang tidak sesuai dengan query pencarian
+  for (i = 1; i < tr.length; i++) {
+    // Mulai dari 1 untuk mengabaikan baris header
+    td = tr[i].getElementsByTagName("td");
+    found = false; // Flag untuk menandai jika teks ditemukan dalam baris ini
+
+    // Periksa setiap kolom dalam baris
+    for (j = 1; j < td.length; j++) {
+      if (td[j]) {
+        txtValue = td[j].textContent || td[j].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          found = true; // Teks ditemukan dalam salah satu kolom, tandai baris sebagai ditemukan
+          break; // Keluar dari loop kolom jika sudah menemukan
+        }
+      }
+    }
+
+    // Tampilkan atau sembunyikan baris berdasarkan apakah teks pencarian ditemukan
+    tr[i].style.display = found ? "" : "none";
+  }
+}

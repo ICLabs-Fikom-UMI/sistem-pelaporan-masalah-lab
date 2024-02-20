@@ -2,7 +2,7 @@
 // UserProfileModel.php
 
 function updateFotoProfil($conn, $userID, $uploadPath) {
-    $query = "UPDATE user_table SET foto_path = ? WHERE user_id = ?";
+    $query = "UPDATE master_user SET Foto_Path = ? WHERE user_id = ?";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "si", $uploadPath, $userID);
 

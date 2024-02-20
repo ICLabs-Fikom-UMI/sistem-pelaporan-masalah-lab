@@ -35,7 +35,7 @@ function submitFotoProfile(id_pengguna) {
         }
       } catch (e) {
         console.error("Error parsing JSON:", e);
-        alert("Terjadi kesalahan dalam memproses data.");
+        alert("Terjadi kesalahan dalam  data.");
       }
     }
   };

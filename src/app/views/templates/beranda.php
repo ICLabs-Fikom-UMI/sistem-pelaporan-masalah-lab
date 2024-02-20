@@ -8,11 +8,12 @@
                             Laporan</a>
                     </div>
                     <div class="flex items-center pe-[0px] lg:pe-[66px]">
-                        <!-- Icon filter -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
-                            <path fill="black"
-                                d="M4 18h4c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1m1 6h10c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1" />
-                        </svg>
+                        <!-- search -->
+                        <div class="search-container">
+                            <input type="text" data-table="beranda-table" placeholder="Cari di Tabel 1..."
+                                onkeyup="searchTable('beranda-table')" class="search-input" />
+                        </div>
+                        <!-- filter -->
                         <div class="relative ">
                             <select id="myInput" onchange="myFunction(this)" data-table-id="beranda-table"
                                 class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -32,6 +33,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div id="isi" class="mt-4 mr-0 md:mr-16">
                     <div
                         class="w-full h-[73vh] bg-[#F9F9FB] rounded-md border-white border-4 shadow-lg overflow-x-auto" >
