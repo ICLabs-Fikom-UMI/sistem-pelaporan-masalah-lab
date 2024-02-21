@@ -4,11 +4,11 @@
 
     <div class="flex justify-end items-center mt-7 w-full  lg:w-[calc(100vw-300px)]">
             <div class="flex items-center pe-[0px] lg:pe-[66px]">
-                <!-- Icon filter -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
-                    <path fill="black"
-                        d="M4 18h4c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1m1 6h10c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1" />
-                </svg>
+                        <!-- search -->
+                <div class="search-container me-2">
+                    <input type="text" data-table="laporan-saya-table" placeholder="Cari laporan.."
+                            onkeyup="searchTable('laporan-saya-table')" class="search-input w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " />
+                </div>
                 <div class="relative ">
                     <select  onchange="myFunction(this)" data-table-id="laporan-saya-table"
                         class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">

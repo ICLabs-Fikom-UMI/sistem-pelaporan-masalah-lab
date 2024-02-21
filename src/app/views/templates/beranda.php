@@ -9,9 +9,9 @@
                     </div>
                     <div class="flex items-center pe-[0px] lg:pe-[66px]">
                         <!-- search -->
-                        <div class="search-container">
-                            <input type="text" data-table="beranda-table" placeholder="Cari di Tabel 1..."
-                                onkeyup="searchTable('beranda-table')" class="search-input" />
+                        <div class="search-container me-2">
+                            <input type="text" data-table="beranda-table" placeholder="Cari Laporan.."
+                                onkeyup="searchTable('beranda-table')" class="search-input w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " />
                         </div>
                         <!-- filter -->
                         <div class="relative ">
