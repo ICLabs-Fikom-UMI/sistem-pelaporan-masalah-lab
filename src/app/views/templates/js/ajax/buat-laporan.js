@@ -18,16 +18,36 @@ document.addEventListener("DOMContentLoaded", function () {
       if (xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
         if (response.success) {
-          alert(response.message);
-          // Opsional: Redirect atau update UI
+          // Menggunakan SweetAlert untuk sukses
+          swal({
+            title: "Berhasil!",
+            text: response.message,
+            icon: "success",
+            button: "Oke",
+          }).then(() => {
+            // Opsional: Redirect atau update UI
+          });
         } else {
-          alert(response.message);
-          // Opsional: Tampilkan error di UI
+          // Menggunakan SweetAlert untuk error
+          swal({
+            title: "Gagal!",
+            text: response.message,
+            icon: "error",
+            button: "Oke",
+          });
         }
       } else {
         console.error("Request failed. Returned status of " + xhr.status);
+        // Opsional: Gunakan SweetAlert untuk menampilkan error request
+        swal({
+          title: "Gagal!",
+          text: "Request failed. Returned status of " + xhr.status,
+          icon: "error",
+          button: "Oke",
+        });
       }
     };
+
     // Mengirimkan request dengan data
     xhr.send(formData);
   });

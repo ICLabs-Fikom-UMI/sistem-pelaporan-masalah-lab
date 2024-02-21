@@ -88,7 +88,7 @@
                 <div id="aksesDropdownMenu"
                     class="hidden flex flex-col border border-gray-100 ps-1 md:ps-20 text-lg transition-all duration-300 transform -translate-y-5 opacity-0 ">
                     <a href="#" class="block py-2 hover:bg-[#375679] hover:text-white rounded-s-sm  text-sm md:text-xl"
-                        id="beriAksesBtn" onclick="loadBeriTugas()">Beri
+                        id="beriAksesBtn" onclick="loadBeriAkses()">Beri
                         Akses</a>
                     <a href="#" class="block py-2 hover:bg-[#375679] hover:text-white rounded-s-sm  text-sm md:text-xl"
                         id="tambahPenggunaBtn">Tambah

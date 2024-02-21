@@ -224,7 +224,6 @@ function fillPopUpDetailLaporanSayaDetail(data) {
             <td class="font-semibold md:pr-40 py-4">Status</td>
             <td>
                 <p>${data.Status_Masalah || ""}</p>
-                <p>${data.ID_Aset || "tidak ada"}</p>
             </td>
           </tr>
           <tr>
@@ -243,7 +242,6 @@ function fillPopUpDetailLaporanSayaDetail(data) {
 }
 
 // POST request untuk mengirim data laporan yang telah diedit
-
 function submitEditLaporanSaya(idMasalah) {
   var idLab = document.getElementById("id_lab").value;
   var idAset = document.getElementById("id_aset").value;
@@ -266,22 +264,40 @@ function submitEditLaporanSaya(idMasalah) {
 
       // Cek apakah operasi berhasil
       if (response.success) {
-        // Operasi berhasil, tampilkan pesan sukses
-        alert(response.message);
-        loadLaporanSaya(); // Memuat ulang data
-        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+        // Menggunakan SweetAlert untuk sukses
+        swal({
+          title: "Berhasil!",
+          text: response.message,
+          icon: "success",
+        }).then(() => {
+          loadLaporanSaya(); // Memuat ulang data
+          // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+          closePopup(); // Menutup popup setelah konfirmasi SweetAlert
+        });
       } else {
-        // Operasi gagal, tampilkan pesan error
-        alert(response.message);
+        // Menggunakan SweetAlert untuk error
+        swal({
+          title: "Gagal!",
+          text: response.message,
+          icon: "error",
+        });
       }
     } else {
-      // Terjadi kesalahan pada request HTTP, tampilkan pesan error
-      console.error("Request failed. Returned status of " + xhr.status);
+      // Menggunakan SweetAlert untuk kesalahan request
+      swal({
+        title: "Error!",
+        text: "Request failed. Returned status of " + xhr.status,
+        icon: "error",
+      });
     }
   };
   xhr.onerror = function () {
-    alert("Gagal mengirimkan request");
+    // Menggunakan SweetAlert untuk kesalahan jaringan atau server
+    swal({
+      title: "Gagal!",
+      text: "Gagal mengirimkan request",
+      icon: "error",
+    });
   };
   xhr.send(formData);
-  closePopup();
 }

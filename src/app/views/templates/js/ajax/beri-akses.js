@@ -1,4 +1,4 @@
-function loadBeriTugas() {
+function loadBeriAkses() {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -150,25 +150,44 @@ function saveChanges(idPengguna) {
 
       // Cek apakah operasi berhasil
       if (response.success) {
-        // Operasi berhasil, tampilkan pesan sukses
-        alert(response.message);
-        loadBeriTugas(); // Memuat ulang data
-        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+        // Menggunakan SweetAlert untuk sukses
+        swal({
+          title: "Berhasil!",
+          text: response.message,
+          icon: "success",
+        }).then(() => {
+          loadBeriAkses(); // Memuat ulang data
+          // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+          closePopup(); // Menutup popup setelah konfirmasi SweetAlert
+        });
       } else {
-        // Operasi gagal, tampilkan pesan error
-        alert(response.message);
+        // Menggunakan SweetAlert untuk error
+        swal({
+          title: "Error!",
+          text: response.message,
+          icon: "error",
+        });
       }
     } else {
-      // Terjadi kesalahan pada request HTTP, tampilkan pesan error
-      console.error("Request failed. Returned status of " + xhr.status);
+      // Menggunakan SweetAlert untuk kesalahan request
+      swal({
+        title: "Gagal!",
+        text: "Request failed. Returned status of " + xhr.status,
+        icon: "error",
+      });
     }
   };
   xhr.onerror = function () {
-    alert("Gagal mengirimkan request");
+    // Menggunakan SweetAlert untuk kesalahan jaringan atau server
+    swal({
+      title: "Gagal!",
+      text: "Gagal mengirimkan request",
+      icon: "error",
+    });
   };
   xhr.send(formData);
-  pup();
 }
+
 // reset password pengguna
 function resetPasswordPengguna(idPengguna) {
   var formData = new FormData();
@@ -183,38 +202,62 @@ function resetPasswordPengguna(idPengguna) {
 
       // Cek apakah operasi berhasil
       if (response.success) {
-        // Operasi berhasil, tampilkan pesan sukses
-        alert(response.message);
-        loadBeriTugas(); // Memuat ulang data
-        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+        // Menggunakan SweetAlert untuk sukses
+        swal({
+          title: "Berhasil!",
+          text: response.message,
+          icon: "success",
+        }).then(() => {
+          loadBeriTugas(); // Memuat ulang data
+          // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+          closePopup(); // Menutup popup setelah konfirmasi SweetAlert
+        });
       } else {
-        // Operasi gagal, tampilkan pesan error
-        alert(response.message);
+        // Menggunakan SweetAlert untuk error
+        swal({
+          title: "Error!",
+          text: response.message,
+          icon: "error",
+        });
       }
     } else {
-      // Terjadi kesalahan pada request HTTP, tampilkan pesan error
-      console.error("Request failed. Returned status of " + xhr.status);
+      // Menggunakan SweetAlert untuk kesalahan request
+      swal({
+        title: "Gagal!",
+        text: "Request failed. Returned status of " + xhr.status,
+        icon: "error",
+      });
     }
   };
   xhr.onerror = function () {
-    alert("Gagal mengirimkan request");
+    // Menggunakan SweetAlert untuk kesalahan jaringan atau server
+    swal({
+      title: "Gagal!",
+      text: "Gagal mengirimkan request",
+      icon: "error",
+    });
   };
   xhr.send(formData);
-  closePopup();
 }
 
 // confirm reset password
 function confirmResetPassword(idPengguna) {
-  // Tampilkan dialog konfirmasi
-  var isConfirmed = confirm(
-    "Apakah Anda yakin ingin mereset password pengguna ini?"
-  );
-
-  // Jika pengguna mengklik "OK", lanjutkan dengan menyimpan perubahan
-  if (isConfirmed) {
-    resetPasswordPengguna(idPengguna);
-  } else {
-    // Jika pengguna mengklik "Batal", batalkan operasi
-    alert("Operasi dibatalkan");
-  }
+  // Menggunakan SweetAlert untuk tampilkan dialog konfirmasi
+  swal({
+    title: "Apakah Anda yakin?",
+    text: "Apakah Anda yakin ingin mereset password pengguna ini?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willReset) => {
+    if (willReset) {
+      // Jika pengguna mengklik "OK", lanjutkan dengan reset password
+      resetPasswordPengguna(idPengguna);
+    } else {
+      // Jika pengguna mengklik "Batal", tampilkan pemberitahuan
+      swal("Operasi dibatalkan", {
+        icon: "info",
+      });
+    }
+  });
 }

@@ -13,6 +13,7 @@
         font-family: "Poppins", sans-serif;
       }
     </style>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </head>
   <body class="tracking-wide bg-[#F3F4F8]">
                 <!-- popup -->
