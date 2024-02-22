@@ -64,7 +64,9 @@ function fillTableLaporanSaya(data) {
                                             </div>
                                             <p class="text-xs" >Detail</p>
                                         </div>
-                                        <div class="cursor-pointer">
+                                        <div class="cursor-pointer" onclick="deleteLaporanSayaById(${
+                                          item.ID_Masalah
+                                        })">
                                             <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
                                                     viewBox="0 0 24 24">
                                                     <path fill="black"
@@ -300,4 +302,45 @@ function submitEditLaporanSaya(idMasalah) {
     });
   };
   xhr.send(formData);
+}
+
+// hapus data by id
+function deleteLaporanSayaById(idMasalah) {
+  Swal.fire({
+    title: "Apakah Anda yakin?",
+    text: "Anda tidak akan dapat mengembalikan ini!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Ya, hapus itu!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Menggunakan FormData untuk mengirim data
+      var data = new FormData();
+      data.append("id_masalah", idMasalah);
+
+      // Lakukan permintaan AJAX menggunakan metode POST
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "index.php?action=hapus-laporan-saya-by-id", true);
+      xhr.onload = function () {
+        if (xhr.status == 200) {
+          // Parse respon JSON dari server
+          var response = JSON.parse(xhr.responseText);
+          if (response.success) {
+            // Berhasil menghapus, tampilkan pesan sukses
+            Swal.fire("Dihapus!", response.message, "success");
+            loadLaporanSaya(); // Muat ulang laporan
+          } else {
+            // Gagal menghapus, tampilkan pesan error dari server
+            Swal.fire("Gagal!", response.message, "error");
+          }
+        } else {
+          // Gagal menghapus, tampilkan pesan error
+          Swal.fire("Gagal!", "Terjadi kesalahan pada server.", "error");
+        }
+      };
+      xhr.send(data); // Kirim data ke server
+    }
+  });
 }

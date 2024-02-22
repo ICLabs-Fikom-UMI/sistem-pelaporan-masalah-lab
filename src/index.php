@@ -69,6 +69,9 @@ switch ($action) {
     case 'laporan-saya-submit-edit':
         editLaporanSayaAjax($conn);
         break;
+    case 'hapus-laporan-saya-by-id':
+        processHapusLaporanSayaByIdAjax($conn);
+        break;
     case 'laporan-masuk':
         getLaporanMasukAjax($conn);
         break;

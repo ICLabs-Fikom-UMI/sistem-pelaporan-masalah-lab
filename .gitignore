@@ -5,4 +5,5 @@ src/package.json
 src/postcss.config.js
 src/style.css
 src/tailwind.config.js
+src/node_modules
 docker_refresh.sh

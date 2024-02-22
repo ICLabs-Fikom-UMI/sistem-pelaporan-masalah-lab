@@ -147,4 +147,38 @@ function processDetailSelesai($conn){
         echo json_encode($data);
     }
 }
+
+// controller hapus laporan saya by id
+function processHapusLaporanSayaByIdAjax($conn) {
+    header('Content-Type: application/json');
+    $response = ['success' => false, 'message' => ''];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id_masalah = $_POST['id_masalah'] ?? '';
+
+        // Anda bisa menambahkan validasi disini jika perlu
+
+        if (empty($id_masalah)) {
+            $response['message'] = 'ID masalah tidak boleh kosong.';
+        } else {
+            // Jika validasi berhasil, lanjutkan dengan hapus data
+            $result = hapusLaporanSayaById($conn, $id_masalah);
+
+            if ($result) {
+                // Berhasil hapus data
+                $response['success'] = true;
+                $response['message'] = 'Laporan berhasil dihapus.';
+            } else {
+                // Gagal hapus data
+                $response['message'] = 'Gagal menghapus laporan.';
+            }
+        }
+    } else {
+        $response['message'] = 'Invalid request method.';
+    }
+
+    echo json_encode($response);
+    exit;
+}
+
 ?>

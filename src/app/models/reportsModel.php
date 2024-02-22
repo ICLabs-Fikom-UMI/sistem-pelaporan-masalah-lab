@@ -194,4 +194,18 @@ function getLaporanByIdMasalah($conn, $id_masalah){
     }
 }
 
+// hapus laporan saya by id
+function hapusLaporanSayaById($conn, $idMasalah) {
+    $query = "DELETE FROM txn_lab_issues WHERE ID_Masalah = ?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $idMasalah);
+    $execute = mysqli_stmt_execute($stmt);
+    $affected_rows = mysqli_stmt_affected_rows($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $execute && $affected_rows > 0;
+}
+
+
 ?>

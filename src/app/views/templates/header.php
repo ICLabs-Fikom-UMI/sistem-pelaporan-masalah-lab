@@ -14,6 +14,8 @@
       }
     </style>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </head>
   <body class="tracking-wide bg-[#F3F4F8]">
                 <!-- popup -->
