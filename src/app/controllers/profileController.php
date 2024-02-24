@@ -28,7 +28,6 @@ function processUploadFotoProfile($conn) {
                     if (updateFotoProfil($conn, $userID, $uploadPath)) {
                         $response['success'] = true;
                         $response['message'] = "Foto profil berhasil diunggah.";
-                        $response['uploadPath'] = $uploadPath; // Hanya untuk debug
 
                     } else {
                         $response['message'] = "Gagal menyimpan path foto ke database.";

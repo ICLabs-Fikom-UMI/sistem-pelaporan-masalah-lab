@@ -9,6 +9,7 @@ require_once('app/controllers/tasksController.php');
 require_once('app/controllers/labsController.php');
 require_once('app/controllers/accessController.php');
 require_once('app/controllers/profileController.php');
+require_once('app/controllers/navbarController.php');
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'showLoginForm';
@@ -99,6 +100,10 @@ switch ($action) {
     // profile
     case 'uploadFotoProfile':
         processUploadFotoProfile($conn);
+        break;
+    // navbar
+    case 'navbar-img-profile':
+        handleProfilePictureRequest($conn);
         break;
     // templates
     case 'jenis-barang':

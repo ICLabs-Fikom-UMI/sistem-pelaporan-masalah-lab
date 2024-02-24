@@ -5,18 +5,21 @@ function submitFotoProfile() {
 
   if (!foto) {
     console.log("Tidak ada file yang dipilih.");
-    alert("Silakan pilih file terlebih dahulu.");
+    // Menggunakan SweetAlert untuk meminta pengguna memilih file
+    swal({
+      title: "Peringatan!",
+      text: "Silakan pilih file terlebih dahulu.",
+      icon: "warning",
+    });
     return; // Hentikan eksekusi jika tidak ada file
   }
 
   // Log info file jika ada
   console.log("File yang diupload:", foto.name, "ukuran:", foto.size);
 
-  // Pastikan id ini sesuai dengan HTML Anda
-
   formData.append("foto_input", foto);
 
-  // Debugging FormData (hanya bekerja di beberapa browser, seperti Firefox)
+  // Debugging FormData
   for (var pair of formData.entries()) {
     console.log(pair[0] + ", " + pair[1]);
   }
@@ -26,15 +29,31 @@ function submitFotoProfile() {
       try {
         var data = JSON.parse(xhr.responseText);
         if (data.success) {
-          alert(data.uploadPath);
-          loadTugas(); // Pastikan fungsi ini terdefinisi dan melakukan apa yang diharapkan
-          closePopup(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
+          // Menggunakan SweetAlert untuk sukses
+          swal({
+            title: "Berhasil!",
+            text: data.message,
+            icon: "success",
+          }).then(() => {
+            loadTugas(); // Pastikan fungsi ini terdefinisi dan melakukan apa yang diharapkan
+            closePopup(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
+          });
         } else {
-          alert(data.message);
+          // Menggunakan SweetAlert untuk gagal
+          swal({
+            title: "Gagal!",
+            text: data.message,
+            icon: "error",
+          });
         }
       } catch (e) {
         console.error("Error parsing JSON:", e);
-        alert("Terjadi kesalahan dalam  data.");
+        // Menggunakan SweetAlert untuk error parsing
+        swal({
+          title: "Error!",
+          text: "Terjadi kesalahan dalam mengolah data.",
+          icon: "error",
+        });
       }
     }
   };
