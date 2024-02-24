@@ -46,7 +46,7 @@
 
                                 </tr>
                             </table>
-                            <div class="w-[600px] ">
+                            <div class="w-[600px] " id="menambahkan-foto-profile" >
                                 <div class="flex justify-center flex-col items-center">
                                     <img src=""
                                         alt="" class="foto-profile w-48 h-48 rounded-full">
@@ -54,7 +54,7 @@
                                         <!-- Input File tersembunyi -->
                                         <input type="file" id="foto_profile"  name="foto_profile">
                                         <!-- Tombol untuk memicu Input File -->
-                                        <button id="uploadButton" class="mt-5 py-1 px-6 bg-[#C2C2C2] hover:bg-[#8A8888] hover:text-white rounded-md" onclick="submitFotoProfile('<?php echo  $_SESSION['user_id'] ?>')">
+                                        <button id="uploadButton" class="mt-5 py-1 px-6 bg-[#C2C2C2] hover:bg-[#8A8888] hover:text-white rounded-md" onclick="submitFotoProfile()">
                                             Upload File <span id="loadingText"></span>
                                         </button>
                                     </div>

@@ -1,5 +1,4 @@
-function submitFotoProfile(id_pengguna) {
-  console.log("id_pengguna ubah profile:", id_pengguna);
+function submitFotoProfile() {
   var xhr = new XMLHttpRequest();
   var formData = new FormData();
   var foto = document.getElementById("foto_profile").files[0];
@@ -14,7 +13,7 @@ function submitFotoProfile(id_pengguna) {
   console.log("File yang diupload:", foto.name, "ukuran:", foto.size);
 
   // Pastikan id ini sesuai dengan HTML Anda
-  formData.append("id_pengguna", id_pengguna);
+
   formData.append("foto_input", foto);
 
   // Debugging FormData (hanya bekerja di beberapa browser, seperti Firefox)
@@ -27,7 +26,7 @@ function submitFotoProfile(id_pengguna) {
       try {
         var data = JSON.parse(xhr.responseText);
         if (data.success) {
-          alert(data.message);
+          alert(data.uploadPath);
           loadTugas(); // Pastikan fungsi ini terdefinisi dan melakukan apa yang diharapkan
           closePopup(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
         } else {

@@ -121,10 +121,15 @@ function fillPopUpDataLaporanMasuk(data) {
 
     // Baris baru untuk input "Deskripsi Tambahan"
     htmlContent += `<tr><td class="font-semibold md:pr-28 py-4">Deskripsi Tambahan</td><td><textarea id="deskripsi_tambahan" class="w-full border border-gray-300 p-2 rounded-md"></textarea></td></tr>`;
-    // Tombol untuk mengirim data
+    // Tombol untuk mengirim data dan tombol tolak
     htmlContent += `
-        <tr><td colspan="2" class="text-center py-4"><button type="button" class="px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none" onclick="submitSetujuLaporanMasuk(${detailLaporan.ID_Masalah})">Kirim</button></td></tr>
-    `;
+    <tr>
+        <td colspan="2" class="text-center py-4">
+            <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md focus:outline-none" onclick="tolakLaporanMasuk(${detailLaporan.ID_Masalah})">Tolak</button>
+            <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none mr-4" onclick="submitSetujuLaporanMasuk(${detailLaporan.ID_Masalah})">Kirim</button>
+        </td>
+    </tr>
+`;
 
     table.innerHTML = htmlContent;
   } else {

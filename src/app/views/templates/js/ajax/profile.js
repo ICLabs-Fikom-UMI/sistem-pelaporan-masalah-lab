@@ -95,7 +95,6 @@ function fillFormWithData(data) {
   document.getElementById("hak-akses").textContent = data.Nama_Peran || "";
 
   // Menampilkan foto profil jika ada
-  // Menampilkan foto profil jika ada
   var fotoProfileEl = document.querySelector(".foto-profile");
   if (data.Foto_Path) {
     fotoProfileEl.src = data.Foto_Path;
@@ -105,3 +104,5 @@ function fillFormWithData(data) {
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png"; // Path ke gambar default atau placeholder
   }
 }
+
+// ubah data profile
