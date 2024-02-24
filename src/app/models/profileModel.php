@@ -29,5 +29,29 @@ function updateFotoProfil($conn, $userID, $uploadPath) {
     }
 }
 
+// editprofile
+function updateUserData($conn, $userID, $namaDepan, $namaBelakang, $email, $nim) {
+    // Membersihkan data input untuk mencegah SQL Injection
+    $userID = mysqli_real_escape_string($conn, $userID);
+    $namaDepan = mysqli_real_escape_string($conn, $namaDepan);
+    $namaBelakang = mysqli_real_escape_string($conn, $namaBelakang);
+    $email = mysqli_real_escape_string($conn, $email);
+    $nim = mysqli_real_escape_string($conn, $nim);
+
+    // Membuat query update
+    $query = "UPDATE master_user SET Nama_Depan = '$namaDepan', Nama_Belakang = '$namaBelakang', Email = '$email', Nim = '$nim' WHERE ID_Pengguna = $userID";
+
+    // Menjalankan query
+    $result = mysqli_query($conn, $query);
+
+    // Mengecek hasil
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 
 ?>

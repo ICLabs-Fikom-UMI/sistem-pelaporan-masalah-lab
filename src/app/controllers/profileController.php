@@ -50,6 +50,26 @@ function processUploadFotoProfile($conn) {
     exit;
 }
 
+// submitEditProfile
+function handleUpdateUserRequest($conn) {
+    // Contoh pengambilan data dari $_POST, validasi seharusnya lebih komprehensif
+    $userID = $_SESSION['user_id'];
+    $namaDepan = $_POST['nama_depan'];
+    $namaBelakang = $_POST['nama_belakang'];
+    $email = $_POST['email'];
+    $nim = $_POST['nim'];
+
+    // Memanggil fungsi model untuk update data
+    $updateSuccess = updateUserData($conn, $userID, $namaDepan, $namaBelakang, $email, $nim);
+
+    // Membuat response berdasarkan hasil update
+    if ($updateSuccess) {
+        echo json_encode(array('success' => true, 'message' => 'Data pengguna berhasil diperbarui.'));
+    } else {
+        echo json_encode(array('success' => false, 'message' => 'Gagal memperbarui data pengguna.'));
+    }
+}
+
 
 
 ?>

@@ -61,3 +61,90 @@ function submitFotoProfile() {
   xhr.open("POST", "index.php?action=uploadFotoProfile", true);
   xhr.send(formData);
 }
+
+// ubah data profile
+document.addEventListener("DOMContentLoaded", function () {
+  // Simpan nilai awal input
+  window.initialValues = {
+    namaDepan: document.querySelector(".namaDepan").value,
+    namaBelakang: document.querySelector(".namaBelakang").value,
+    email: document.querySelector(".email").value,
+    nim: document.querySelector(".nim").value,
+  };
+});
+
+document
+  .getElementById("simpanBtnUbahProfile")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Menghentikan perilaku default link
+
+    var userId = document.body.getAttribute("data-user-id");
+
+    var namaDepan = document.querySelector(".namaDepan").value;
+    var namaBelakang = document.querySelector(".namaBelakang").value;
+    var email = document.querySelector(".email").value;
+    var nim = document.querySelector(".nim").value;
+
+    // Periksa apakah ada perubahan pada input teks saja
+    var isChanged =
+      namaDepan !== window.initialValues.namaDepan ||
+      namaBelakang !== window.initialValues.namaBelakang ||
+      email !== window.initialValues.email ||
+      nim !== window.initialValues.nim;
+
+    if (!isChanged) {
+      // Menggunakan SweetAlert untuk memberitahu tidak ada perubahan
+      swal({
+        title: "Informasi",
+        text: "Tidak ada perubahan yang dilakukan pada data.",
+        icon: "info",
+      });
+      return; // Keluar dari fungsi jika tidak ada perubahan pada input teks
+    }
+
+    // Jika ada perubahan pada input teks, lanjutkan dengan logika pengiriman data
+    var formData = new FormData();
+    formData.append("nama_depan", namaDepan);
+    formData.append("nama_belakang", namaBelakang);
+    formData.append("email", email);
+    formData.append("nim", nim);
+
+    // Kirim formData ke server dengan XMLHttpRequest...
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "index.php?action=ubah-data-profile-submit", true); // Sesuaikan dengan endpoint server Anda
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        var response = JSON.parse(xhr.responseText);
+        if (response.success) {
+          // Menggunakan SweetAlert untuk sukses
+          swal({
+            title: "Berhasil!",
+            text: response.message,
+            icon: "success",
+          }).then(() => {
+            // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+            loadDataUntukUbahData(userId); // Pastikan fungsi ini terdefinisi dan melakukan apa yang diharapkan
+          });
+        } else {
+          // Menggunakan SweetAlert untuk gagal
+          swal({
+            title: "Gagal!",
+            text: response.message,
+            icon: "error",
+          });
+        }
+      } else {
+        console.error("Error status:", xhr.status);
+      }
+    };
+    xhr.onerror = function () {
+      console.error("Request error.");
+      // Menggunakan SweetAlert untuk error request
+      swal({
+        title: "Error!",
+        text: "Terjadi kesalahan dalam permintaan.",
+        icon: "error",
+      });
+    };
+    xhr.send(formData);
+  });

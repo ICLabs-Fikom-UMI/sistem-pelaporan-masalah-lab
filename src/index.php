@@ -101,6 +101,13 @@ switch ($action) {
     case 'uploadFotoProfile':
         processUploadFotoProfile($conn);
         break;
+    // ubah data profile
+    case 'detailPengguna':
+        detailDataById($conn);
+        break;
+    case 'ubah-data-profile-submit':
+        handleUpdateUserRequest($conn);
+        break;
     // navbar
     case 'navbar-img-profile':
         handleProfilePictureRequest($conn);
@@ -160,9 +167,6 @@ switch ($action) {
         break;
     case 'peranBaru':
         processEditPeran($conn);
-        break;
-    case 'detailPengguna':
-        detailDataById($conn);
         break;
     case 'deletePengguna':
         processDeletePengguna($conn);

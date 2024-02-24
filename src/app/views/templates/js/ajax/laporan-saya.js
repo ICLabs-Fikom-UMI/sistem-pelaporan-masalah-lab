@@ -306,16 +306,14 @@ function submitEditLaporanSaya(idMasalah) {
 
 // hapus data by id
 function deleteLaporanSayaById(idMasalah) {
-  Swal.fire({
+  swal({
     title: "Apakah Anda yakin?",
     text: "Anda tidak akan dapat mengembalikan ini!",
     icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Ya, hapus itu!",
-  }).then((result) => {
-    if (result.isConfirmed) {
+    buttons: true, // Menampilkan tombol konfirmasi dan batal
+    dangerMode: true, // Menandakan aksi berbahaya, biasanya mengubah warna tombol
+  }).then((willDelete) => {
+    if (willDelete) {
       // Menggunakan FormData untuk mengirim data
       var data = new FormData();
       data.append("id_masalah", idMasalah);
@@ -329,18 +327,21 @@ function deleteLaporanSayaById(idMasalah) {
           var response = JSON.parse(xhr.responseText);
           if (response.success) {
             // Berhasil menghapus, tampilkan pesan sukses
-            Swal.fire("Dihapus!", response.message, "success");
+            swal("Dihapus!", response.message, "success");
             loadLaporanSaya(); // Muat ulang laporan
           } else {
             // Gagal menghapus, tampilkan pesan error dari server
-            Swal.fire("Gagal!", response.message, "error");
+            swal("Gagal!", response.message, "error");
           }
         } else {
           // Gagal menghapus, tampilkan pesan error
-          Swal.fire("Gagal!", "Terjadi kesalahan pada server.", "error");
+          swal("Gagal!", "Terjadi kesalahan pada server.", "error");
         }
       };
       xhr.send(data); // Kirim data ke server
+    } else {
+      // Jika pengguna membatalkan, bisa ditambahkan notifikasi atau tindakan lain
+      // swal("Your imaginary file is safe!"); // Contoh notifikasi pembatalan
     }
   });
 }

@@ -4,7 +4,7 @@
                     <div id="buatLaporanIsi" class="mt-16 mr-0 md:mr-16 ">
                         <div
                             class="w-full h-[71vh] bg-[#F9F9FB] p-4 md:p-16 rounded-md border-white border-4 shadow-lg flex justify-center">
-                            <table class="w-full" id="ubah-data-table">
+                            <table class="w-full" id="ubah-data-table" data-user-id="<?php echo $_SESSION['user_id']; ?>">
                                 <tr class="flex justify-start items-center">
                                     <th class="font-semibold w-80 p-5 mb-2  text-start">Nama Pengguna</th>
                                     <td class="font-normal w-full">
@@ -41,7 +41,7 @@
                                             type="reset" id="kembaliProfile">Kembali</button>
                                         <a href="#"
                                             class="py-4 px-8 bg-[#375679] hover:bg-[#273C54] text-white rounded-md"
-                                            id="simpanBtn">Simpan</a>
+                                            id="simpanBtnUbahProfile">Simpan</a>
                                     </th>
 
                                 </tr>
