@@ -14,15 +14,7 @@ function submitFotoProfile() {
     return; // Hentikan eksekusi jika tidak ada file
   }
 
-  // Log info file jika ada
-  console.log("File yang diupload:", foto.name, "ukuran:", foto.size);
-
   formData.append("foto_input", foto);
-
-  // Debugging FormData
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
@@ -47,7 +39,6 @@ function submitFotoProfile() {
           });
         }
       } catch (e) {
-        console.error("Error parsing JSON:", e);
         // Menggunakan SweetAlert untuk error parsing
         swal({
           title: "Error!",
@@ -138,7 +129,6 @@ document
       }
     };
     xhr.onerror = function () {
-      console.error("Request error.");
       // Menggunakan SweetAlert untuk error request
       swal({
         title: "Error!",

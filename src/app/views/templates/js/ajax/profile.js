@@ -86,7 +86,6 @@ function loadDataUntukUbahData(id_pengguna) {
 }
 
 function fillFormWithData(data) {
-  console.log("id:", data);
   // Menetapkan nilai ke dalam input form
   document.querySelector(".namaDepan").value = data.Nama_Depan || "";
   document.querySelector(".namaBelakang").value = data.Nama_Belakang || "";

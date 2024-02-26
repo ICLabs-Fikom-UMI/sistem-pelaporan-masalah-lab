@@ -49,11 +49,9 @@ function fillTableLaporanMasuk(data) {
 
 function loadDataLaporanMasukById(id_masalah) {
   var xhr = new XMLHttpRequest();
-  console.log("id_masalah:", id_masalah);
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = JSON.parse(xhr.responseText);
-      console.log("data:", data);
       fillPopUpDataLaporanMasuk(data);
     }
   };
@@ -125,8 +123,8 @@ function fillPopUpDataLaporanMasuk(data) {
     htmlContent += `
     <tr>
         <td colspan="2" class="text-center py-4">
-            <button type="button" class="px-4 py-2 text-white bg-red-500 rounded-md focus:outline-none" onclick="tolakLaporanMasuk(${detailLaporan.ID_Masalah})">Tolak</button>
-            <button type="button" class="px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none mr-4" onclick="submitSetujuLaporanMasuk(${detailLaporan.ID_Masalah})">Kirim</button>
+            <button type="button" class="px-6 py-3 me-3 text3-white bg-red-500 rounded-md focus:outline-none" onclick="tolakLaporanMasukById(${detailLaporan.ID_Masalah})">Tolak</button>
+            <button type="button" class="px-6 py-3 text-white bg-blue-500 rounded-md focus:outline-none mr-4" onclick="submitSetujuLaporanMasuk(${detailLaporan.ID_Masalah})">Kirim</button>
         </td>
     </tr>
 `;
@@ -175,4 +173,46 @@ function submitSetujuLaporanMasuk(idMasalah) {
     console.error("Request error.");
   };
   xhr.send(formData);
+}
+
+// Tolak laporan by id
+function tolakLaporanMasukById(idMasalah) {
+  swal({
+    title: "Apakah Anda yakin?",
+    text: "Laporan ini akan ditolak dan tidak bisa dikembalikan.",
+    icon: "warning",
+    buttons: true, // Menampilkan tombol konfirmasi dan batal
+    dangerMode: true, // Menandakan aksi berbahaya, biasanya mengubah warna tombol
+  }).then((willTolak) => {
+    if (willTolak) {
+      // Menggunakan FormData untuk mengirim data
+      var data = new FormData();
+      data.append("id_masalah", idMasalah);
+
+      // Lakukan permintaan AJAX menggunakan metode POST
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "index.php?action=tolak-laporan-masuk-by-id", true); // Sesuaikan dengan URL endpoint Anda
+      xhr.onload = function () {
+        if (xhr.status == 200) {
+          // Parse respon JSON dari server
+          var response = JSON.parse(xhr.responseText);
+          if (response.success) {
+            // Berhasil menolak, tampilkan pesan sukses
+            swal("Ditolak!", response.message, "success");
+            loadLaporanMasuk(); // Muat ulang daftar laporan, asumsikan Anda memiliki fungsi ini
+          } else {
+            // Gagal menolak, tampilkan pesan error dari server
+            swal("Gagal!", response.message, "error");
+          }
+        } else {
+          // Gagal menghubungi server, tampilkan pesan error
+          swal("Gagal!", "Terjadi kesalahan pada server.", "error");
+        }
+      };
+      xhr.send(data); // Kirim data ke server
+    } else {
+      // Jika pengguna membatalkan, bisa ditambahkan notifikasi atau tindakan lain
+      // swal("Aksi dibatalkan!"); // Contoh notifikasi pembatalan
+    }
+  });
 }

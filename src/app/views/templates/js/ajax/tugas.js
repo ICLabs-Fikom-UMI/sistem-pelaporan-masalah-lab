@@ -74,7 +74,6 @@ function loadDetailDataTugas(id_masalah) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = JSON.parse(xhr.responseText);
-      console.log("data:", data);
       fillPopUpDetailTugas(data);
     }
   };
@@ -128,7 +127,6 @@ function loadDetailDataTugasPenyelesaian(id_masalah) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = JSON.parse(xhr.responseText);
-      console.log("datass:", data);
       fillPopUpDetailTugasPenyelesaian(data);
     }
   };
@@ -141,7 +139,6 @@ function loadDetailDataTugasPenyelesaian(id_masalah) {
 }
 
 function fillPopUpDetailTugasPenyelesaian(data) {
-  console.log("datas:", data);
   const detailData = data; // Mengambil objek pertama dari array
   var table = document.getElementById("detailTable");
   if (table) {
@@ -193,7 +190,6 @@ function submitPenyelesaianLaporan(id_masalah) {
           alert(data.message);
         }
       } catch (e) {
-        console.error("Error parsing JSON:", e);
         alert("Terjadi kesalahan dalam memproses data.");
       }
     }

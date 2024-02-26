@@ -40,13 +40,34 @@ function setujuiLaporanAjax($conn) {
 
 
 
-function tolakLaporan($conn, $id_masalah){
-    $users = getUser($conn);
-    $dataLaporan = getDataLaporan($conn);
-    rejectReport($conn, $id_masalah);
-    $_SESSION['tolak_message'] = "Laporan Telah Di Tolak...";
-    header("Location: index.php?action=reports");
+// tolak laporan masuk by id
+function processTolakLaporanMasukByIdAjax($conn) {
+    header('Content-Type: application/json');
+    $response = ['success' => false, 'message' => ''];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $id_masalah = $_POST['id_masalah'] ?? '';
+
+        if (empty($id_masalah)) {
+            $response['message'] = 'ID masalah tidak boleh kosong.';
+        } else {
+            $result = tolakLaporanMasukById($conn, $id_masalah);
+
+            if ($result) {
+                $response['success'] = true;
+                $response['message'] = 'Laporan berhasil ditolak.';
+            } else {
+                $response['message'] = 'Gagal menolak laporan.';
+            }
+        }
+    } else {
+        $response['message'] = 'Invalid request method.';
+    }
+
+    echo json_encode($response);
+    exit;
 }
+
 
 // feat develop
 // Laporan Masuk

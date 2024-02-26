@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
       } else {
-        console.error("Request failed. Returned status of " + xhr.status);
         // Opsional: Gunakan SweetAlert untuk menampilkan error request
         swal({
           title: "Gagal!",

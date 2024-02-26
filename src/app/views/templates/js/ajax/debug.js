@@ -56,7 +56,6 @@ function loadUbahDataAsistenById(id_pengguna) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = JSON.parse(xhr.responseText);
-      console.log(data);
       fillPopUpDataAsistenById(data);
     }
   };
@@ -125,10 +124,6 @@ function saveChanges(idPengguna) {
   formData.append("id_pengguna", idPengguna);
   formData.append("id_peran", idPeran);
 
-  // Debugging: Menampilkan data di console
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "index.php?action=peranBau", true);
   xhr.onload = function () {

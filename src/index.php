@@ -58,6 +58,7 @@ switch ($action) {
     case 'beranda-detail':
         detailDataBerandaById($conn);
         break;
+    // laporan saya
     case 'laporan-saya':
         getLaporanSayaAjax($conn);
         break;
@@ -73,8 +74,12 @@ switch ($action) {
     case 'hapus-laporan-saya-by-id':
         processHapusLaporanSayaByIdAjax($conn);
         break;
+    // laporan masuk
     case 'laporan-masuk':
         getLaporanMasukAjax($conn);
+        break;
+    case 'tolak-laporan-masuk-by-id':
+        processTolakLaporanMasukByIdAjax($conn);
         break;
     case 'profile':
         showViewProfile($conn);

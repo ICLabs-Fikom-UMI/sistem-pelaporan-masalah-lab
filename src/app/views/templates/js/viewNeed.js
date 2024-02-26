@@ -30,10 +30,6 @@ function myFunction(selectElement) {
   var filter = selectElement.value.toUpperCase(); // Ambil nilai filter
   var tableId = selectElement.getAttribute("data-table-id"); // Ambil ID tabel dari data attribute
   var table = document.getElementById(tableId);
-  if (!table) {
-    console.log("Tabel tidak ditemukan: ", tableId);
-    return; // Keluar dari fungsi jika tabel tidak ditemukan
-  }
 
   var tr = table.getElementsByTagName("tr");
 

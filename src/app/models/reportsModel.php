@@ -96,7 +96,18 @@ function getDetailLaporanMasuk($conn, $id_masalah) {
     }
 }
 
+//  tolak laporan masuka by id
+function tolakLaporanSayaById($conn, $idMasalah) {
+    $query = "UPDATE txn_lab_issues SET Status_Masalah = 'Ditolak' WHERE ID_Masalah = ?";
 
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $idMasalah);
+    $execute = mysqli_stmt_execute($stmt);
+    $affected_rows = mysqli_stmt_affected_rows($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $execute && $affected_rows > 0;
+}
 
 // asisten reports
 function getAllLaporanSaya($conn) {
