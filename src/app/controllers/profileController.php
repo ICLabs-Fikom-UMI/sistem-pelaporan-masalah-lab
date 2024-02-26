@@ -50,6 +50,40 @@ function processUploadFotoProfile($conn) {
     exit;
 }
 
+// ubah password
+function processUbahPasswordAjax($conn) {
+    header('Content-Type: application/json');
+    $response = ['success' => false, 'message' => ''];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $idPengguna = $_POST['id_masalah'] ?? ''; // Pastikan parameter yang dikirim sesuai
+        $passwordBaru = $_POST['password_baru'] ?? '';
+
+        // Validasi input
+        if (empty($idPengguna) || empty($passwordBaru)) {
+            $response['message'] = 'ID pengguna dan password baru tidak boleh kosong.';
+        } else {
+            // Hash password baru sebelum menyimpan ke database
+            $passwordBaruHash = password_hash($passwordBaru, PASSWORD_DEFAULT);
+
+            $result = ubahPasswordById($conn, $idPengguna, $passwordBaruHash);
+
+            if ($result) {
+                $response['success'] = true;
+                $response['message'] = 'Password berhasil diubah.';
+            } else {
+                $response['message'] = 'Gagal mengubah password.';
+            }
+        }
+    } else {
+        $response['message'] = 'Invalid request method.';
+    }
+
+    echo json_encode($response);
+    exit;
+}
+
+
 // submitEditProfile
 function handleUpdateUserRequest($conn) {
     // Contoh pengambilan data dari $_POST, validasi seharusnya lebih komprehensif

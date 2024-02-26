@@ -2,8 +2,8 @@
 <?php
         include('/var/www/html/app/views/templates/header.php');
 ?>
-<div class="flex justify-center lg:justify-between items-center h-screen px-2 lg:px-20" id="container">
-        <div class="hidden lg:flex flex-col justify-center items-center ps-44" id="container-child1">
+<div class="flex justify-center lg:justify-center items-center h-screen px-2 lg:px-20" id="container">
+        <div class="hidden lg:flex flex-col justify-center items-center me-80" id="container-child1">
             <div class="text-center mb-10 font-bold text-2xl z-10 tracking-wider" style="margin-top: -60px">
                 <p class="p-3">"Improve productivity</p>
                 <p>with a system."</p>
@@ -38,3 +38,15 @@
             </div>
         </div>
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    <?php if (isset($_SESSION['login_error'])): ?>
+        swal({
+            title: "Error!",
+            text: "<?php echo $_SESSION['login_error']; ?>",
+            icon: "error",
+        });
+        <?php unset($_SESSION['login_error']); // Hapus pesan setelah ditampilkan ?>
+    <?php endif; ?>
+});
+</script>

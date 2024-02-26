@@ -52,6 +52,20 @@ function updateUserData($conn, $userID, $namaDepan, $namaBelakang, $email, $nim)
     }
 }
 
+// ubah password
+function ubahPasswordById($conn, $idPengguna, $passwordBaru) {
+    // Asumsikan $passwordBaru sudah di-hash sebelum fungsi ini dipanggil
+    $query = "UPDATE master_user SET Kata_Sandi = ? WHERE ID_Pengguna = ?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "si", $passwordBaru, $idPengguna);
+    $execute = mysqli_stmt_execute($stmt);
+    $affected_rows = mysqli_stmt_affected_rows($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $execute && $affected_rows > 0;
+}
+
 
 
 ?>

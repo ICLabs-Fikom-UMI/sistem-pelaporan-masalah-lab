@@ -11,25 +11,23 @@ function showLoginForm() {
 function processLogin($conn) {
     $emailOrNim = $_POST['emailNim'];
     $password = $_POST['password'];
-    // Validasi input
+
     if (filter_var($emailOrNim, FILTER_VALIDATE_EMAIL)) {
-        // Jika input adalah email yang valid
         $user = getUserByEmail($emailOrNim, $conn);
     } else {
-        // Jika input bukan email, anggap sebagai NIM
         $user = getUserByNIM($emailOrNim, $conn);
     }
 
     if ($user && password_verify($password, $user['Kata_Sandi'])) {
-        // Successful login
         $_SESSION['user_id'] = $user['ID_Pengguna'];
         $_SESSION['role'] = $user['Nama_Peran'];
-        // Redirect ke halaman home
         header("Location: index.php?action=home");
         exit;
     } else {
-        // Login failed
-        echo "Login gagal. Periksa kembali email dan password Anda.";
+        // Simpan pesan error ke sesi
+        $_SESSION['login_error'] = "Login gagal. Periksa kembali email dan password Anda.";
+        header("Location: index.php?action=showLoginForm"); // Asumsi Anda memiliki route untuk menampilkan login form
+        exit;
     }
 }
 

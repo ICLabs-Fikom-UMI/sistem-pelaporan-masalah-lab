@@ -81,9 +81,6 @@ switch ($action) {
     case 'tolak-laporan-masuk-by-id':
         processTolakLaporanMasukByIdAjax($conn);
         break;
-    case 'profile':
-        showViewProfile($conn);
-        break;
     case 'tugas':
         getTugasAjax($conn);
         break;
@@ -103,6 +100,12 @@ switch ($action) {
         tasksPenyelesaianAjax($conn);
         break;
     // profile
+    case 'profile':
+        showViewProfile($conn);
+        break;
+    case 'profile-ubah-password':
+        processUbahPasswordAjax($conn);
+        break;
     case 'uploadFotoProfile':
         processUploadFotoProfile($conn);
         break;
