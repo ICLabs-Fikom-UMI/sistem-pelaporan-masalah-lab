@@ -199,6 +199,7 @@ function tolakLaporanMasukById(idMasalah) {
           if (response.success) {
             // Berhasil menolak, tampilkan pesan sukses
             swal("Ditolak!", response.message, "success");
+            closePopup();
             loadLaporanMasuk(); // Muat ulang daftar laporan, asumsikan Anda memiliki fungsi ini
           } else {
             // Gagal menolak, tampilkan pesan error dari server

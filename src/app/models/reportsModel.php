@@ -96,8 +96,8 @@ function getDetailLaporanMasuk($conn, $id_masalah) {
     }
 }
 
-//  tolak laporan masuka by id
-function tolakLaporanSayaById($conn, $idMasalah) {
+//  tolak laporan masuk by id
+function tolakLaporanMasukById($conn, $idMasalah) {
     $query = "UPDATE txn_lab_issues SET Status_Masalah = 'Ditolak' WHERE ID_Masalah = ?";
 
     $stmt = mysqli_prepare($conn, $query);

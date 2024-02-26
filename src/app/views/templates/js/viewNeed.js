@@ -49,40 +49,27 @@ function myFunction(selectElement) {
 // spa
 // Mendefinisikan fungsi untuk mengatur semua tombol ke state default
 function resetButtons() {
-  document
-    .getElementById("berandaBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("berandaBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("laporanBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("laporanBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("laporanSayaBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("laporanSayaBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("buatLaporanBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("buatLaporanBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("tugasBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("tugasBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("beriAksesBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("beriAksesBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("tambahPenggunaBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("tambahPenggunaBtn").classList.add("bg-[#F9F9FB]");
-  document
-    .getElementById("profileBtn")
-    .classList.remove("bg-[#375679]", "text-white");
-  document.getElementById("profileBtn").classList.add("bg-[#F9F9FB]");
+  // Daftar ID tombol
+  const buttons = [
+    "berandaBtn",
+    "laporanBtn",
+    "laporanSayaBtn",
+    "buatLaporanBtn",
+    "tugasBtn",
+    "beriAksesBtn",
+    "tambahPenggunaBtn",
+    "profileBtn",
+    // Tambahkan ID tombol lain jika ada
+  ];
 
-  // Ulangi untuk tombol lainnya jika ada
+  // Melakukan iterasi untuk setiap ID dan mengubah kelasnya jika elemen ada
+  buttons.forEach((id) => {
+    const button = document.getElementById(id);
+    if (button) {
+      button.classList.remove("bg-[#375679]", "text-white");
+      button.classList.add("bg-[#F9F9FB]");
+    }
+  });
 }
 
 document.getElementById("berandaBtn").addEventListener("click", function () {
@@ -92,68 +79,83 @@ document.getElementById("berandaBtn").addEventListener("click", function () {
   showForm("berandaForm");
 });
 
-document.getElementById("laporanBtn").addEventListener("click", function () {
-  resetButtons(); // Mengatur ulang semua tombol ke state default
-  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-  showForm("laporanForm");
-});
-
-document
-  .getElementById("laporanSayaBtn")
-  .addEventListener("click", function () {
+if (document.getElementById("laporanBtn")) {
+  document.getElementById("laporanBtn").addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-    showForm("laporanSayaForm");
+    showForm("laporanForm");
   });
-
-document.querySelectorAll(".buatLaporanBtn").forEach(function (button) {
-  button.addEventListener("click", function () {
+}
+if (document.getElementById("laporanSayaBtn")) {
+  document
+    .getElementById("laporanSayaBtn")
+    .addEventListener("click", function () {
+      resetButtons(); // Mengatur ulang semua tombol ke state default
+      this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+      this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+      showForm("laporanSayaForm");
+    });
+}
+if (document.querySelectorAll(".buatLaporanBtn")) {
+  document.querySelectorAll(".buatLaporanBtn").forEach(function (button) {
+    button.addEventListener("click", function () {
+      resetButtons(); // Mengatur ulang semua tombol ke state default
+      this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+      this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+      showForm("buatLaporanForm");
+    });
+  });
+}
+if (document.getElementById("tugasBtn")) {
+  document.getElementById("tugasBtn").addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-    showForm("buatLaporanForm");
+    showForm("tugasForm");
   });
-});
+}
 
-document.getElementById("tugasBtn").addEventListener("click", function () {
-  resetButtons(); // Mengatur ulang semua tombol ke state default
-  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-  showForm("tugasForm");
-});
+if (document.getElementById("beriAksesBtn")) {
+  document
+    .getElementById("beriAksesBtn")
+    .addEventListener("click", function () {
+      resetButtons(); // Mengatur ulang semua tombol ke state default
+      this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+      this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+      showForm("beriAksesForm");
+    });
+}
 
-document.getElementById("beriAksesBtn").addEventListener("click", function () {
-  resetButtons(); // Mengatur ulang semua tombol ke state default
-  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-  showForm("beriAksesForm");
-});
+if (document.getElementById("tambahPenggunaBtn")) {
+  document
+    .getElementById("tambahPenggunaBtn")
+    .addEventListener("click", function () {
+      resetButtons(); // Mengatur ulang semua tombol ke state default
+      this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+      this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+      showForm("tambahPenggunaForm");
+    });
+}
 
-document
-  .getElementById("tambahPenggunaBtn")
-  .addEventListener("click", function () {
-    resetButtons(); // Mengatur ulang semua tombol ke state default
-    this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-    this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-    showForm("tambahPenggunaForm");
-  });
-
-document.getElementById("profileBtn").addEventListener("click", function () {
-  resetButtons(); // Mengatur ulang semua tombol ke state default
-  this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
-  this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
-  showForm("profileForm");
-});
-document
-  .getElementById("kembaliProfile")
-  .addEventListener("click", function () {
+if (document.getElementById("profileBtn")) {
+  document.getElementById("profileBtn").addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
     showForm("profileForm");
   });
+}
+if (document.getElementById("kembaliProfile")) {
+  document
+    .getElementById("kembaliProfile")
+    .addEventListener("click", function () {
+      resetButtons(); // Mengatur ulang semua tombol ke state default
+      this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
+      this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
+      showForm("profileForm");
+    });
+}
 
 function showForm(formId) {
   var forms = document.getElementsByClassName("form");

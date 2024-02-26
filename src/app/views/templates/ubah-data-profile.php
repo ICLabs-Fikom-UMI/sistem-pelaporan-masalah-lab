@@ -17,7 +17,7 @@
                                 <tr class="flex justify-start items-center mb-2">
                                     <th class="font-semibold w-80 p-5 text-start">Email</th>
                                     <td class="font-normal w-full  text-start">
-                                        <inp<svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24"><path fill="currentColor" d="M2 5.27L3.28 4L5 5.72l.28.28l1 1l2 2L16 16.72l2 2l2 2L18.73 22l-1.46-1.46c-.34.29-.77.46-1.27.46H8c-1.1 0-2-.9-2-2V9.27zM8 19h7.73L8 11.27zM18 7v9.18l-2-2V9h-5.18l-2-2zm-2.5-3H19v2H7.82l-2-2H8.5l1-1h5z"/></svg>ut type="email" class="email w-[420px] bg-[#F9F9FB] border py-3 rounded-md"
+                                        <input type="email" class="email w-[420px] bg-[#F9F9FB] border py-3 rounded-md"
                                             placeholder="Masukkan Email pengguna">
                                     </td>
                                 </tr>
