@@ -43,6 +43,17 @@ function fillTableLaporanSaya(data) {
         </svg></div>
         <p class="text-xs">Edit</p>
       </div>`;
+      var deleteButton =
+        item.Status_Masalah === "Selesai" || item.Status_Masalah === "Disetujui"
+          ? `<div class="cursor-pointer" onclick="swal('Tidak dapat menghapus', 'Laporan sudah ${item.Status_Masalah}', 'error')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24"><path fill="currentColor" d="M2 5.27L3.28 4L5 5.72l.28.28l1 1l2 2L16 16.72l2 2l2 2L18.73 22l-1.46-1.46c-.34.29-.77.46-1.27.46H8c-1.1 0-2-.9-2-2V9.27zM8 19h7.73L8 11.27zM18 7v9.18l-2-2V9h-5.18l-2-2zm-2.5-3H19v2H7.82l-2-2H8.5l1-1h5z"/></svg>
+          <p class="text-xs">Hapus</p>
+           </div>`
+          : `<div class="cursor-pointer" onclick="deleteLaporanSayaById(${item.ID_Masalah})">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h4a1 1 0 1 1 0 2h-1.069l-.867 12.142A2 2 0 0 1 17.069 22H6.93a2 2 0 0 1-1.995-1.858L4.07 8H3a1 1 0 0 1 0-2h4zm2 2h6V4H9zM6.074 8l.857 12H17.07l.857-12zM10 10a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1m4 0a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1"/></svg>
+            <p class="text-xs">Hapus</p>
+           </div>`;
+
       tableHTML += `<tr class="border-b-2">
                         <td class="py-2">${index + 1}</td>
                         <td>${item.Nama_Lab}</td>
@@ -64,17 +75,7 @@ function fillTableLaporanSaya(data) {
                                             </div>
                                             <p class="text-xs" >Detail</p>
                                         </div>
-                                        <div class="cursor-pointer" onclick="deleteLaporanSayaById(${
-                                          item.ID_Masalah
-                                        })">
-                                            <div><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="black"
-                                                        d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
-                                                </svg>
-                                            </div>
-                                            <p class="text-xs">Hapus</p>
-                                        </div>
+                                        ${deleteButton}
 
                                     </div>
                                 </td>
