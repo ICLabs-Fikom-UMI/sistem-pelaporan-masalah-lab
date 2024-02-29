@@ -181,16 +181,16 @@ function submitPenyelesaianLaporan(id_masalah) {
       try {
         var data = JSON.parse(xhr.responseText);
         if (data.success) {
-          // Gunakan ini untuk pengecekan status
-          alert(data.message);
-          // Memuat ulang data atau UI update
-          loadTugas();
-          closePopup(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
+          swal("Sukses!", data.message, "success").then(() => {
+            // Memuat ulang data atau UI update
+            loadTugas();
+            closePopup(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
+          });
         } else {
-          alert(data.message);
+          swal("Gagal!", data.message, "error");
         }
       } catch (e) {
-        alert("Terjadi kesalahan dalam memproses data.");
+        swal("Error!", "Terjadi kesalahan dalam memproses data.", "error");
       }
     }
   };

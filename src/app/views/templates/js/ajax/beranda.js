@@ -15,22 +15,23 @@ function loadDataBeranda() {
           <th class="border-r-2">Detail</th>
       </tr>
     `; // Menambahkan kembali header tabel
-      responseData.data.forEach((item, index) => {
-        let statusText;
-        if (item.Status_Masalah === "Selesai") {
-          statusText = "Selesai";
-        } else if (item.Status_Masalah === "Disetujui") {
-          statusText = "Dikerjakan";
-        } else {
-          statusText = item.Status_Masalah;
-        }
+      if (responseData.data && responseData.data.length > 0) {
+        responseData.data.forEach((item, index) => {
+          let statusText;
+          if (item.Status_Masalah === "Selesai") {
+            statusText = "Selesai";
+          } else if (item.Status_Masalah === "Disetujui") {
+            statusText = "Dikerjakan";
+          } else {
+            statusText = item.Status_Masalah;
+          }
 
-        // Tambahkan "New" pada nama ruangan untuk data dengan indeks 1-3
-        let namaLab =
-          index < 3
-            ? `${item.Nama_Lab} - <span class="italic font-semibold text-red-400">New</span>`
-            : item.Nama_Lab;
-        tableHTML += `
+          // Tambahkan "New" pada nama ruangan untuk data dengan indeks 1-3
+          let namaLab =
+            index < 3
+              ? `${item.Nama_Lab} - <span class="italic font-semibold text-red-400">New</span>`
+              : item.Nama_Lab;
+          tableHTML += `
                 <tr class="border-b-2">
                     <td class="py-2 border-r-2">${index + 1}</td>
                     <td class="border-r-2">${namaLab}</td>
@@ -48,12 +49,22 @@ function loadDataBeranda() {
                                         </td>
                 </tr>
             `;
-      });
+        });
+      } else {
+        // Jika tidak ada data, tampilkan pesan "Tidak ada data laporan"
+        tableHTML += `
+        <tr>
+          <td colspan="7" class="text-center py-2">Tidak ada data laporan</td>
+        </tr>
+        `;
+      }
       // Opsional: Tampilkan jumlahData jika diperlukan
       tableHTML += `
+      <tfoot class="sticky bottom-0 bg-white">
       <tr class="border-t-2 sticky bottom-0 bg-white">
         <td colspan="7" class="py-2 text-center font-semibold">Total Data: ${responseData.jumlahData}</td>
      </tr>
+     </tfoot>
     `;
       table.innerHTML += tableHTML;
     })
@@ -138,7 +149,10 @@ function fillPopUpDetailBeranda(data) {
               ${komentarRow}
               `;
   } else {
-    console.log("Data tidak ditemukan"); // Jika tidak ada data yang ditemukan
+    swal("Data tidak ditemukan", {
+      icon: "error",
+    });
+    // Jika tidak ada data yang ditemukan
   }
 }
 
