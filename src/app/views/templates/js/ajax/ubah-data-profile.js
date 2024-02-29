@@ -1,4 +1,4 @@
-function submitFotoProfile() {
+function submitFotoProfile(idUser) {
   var xhr = new XMLHttpRequest();
   var formData = new FormData();
   var foto = document.getElementById("foto_profile").files[0];
@@ -35,8 +35,9 @@ function submitFotoProfile() {
             text: data.message,
             icon: "success",
           }).then(() => {
-            loadTugas(); // Pastikan fungsi ini terdefinisi dan melakukan apa yang diharapkan
-            closePopup(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
+            closePopup();
+            fetchProfilePicture();
+            document.getElementById("kembaliProfile").click(); // Pastikan ini ada dan berfungsi seperti yang diharapkan
           });
         } else {
           // Menggunakan SweetAlert untuk gagal

@@ -7,6 +7,8 @@ services:
     ports:
       - "8001:80" # Port HTTP
       - "9003:9003" # Port Xdebug
+    environment:
+      TZ: Asia/Makassar
   my-mysql:
     image: mysql:latest
     ports:
@@ -14,10 +16,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: db_laporan_lab
+      TZ: Asia/Makassar
   phpmyadmin-existing:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: my-mysql
       PMA_PORT: 3306
+      TZ: Asia/Makassar
     ports:
       - "8081:80"

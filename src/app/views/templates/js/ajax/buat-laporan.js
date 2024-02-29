@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
             icon: "success",
             button: "Oke",
           }).then(() => {
-            // Opsional: Redirect atau update UI
+            document.getElementById("laporanSayaBtn").click();
           });
         } else {
           // Menggunakan SweetAlert untuk error

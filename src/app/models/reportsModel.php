@@ -7,7 +7,8 @@ function getDataLaporan($conn) {
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
               JOIN master_user mu ON tli.ID_Pelapor = mu.ID_Pengguna
-              WHERE tli.Status_Masalah = 'Diproses'";
+              WHERE tli.Status_Masalah = 'Diproses'
+              ORDER BY tli.Tanggal_Pelaporan DESC";
 
     $result = mysqli_query($conn, $query);
     $laporan = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -38,12 +39,12 @@ function approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_tambahan, $t
     // Menutup statement
     mysqli_stmt_close($stmt);
 
-    // Hapus semua entri teknisi sebelumnya untuk ID_Masalah ini
-    $delete_query = "DELETE FROM master_teknisi_task WHERE ID_Masalah = ?";
-    $stmt_delete = mysqli_prepare($conn, $delete_query);
-    mysqli_stmt_bind_param($stmt_delete, "i", $id_masalah);
-    mysqli_stmt_execute($stmt_delete);
-    mysqli_stmt_close($stmt_delete);
+    // // Hapus semua entri teknisi sebelumnya untuk ID_Masalah ini
+    // $delete_query = "DELETE FROM master_teknisi_task WHERE ID_Masalah = ?";
+    // $stmt_delete = mysqli_prepare($conn, $delete_query);
+    // mysqli_stmt_bind_param($stmt_delete, "i", $id_masalah);
+    // mysqli_stmt_execute($stmt_delete);
+    // mysqli_stmt_close($stmt_delete);
 
     // Insert semua teknisi baru untuk ID_Masalah ini
     foreach ($teknisi as $id_teknisi_single) {
@@ -118,7 +119,7 @@ function getAllLaporanSaya($conn) {
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
               WHERE tli.ID_Pelapor = ?
-              ORDER BY FIELD(tli.Status_Masalah, 'Selesai', 'Disetujui', 'Diproses')";
+              ORDER BY FIELD(tli.Status_Masalah, 'Selesai', 'Disetujui', 'Diproses'), tli.Tanggal_Pelaporan DESC";
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $idPelapor);

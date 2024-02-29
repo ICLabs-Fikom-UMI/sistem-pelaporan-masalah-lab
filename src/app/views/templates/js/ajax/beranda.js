@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+function loadDataBeranda() {
   fetch("index.php?action=beranda") // Sesuaikan URL sesuai dengan setup Anda
     .then((response) => response.json())
     .then((responseData) => {
@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
       let tableHTML = "";
       table.innerHTML = `
       <tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
-          <th class="py-2">No</th>
-          <th class="">Nama Ruangan</th>
-          <th>Jenis Barang</th>
-          <th>Nomor</th>
-          <th>Batas Waktu</th>
-          <th>Status</th>
-          <th>Detail</th>
+          <th class="border-r-2 py-2">No</th>
+          <th class="border-r-2">Nama Ruangan</th>
+          <th class="border-r-2">Jenis Barang</th>
+          <th class="border-r-2">Nomor</th>
+          <th class="border-r-2">Batas Waktu</th>
+          <th class="border-r-2">Status</th>
+          <th class="border-r-2">Detail</th>
       </tr>
     `; // Menambahkan kembali header tabel
       responseData.data.forEach((item, index) => {
@@ -24,14 +24,20 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           statusText = item.Status_Masalah;
         }
+
+        // Tambahkan "New" pada nama ruangan untuk data dengan indeks 1-3
+        let namaLab =
+          index < 3
+            ? `${item.Nama_Lab} - <span class="italic font-semibold text-red-400">New</span>`
+            : item.Nama_Lab;
         tableHTML += `
                 <tr class="border-b-2">
-                    <td class="py-2">${index + 1}</td>
-                    <td>${item.Nama_Lab}</td>
-                    <td>${item.Nama_Aset}</td>
-                    <td>${item.Nomor_Unit}</td>
-                    <td>${item.Batas_Waktu}</td>
-                    <td>${statusText}</td>
+                    <td class="py-2 border-r-2">${index + 1}</td>
+                    <td class="border-r-2">${namaLab}</td>
+                    <td class="border-r-2">${item.Nama_Aset}</td>
+                    <td class="border-r-2">${item.Nomor_Unit}</td>
+                    <td class="border-r-2">${item.Batas_Waktu}</td>
+                    <td class="border-r-2">${statusText}</td>
                     <td class="flex items-center justify-center"><svg onclick="showPopup(); loadDetailDataBeranda(${
                       item.ID_Masalah
                     });  event.preventDefault();" xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
       table.innerHTML += tableHTML;
     })
     .catch((error) => console.error("Error loading the table data:", error));
-});
+}
+// Memanggil fungsi saat DOMContentLoaded
+document.addEventListener("DOMContentLoaded", loadDataBeranda);
 
 // detail data beranda
 function loadDetailDataBeranda(id_masalah) {

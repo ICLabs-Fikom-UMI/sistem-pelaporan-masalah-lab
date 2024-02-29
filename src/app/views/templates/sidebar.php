@@ -37,23 +37,23 @@
                     <!-- Dropdown items -->
                     <a href="#"
                         class="buatLaporanBtn block py-2 border border-gray-100  hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
-                        id="buatLaporanBtn" onclick="loadJenisBarang(); loadNamaLab(); ">Buat
+                        id="buatLaporanBtn">Buat
                         Laporan</a>
                     <a href="#" class="block py-2   hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
-                        id="laporanSayaBtn" onclick="loadLaporanSaya()">Laporan
+                        id="laporanSayaBtn">Laporan
                         Saya</a>
                     <!-- Tampilkan link ini hanya jika role adalah Korlab -->
    <!-- Tampilkan link ini hanya jika role adalah Korlab -->
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'Korlab'): ?>
                     <a href="#" class="block py-2 hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl"
-                    id="laporanBtn" onclick="loadLaporanMasuk()">Laporan Masuk</a>
+                    id="laporanBtn">Laporan Masuk</a>
                     <?php endif; ?>
                 </div>
             </div>
             <?php if (!(isset($_SESSION['role']) && ($_SESSION['role'] == 'Korlab' || $_SESSION['role'] == 'Laboran'))): ?>
                 <div id="tugas" class="flex items-center py-2 md:pl-14">
                     <div class="flex text-black items-center justify-center md:justify-start hover:bg-[#375679] hover:text-white rounded-s-md py-0 px-0 md:py-2 md:px-4 w-full"
-                        id="tugasBtn" onclick="loadTugas()">
+                        id="tugasBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" class="me-3">
                             <g fill="none" fill-rule="evenodd">
                                 <path d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
@@ -65,10 +65,10 @@
                 </div>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'Laboran'): ?>
-                <div id="aksesDropdown" class="cursor-pointer flex flex-col">
+                <div id="aksesDropdown" class="cursor-pointer flex flex-col" onclick="toggleDropdownMenu('aksesDropdownMenu')">
                     <div class="flex py-2 md:pl-14">
                         <div class="flex text-black items-center justify-center md:justify-start hover:bg-[#375679] hover:text-white rounded-s-md py-0 px-0 md:py-2 md:px-4 w-full"
-                            id="tugasBtn" onclick="loadTugas()">
+                             >
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 20 20"
                             class="me-3 ">
                                 <path fill="black"
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div id="aksesDropdownMenu" class="hidden flex flex-col border border-gray-100 ps-1 md:ps-20 text-lg transition-all duration-300 transform -translate-y-5 opacity-0">
-                        <a href="#" class="block py-2 hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl" id="beriAksesBtn" onclick="loadBeriAkses()">Beri Akses</a>
+                        <a href="#" class="block py-2 hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl" id="beriAksesBtn" >Beri Akses</a>
                         <a href="#" class="block py-2 hover:bg-[#375679] hover:text-white rounded-s-sm text-sm md:text-xl" id="tambahPenggunaBtn">Tambah Pengguna</a>
                     </div>
                 </div>

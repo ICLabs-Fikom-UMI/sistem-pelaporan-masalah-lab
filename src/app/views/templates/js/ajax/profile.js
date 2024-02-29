@@ -183,8 +183,6 @@ function submitUbahPassword() {
     }
   };
   xhr.onerror = function () {
-    console.error("Request error.");
-    // Menggunakan SweetAlert atau alert biasa untuk error request
     swal({
       title: "Error!",
       text: "Terjadi kesalahan dalam permintaan.",

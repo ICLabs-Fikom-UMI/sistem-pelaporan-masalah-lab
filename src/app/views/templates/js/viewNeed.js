@@ -74,6 +74,7 @@ function resetButtons() {
 
 document.getElementById("berandaBtn").addEventListener("click", function () {
   resetButtons(); // Mengatur ulang semua tombol ke state default
+  loadDataBeranda();
   this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
   this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
   showForm("berandaForm");
@@ -82,6 +83,7 @@ document.getElementById("berandaBtn").addEventListener("click", function () {
 if (document.getElementById("laporanBtn")) {
   document.getElementById("laporanBtn").addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
+    loadLaporanMasuk();
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
     showForm("laporanForm");
@@ -92,6 +94,7 @@ if (document.getElementById("laporanSayaBtn")) {
     .getElementById("laporanSayaBtn")
     .addEventListener("click", function () {
       resetButtons(); // Mengatur ulang semua tombol ke state default
+      loadLaporanSaya();
       this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
       this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
       showForm("laporanSayaForm");
@@ -100,7 +103,9 @@ if (document.getElementById("laporanSayaBtn")) {
 if (document.querySelectorAll(".buatLaporanBtn")) {
   document.querySelectorAll(".buatLaporanBtn").forEach(function (button) {
     button.addEventListener("click", function () {
-      resetButtons(); // Mengatur ulang semua tombol ke state default
+      resetButtons();
+      loadJenisBarang();
+      loadNamaLab();
       this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
       this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
       showForm("buatLaporanForm");
@@ -110,6 +115,7 @@ if (document.querySelectorAll(".buatLaporanBtn")) {
 if (document.getElementById("tugasBtn")) {
   document.getElementById("tugasBtn").addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
+    loadTugas();
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
     showForm("tugasForm");
@@ -121,6 +127,7 @@ if (document.getElementById("beriAksesBtn")) {
     .getElementById("beriAksesBtn")
     .addEventListener("click", function () {
       resetButtons(); // Mengatur ulang semua tombol ke state default
+      loadBeriAkses();
       this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
       this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
       showForm("beriAksesForm");
@@ -141,6 +148,7 @@ if (document.getElementById("tambahPenggunaBtn")) {
 if (document.getElementById("profileBtn")) {
   document.getElementById("profileBtn").addEventListener("click", function () {
     resetButtons(); // Mengatur ulang semua tombol ke state default
+    loadData(idUser);
     this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
     this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
     showForm("profileForm");
@@ -151,6 +159,7 @@ if (document.getElementById("kembaliProfile")) {
     .getElementById("kembaliProfile")
     .addEventListener("click", function () {
       resetButtons(); // Mengatur ulang semua tombol ke state default
+      loadData(idUser);
       this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
       this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif
       showForm("profileForm");

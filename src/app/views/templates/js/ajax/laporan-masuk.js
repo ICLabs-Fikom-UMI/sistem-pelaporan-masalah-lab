@@ -13,11 +13,11 @@ function loadLaporanMasuk() {
 function fillTableLaporanMasuk(data) {
   var table = document.getElementById("laporan-masuk-table");
   var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
-                          <th class="py-2">No</th>
-                          <th>Nama Ruangan</th>
-                          <th>Jenis Barang</th>
-                          <th>Nomor</th>
-                          <th>Tanggal</th>
+                          <th class="py-2 border-r-2">No</th>
+                          <th class="border-r-2">Nama Ruangan</th>
+                          <th class="border-r-2">Jenis Barang</th>
+                          <th class="border-r-2">Nomor</th>
+                          <th class="border-r-2">Tanggal</th>
                           <th class="w-52">Aksi</th>
                        </tr>`;
   // Cek apakah data kosong
@@ -28,12 +28,17 @@ function fillTableLaporanMasuk(data) {
                   </tr>`;
   } else {
     data.forEach(function (item, index) {
+      // Tambahkan "New" pada nama ruangan untuk data dengan indeks 1-3
+      let namaLab =
+        index < 3
+          ? `${item.Nama_Lab} - <span class="italic font-semibold text-red-400">New</span>`
+          : item.Nama_Lab;
       tableHTML += `<tr class="border-b-2">
-                          <td class="py-2">${index + 1}</td>
-                          <td>${item.Nama_Lab}</td>
-                          <td>${item.Nama_Aset}</td>
-                          <td>${item.Nomor_Unit}</td>
-                          <td>${item.Tanggal_Laporan}</td>
+                          <td class="border-r-2">${index + 1}</td>
+                          <td class="border-r-2">${namaLab}</td>
+                          <td class="border-r-2">${item.Nama_Aset}</td>
+                          <td class="border-r-2">${item.Nomor_Unit}</td>
+                          <td class="border-r-2">${item.Tanggal_Laporan}</td>
                           <td class="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg"
                                             width="28" height="28" viewBox="0 0 24 24" onclick="showPopup(); loadDataLaporanMasukById(${
                                               item.ID_Masalah
@@ -137,7 +142,6 @@ function fillPopUpDataLaporanMasuk(data) {
 
 // setujui laporan masuk
 
-// Mengadaptasi `submitSetujuLaporanMasuk` untuk digunakan di sini
 function submitSetujuLaporanMasuk(idMasalah) {
   var batasWaktu = document.getElementById("batas_waktu").value;
   var deskripsiTambahan = document.getElementById("deskripsi_tambahan").value;
@@ -157,12 +161,21 @@ function submitSetujuLaporanMasuk(idMasalah) {
       // Cek apakah operasi berhasil
       if (response.success) {
         // Operasi berhasil, tampilkan pesan sukses
-        alert(response.message);
-        loadLaporanMasuk(); // Memuat ulang data
-        // Opsional: lakukan tindakan lanjutan, seperti memperbarui UI
+        swal({
+          title: "Berhasil!",
+          text: response.message,
+          icon: "success",
+        }).then(() => {
+          loadLaporanMasuk();
+          closePopup();
+        });
       } else {
         // Operasi gagal, tampilkan pesan error
-        alert(response.message);
+        swal({
+          title: "Gagal!",
+          text: response.message,
+          icon: "error",
+        });
       }
     } else {
       // Handle error
@@ -170,7 +183,11 @@ function submitSetujuLaporanMasuk(idMasalah) {
     }
   };
   xhr.onerror = function () {
-    console.error("Request error.");
+    swal({
+      title: "Error!",
+      text: "Terjadi kesalahan dalam permintaan.",
+      icon: "error",
+    });
   };
   xhr.send(formData);
 }

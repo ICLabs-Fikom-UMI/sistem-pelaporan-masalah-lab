@@ -13,12 +13,12 @@ function loadLaporanSaya() {
 function fillTableLaporanSaya(data) {
   var table = document.getElementById("laporan-saya-table");
   var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
-                        <th class="py-2">No</th>
-                        <th >Nama Ruangan</th>
-                        <th>Jenis Barang</th>
-                        <th>Nomor</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
+                        <th class="py-2 border-r-2">No</th>
+                        <th class="border-r-2">Nama Ruangan</th>
+                        <th class="border-r-2">Jenis Barang</th>
+                        <th class="border-r-2">Nomor</th>
+                        <th class="border-r-2">Tanggal</th>
+                        <th class="border-r-2">Status</th>
                         <th class="w-52">Aksi</th>
                      </tr>`;
 
@@ -54,13 +54,18 @@ function fillTableLaporanSaya(data) {
             <p class="text-xs">Hapus</p>
            </div>`;
 
+      // Tambahkan "New" pada nama ruangan untuk data dengan indeks 1-3
+      let namaLab =
+        index < 3
+          ? `${item.Nama_Lab} - <span class="italic font-semibold text-red-400">New</span>`
+          : item.Nama_Lab;
       tableHTML += `<tr class="border-b-2">
-                        <td class="py-2">${index + 1}</td>
-                        <td>${item.Nama_Lab}</td>
-                        <td>${item.Nama_Aset}</td>
-                        <td>${item.Nomor_Unit}</td>
-                        <td>${item.Tanggal_Pelaporan}</td>
-                        <td>${item.Status_Masalah}</td>
+                        <td class="py-2 border-r-2">${index + 1}</td>
+                        <td class="border-r-2">${namaLab}</td>
+                        <td class="border-r-2">${item.Nama_Aset}</td>
+                        <td class="border-r-2">${item.Nomor_Unit}</td>
+                        <td class="border-r-2">${item.Tanggal_Pelaporan}</td>
+                        <td class="border-r-2">${item.Status_Masalah}</td>
                         <td class="flex items-center justify-center w-52 ">
                                     <div class="flex">
                                         ${actionDiv}

@@ -38,7 +38,7 @@
                                     <th class="font-semibold  p-5 text-center  w-full" colspan="2">
                                         <button
                                             class="py-3 px-8 bg-[#C2C2C2] rounded-md me-5 hover:bg-[#8A8888] hover:text-white"
-                                            type="reset" id="kembaliProfile">Kembali</button>
+                                            type="reset" id="kembaliProfile" >Kembali</button>
                                         <a href="#"
                                             class="py-4 px-8 bg-[#375679] hover:bg-[#273C54] text-white rounded-md"
                                             id="simpanBtnUbahProfile">Simpan</a>
@@ -54,7 +54,7 @@
                                         <!-- Input File tersembunyi -->
                                         <input type="file" id="foto_profile"  name="foto_profile">
                                         <!-- Tombol untuk memicu Input File -->
-                                        <button id="uploadButton" class="mt-5 py-1 px-6 bg-[#C2C2C2] hover:bg-[#8A8888] hover:text-white rounded-md" onclick="submitFotoProfile()">
+                                        <button id="uploadButton" class="mt-5 py-1 px-6 bg-[#C2C2C2] hover:bg-[#8A8888] hover:text-white rounded-md" onclick="submitFotoProfile(); ">
                                             Upload File <span id="loadingText"></span>
                                         </button>
                                     </div>

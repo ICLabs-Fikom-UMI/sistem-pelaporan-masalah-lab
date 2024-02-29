@@ -13,10 +13,10 @@ function loadBeriAkses() {
 function fillTableBeriAkses(data) {
   var table = document.getElementById("beri-akses-table");
   var tableHTML = `<tr class="font-semibold border-b-2 border-gray-200 bg-gray-50 sticky top-0">
-                            <th class="py-2">No</th>
-                            <th>Foto</th>
-                            <th>Nama Pengguna</th>
-                            <th>Akses</th>
+                            <th class="py-2 border-r-2">No</th>
+                            <th class="border-r-2">Foto</th>
+                            <th class="border-r-2">Nama Pengguna</th>
+                            <th class="border-r-2">Akses</th>
                             <th class="w-96">Aksi</th>
                          </tr>`;
   // Cek apakah data kosong
@@ -29,15 +29,23 @@ function fillTableBeriAkses(data) {
     data.forEach(function (item, index) {
       var namaBelakang = item.Nama_Belakang || "";
       tableHTML += `<tr class="border-b-2 w-full">
-                                <td class="py-2">${index + 1}</td>
-                                <td>
-                                    <div class="w-full flex justify-center">
-                                        <img src="https://codigoespagueti.com/wp-content/uploads/2022/08/anya-spy-x-family-otros-animes.jpg"
+                                <td class="py-2 border-r-2">${index + 1}</td>
+                                <td class="border-r-2">
+                                    <div class="w-full flex justify-center" onclick="showFullSizeImage('${
+                                      item.Foto_Path
+                                    }')">
+                                        <img src="${
+                                          item.Foto_Path
+                                            ? item.Foto_Path
+                                            : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png"
+                                        }"
                                         alt="" class="h-24 w-24 rounded-sm ">
                                     </div>
                                 </td>
-                                <td>${item.Nama_Depan}  ${namaBelakang}</td>
-                                <td>${item.Nama_Peran}</td>
+                                <td class="border-r-2">${
+                                  item.Nama_Depan
+                                }  ${namaBelakang}</td>
+                                <td class="border-r-2">${item.Nama_Peran}</td>
                                 <td class="">
                                         <div class="flex h-full justify-center">
                                             <div class="flex flex-col items-center justify-center px-2 cursor-pointer" onclick="showPopup(); loadUbahDataAsistenById(${
