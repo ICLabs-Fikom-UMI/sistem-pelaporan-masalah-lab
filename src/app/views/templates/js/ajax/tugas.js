@@ -117,6 +117,9 @@ function fillPopUpDetailTugas(data) {
                       <tr><td class="font-semibold md:pr-28 py-4">Deskripsi Tambahan</td><td>: ${
                         detailData.Deskripsi_Tambahan || ""
                       }</td></tr>
+                      <tr><td class="font-semibold md:pr-40 py-4">Teknisi</td><td>: ${
+                        detailData.teknisi || ""
+                      }</td></tr>
                   `;
   }
 }
@@ -152,6 +155,9 @@ function fillPopUpDetailTugasPenyelesaian(data) {
                       }</td></tr>
                       <tr><td class="font-semibold md:pr-28 py-4">Nomor</td><td>: ${
                         detailData.Nomor_Unit || ""
+                      }</td></tr>
+                      <tr><td class="font-semibold md:pr-28 py-4">Deskripsi</td><td>: ${
+                        detailData.Deskripsi_Masalah || ""
                       }</td></tr>
                       <tr><td class="font-semibold md:pr-28 py-4">Foto</td><td>:
                       <input type="file" class="border-2 border-gray-300 rounded-md p-2 w-80 " id="foto_input" required>

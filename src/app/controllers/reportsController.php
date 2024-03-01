@@ -17,6 +17,12 @@ function setujuiLaporanAjax($conn) {
         $teknisi = $_POST['teknisi'] ?? []; // Asumsikan teknisi dikirim sebagai array
 
         // Anda bisa menambahkan validasi disini jika perlu
+        // Validasi apakah teknisi dipilih
+        if (empty($teknisi)) {
+            $response['message'] = 'Harus memilih setidaknya satu teknisi.';
+            echo json_encode($response);
+            exit;
+        }
         // Misalnya, validasi apakah semua field wajib terisi
 
         // Jika validasi berhasil, lanjutkan dengan proses penyimpanan data

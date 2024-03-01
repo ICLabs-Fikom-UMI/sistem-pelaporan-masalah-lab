@@ -6,18 +6,26 @@ function getTugasAjax($conn) {
     echo json_encode($reports);
 }
 
+// function taskDetailAjax($conn){
+//     $id_masalah = $_GET['id_masalah'] ?? null;
+//     if($id_masalah){
+//         $reportsById = getTaskById($conn, $id_masalah);
+//         header('Content-Type: application/json');
+//         echo json_encode($reportsById);
+//     } else {
+//         $response = [
+//             'error' => 'ID Masalah tidak ditemukan'
+//         ];
+//         header('Content-Type: application/json');
+//         echo json_encode($response);
+//     }
+// }
 function taskDetailAjax($conn){
-    $id_masalah = $_GET['id_masalah'] ?? null;
-    if($id_masalah){
-        $reportsById = getTaskById($conn, $id_masalah);
+    if(isset($_GET['id_masalah'])) {
+        $id_masalah = $_GET['id_masalah'];
+        $data = getTaskById($conn, $id_masalah);
         header('Content-Type: application/json');
-        echo json_encode($reportsById);
-    } else {
-        $response = [
-            'error' => 'ID Masalah tidak ditemukan'
-        ];
-        header('Content-Type: application/json');
-        echo json_encode($response);
+        echo json_encode($data);
     }
 }
 function tasksPenyelesaianAjax($conn) {

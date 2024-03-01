@@ -145,10 +145,17 @@ function fillPopUpDataLaporanMasuk(data) {
 function submitSetujuLaporanMasuk(idMasalah) {
   var batasWaktu = document.getElementById("batas_waktu").value;
   var deskripsiTambahan = document.getElementById("deskripsi_tambahan").value;
+  var checkedTeknisi = document.querySelectorAll(
+    'input[name="teknisi[]"]:checked'
+  );
+
   var formData = new FormData();
   formData.append("id_masalah", idMasalah);
   formData.append("batas_waktu", batasWaktu);
   formData.append("deskripsi_tambahan", deskripsiTambahan);
+  checkedTeknisi.forEach(function (teknisi) {
+    formData.append("teknisi[]", teknisi.value);
+  });
 
   // Mengumpulkan ID teknisi yang dipilih
   // Pastikan nama selector sesuai dengan nama checkbox saat ditambahkan

@@ -39,12 +39,12 @@ function approveReport($conn, $id_masalah, $batas_waktu, $deskripsi_tambahan, $t
     // Menutup statement
     mysqli_stmt_close($stmt);
 
-    // // Hapus semua entri teknisi sebelumnya untuk ID_Masalah ini
-    // $delete_query = "DELETE FROM master_teknisi_task WHERE ID_Masalah = ?";
-    // $stmt_delete = mysqli_prepare($conn, $delete_query);
-    // mysqli_stmt_bind_param($stmt_delete, "i", $id_masalah);
-    // mysqli_stmt_execute($stmt_delete);
-    // mysqli_stmt_close($stmt_delete);
+    // Hapus semua entri teknisi sebelumnya untuk ID_Masalah ini
+    $delete_query = "DELETE FROM master_teknisi_task WHERE ID_Masalah = ?";
+    $stmt_delete = mysqli_prepare($conn, $delete_query);
+    mysqli_stmt_bind_param($stmt_delete, "i", $id_masalah);
+    mysqli_stmt_execute($stmt_delete);
+    mysqli_stmt_close($stmt_delete);
 
     // Insert semua teknisi baru untuk ID_Masalah ini
     foreach ($teknisi as $id_teknisi_single) {

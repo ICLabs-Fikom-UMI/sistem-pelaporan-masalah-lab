@@ -147,6 +147,8 @@ function submitUbahPassword() {
       title: "Peringatan!",
       text: "Password baru dan konfirmasi password tidak cocok.",
       icon: "warning",
+    }).then(() => {
+      closePopup();
     });
     return; // Keluar dari fungsi jika password tidak cocok
   }
@@ -176,6 +178,8 @@ function submitUbahPassword() {
           title: "Gagal!",
           text: response.message,
           icon: "error",
+        }).then(() => {
+          closePopup();
         });
       }
     } else {

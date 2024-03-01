@@ -103,6 +103,8 @@ if (document.getElementById("laporanSayaBtn")) {
 if (document.querySelectorAll(".buatLaporanBtn")) {
   document.querySelectorAll(".buatLaporanBtn").forEach(function (button) {
     button.addEventListener("click", function () {
+      var form = document.getElementById("formBuatLaporan");
+      form.reset();
       resetButtons();
       loadJenisBarang();
       loadNamaLab();

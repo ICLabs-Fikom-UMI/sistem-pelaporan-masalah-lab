@@ -33,40 +33,40 @@ function getAllTaskById($conn) {
 
     return $laporanDetail;
 }
+// getTaskById
 
 function getTaskById($conn, $id_masalah) {
-    // Prepare the SQL query
-    $query = "SELECT tli.ID_Masalah, tli.Tanggal_Pelaporan, ml.Nama_Lab, mal.Nama_Aset,
-                     tli.Nomor_Unit, tli.Deskripsi_Masalah, tli.Deskripsi_Tambahan,tli.Batas_Waktu, tli.Status_Masalah,
-                     mu.Nama_Depan as Teknisi
+    $query = "SELECT tli.ID_Masalah, mal.Nama_Aset, ml.Nama_Lab, tli.Nomor_Unit,
+                     tli.Deskripsi_Masalah,tli.Deskripsi_Tambahan, tli.Batas_Waktu, tli.Status_Masalah, tli.Komentar, mu.Nama_Depan AS Nama_Pengguna
               FROM txn_lab_issues tli
               JOIN master_lab ml ON tli.ID_Lab = ml.ID_Lab
               JOIN master_aset_lab mal ON tli.ID_Aset = mal.ID_Aset
-              JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
-              JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
-              WHERE tli.ID_Masalah = ?";
+              LEFT JOIN master_teknisi_task mtt ON tli.ID_Masalah = mtt.ID_Masalah
+              LEFT JOIN master_user mu ON mtt.ID_Pengguna = mu.ID_Pengguna
+              WHERE  tli.ID_Masalah = ?";
 
-    // Prepare and bind
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $id_masalah);
-
-    // Execute the query
     mysqli_stmt_execute($stmt);
-
-    // Bind the result variables
     $result = mysqli_stmt_get_result($stmt);
 
-    if (!$result) {
-        // Handle error
-        error_log('Query failed: ' . mysqli_error($conn));
-        return null;
+    // Mengambil hanya satu baris dari hasil
+    if ($row = $result->fetch_assoc()) {
+        // Panggil fungsi getTeknisiByMasalah dengan ID Masalah
+        $teknisi = getTeknisiByMasalah($conn, $row['ID_Masalah']);
+
+        // Masukkan informasi teknisi ke dalam baris hasil
+        $row['teknisi'] = $teknisi;
+
+        // Kembalikan baris permasalahan langsung
+        return $row;
     }
 
-    // Fetch the data
-    $taskDetail = mysqli_fetch_assoc($result);
-
-    return $taskDetail;
+    // Kembalikan null jika tidak ada permasalahan yang ditemukan
+    return null;
 }
+
+
 
 function updateDatabaseWithFile($conn, $id_masalah, $fileNameInDb, $komentar){
     $targetFilePath = $fileNameInDb;
