@@ -24,7 +24,7 @@ function fillTableLaporanSaya(data) {
 
   if (data.length === 0) {
     tableHTML += `<tr class="border-b-2">
-                        <td class="py-2 text-center" colspan="7">Tidak ada Laporan yang masuk</td>
+                        <td class="py-2 text-center" colspan="7">Anda belum membuat laporan.</td>
                     </tr>`;
   } else {
     data.forEach(function (item, index) {

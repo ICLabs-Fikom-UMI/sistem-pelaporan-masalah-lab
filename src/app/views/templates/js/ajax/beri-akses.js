@@ -109,7 +109,7 @@ function fillPopUpDataAsistenById(data) {
                               <select name="id_peran" id="id_peran" class="rounded-md text-center bg-[#C2C2C2] border p-3  text-xs">
                                   <option value="" disabled selected>Pilih peran Baru</option>
                                   <option value="1" ${
-                                    detailData.ID_Peran === "1"
+                                    detailData.ID_Peran === "3"
                                       ? "selected"
                                       : ""
                                   }>Asisten</option>
@@ -117,12 +117,12 @@ function fillPopUpDataAsistenById(data) {
                                     detailData.ID_Peran === "2"
                                       ? "selected"
                                       : ""
-                                  }>Laboran</option>
+                                  }>Korlab</option>
                                   <option value="3" ${
-                                    detailData.ID_Peran === "3"
+                                    detailData.ID_Peran === "1"
                                       ? "selected"
                                       : ""
-                                  }>Korlab</option>
+                                  }>Laboran</option>
                               </select>
                           </td>
                       </tr>

@@ -93,7 +93,6 @@ function processResetPassword($conn) {
     echo json_encode($response);
     exit;
 }
-
 function processTambahUser($conn) {
     $response = array('success' => false, 'message' => '');
 
@@ -104,27 +103,23 @@ function processTambahUser($conn) {
 
         // Validasi panjang NIM
         if (strlen($nim) != 11) {
-            // Gagal, NIM tidak 11 karakter
             $response['message'] = 'NIM harus 11 karakter.';
-            echo json_encode($response);
-            exit;
-        }
-
-        // Jika semua validasi berhasil, lanjutkan dengan penyimpanan data
-        $result = tambahUser($conn, $namaDepan, $email, $nim);
-
-        if ($result) {
-            // Berhasil menyimpan data
-            $response['success'] = true;
-            $response['message'] = 'User berhasil ditambahkan.';
         } else {
-            // Gagal menyimpan data
-            $response['message'] = 'Gagal menambahkan user.';
+            $result = tambahUser($conn, $namaDepan, $email, $nim);
+
+            if ($result) {
+                $response['success'] = true;
+                $response['message'] = 'User berhasil ditambahkan.';
+            } else {
+                // Modifikasi pesan gagal untuk kasus email duplikat
+                $response['message'] = 'Email sudah terdaftar.';
+            }
         }
     } else {
         $response['message'] = 'Invalid request method.';
     }
 
+    header('Content-Type: application/json');
     echo json_encode($response);
     exit;
 }

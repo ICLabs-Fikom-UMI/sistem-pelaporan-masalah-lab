@@ -138,6 +138,8 @@ if (document.getElementById("tambahPenggunaBtn")) {
   document
     .getElementById("tambahPenggunaBtn")
     .addEventListener("click", function () {
+      var form = document.getElementById("formTambahPengguna");
+      form.reset();
       resetButtons(); // Mengatur ulang semua tombol ke state default
       this.classList.remove("bg-[#F9F9FB]"); // Menghapus kelas untuk background default
       this.classList.add("bg-[#375679]", "text-white"); // Menambahkan kelas untuk background aktif

@@ -16,27 +16,43 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up a handler for when the request finishes
     xhr.onload = function () {
       if (xhr.status === 200) {
-        var response = JSON.parse(xhr.responseText);
-        if (response.success) {
-          // Menggunakan SweetAlert untuk sukses
+        try {
+          // Coba parse respons dan asumsikan tipe kontennya adalah JSON
+          var contentType = xhr.getResponseHeader("Content-Type");
+          if (contentType.includes("application/json")) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.success) {
+              // Sukses, tampilkan SweetAlert
+              swal({
+                title: "Berhasil!",
+                text: response.message,
+                icon: "success",
+              }).then(() => {
+                form.reset(); // Reset form setelah sukses
+                document.getElementById("beriAksesBtn").click();
+              });
+            } else {
+              // Respons mengindikasikan gagal, tampilkan pesan error
+              swal({
+                title: "Gagal!",
+                text: response.message,
+                icon: "error",
+              });
+            }
+          } else {
+            throw new Error("Response was not JSON");
+          }
+        } catch (e) {
+          // Parsing JSON gagal atau respons bukan JSON, tampilkan error
           swal({
-            title: "Berhasil!",
-            text: response.message,
-            icon: "success",
-          }).then(() => {
-            // Opsional: lakukan tindakan lanjutan setelah dialog ditutup, seperti memperbarui UI atau navigasi
-            form.reset();
-          });
-        } else {
-          // Menggunakan SweetAlert untuk menampilkan pesan error
-          swal({
-            title: "Gagal!",
-            text: response.message,
+            title: "Error",
+            text: "Could not parse response as JSON",
             icon: "error",
           });
         }
       } else {
-        // Menggunakan SweetAlert untuk kesalahan request
+        // Request gagal, tampilkan SweetAlert
         swal({
           title: "Gagal!",
           text: "Request failed. Returned status of " + xhr.status,
@@ -44,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     };
+
     // Mengirimkan request dengan data
     xhr.send(formData);
   });

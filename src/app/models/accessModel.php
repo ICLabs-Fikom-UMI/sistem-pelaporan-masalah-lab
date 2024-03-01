@@ -8,7 +8,7 @@ function getDataPengguna($conn) {
             FROM master_user
             INNER JOIN master_roles ON master_user.ID_Peran = master_roles.ID_Peran
             WHERE master_user.ID_Pengguna != ?
-            ORDER BY master_user.ID_Peran DESC";
+            ORDER BY master_user.ID_Peran ASC";
 
     // Persiapkan statement SQL
     $stmt = mysqli_prepare($conn, $sql);
@@ -107,10 +107,25 @@ function resetPasswordById($conn, $id_pengguna) {
 }
 
 function tambahUser($conn, $namaDepan, $email, $nim) {
+    // Pengecekan email duplikat
+    $sqlCheck = "SELECT email FROM master_user WHERE email = ?";
+    $stmtCheck = mysqli_prepare($conn, $sqlCheck);
+    mysqli_stmt_bind_param($stmtCheck, "s", $email);
+    mysqli_stmt_execute($stmtCheck);
+    mysqli_stmt_store_result($stmtCheck);
+
+    if (mysqli_stmt_num_rows($stmtCheck) > 0) {
+        // Email sudah terdaftar
+        mysqli_stmt_close($stmtCheck);
+        return false;
+    }
+    mysqli_stmt_close($stmtCheck);
+
+    // Jika email belum terdaftar, lanjutkan dengan penyimpanan data
     $passwordDefault = 'fikom12345';
     $hashedPassword = password_hash($passwordDefault, PASSWORD_DEFAULT);
-    $id_peran = 1;
-    // SQL untuk menyimpan data pengguna baru
+    $id_peran = 3;
+
     $sql = "INSERT INTO master_user (Nama_Depan, Email, Nim, Kata_sandi, ID_Peran) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ssssi", $namaDepan, $email, $nim, $hashedPassword, $id_peran);
@@ -120,6 +135,7 @@ function tambahUser($conn, $namaDepan, $email, $nim) {
 
     return $result;
 }
+
 
 
 
