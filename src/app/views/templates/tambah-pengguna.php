@@ -10,14 +10,14 @@
                                         <th class="font-semibold w-80 p-5 mb-2  text-start">Nama Depan</th>
                                         <td class="font-normal w-full">
                                             <input name="nama_depan" type="text" placeholder="Masukkan Nama depan pengguna.."
-                                                class="w-full bg-[#F9F9FB] border p-3 border-gray-300 rounded-md">
+                                                class="w-full bg-[#F9F9FB] border p-3 border-gray-300 rounded-md" required>
                                         </td>
                                     </tr>
                                     <tr class="flex justify-start items-center mb-2">
                                         <th class="font-semibold w-80 p-5 text-start">Email</th>
                                         <td class="font-normal w-full  text-start">
                                             <input name="email" type="email" placeholder="Masukkan Email pengguna.."
-                                                class="w-full bg-[#F9F9FB] border p-3 border-gray-300 rounded-md">
+                                                class="w-full bg-[#F9F9FB] border p-3 border-gray-300 rounded-md" required>
                                         </td>
                                     </tr>
                                     <tr class="flex justify-start items-center mb-3">
@@ -32,7 +32,7 @@
                                                 class="py-3 px-8 bg-[#C2C2C2] rounded-md me-5 hover:bg-[#8A8888] hover:text-white"
                                                 type="reset">Reset</button>
                                             <button class="py-3 px-8 bg-[#375679] hover:bg-[#273C54] text-white rounded-md"
-                                                type="submit">kirim</button>
+                                                type="submit">Tambah</button>
                                         </th>
 
                                     </tr>
