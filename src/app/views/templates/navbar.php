@@ -1,10 +1,10 @@
 <nav
-        class="h-[66px] w-full bg-[#F9F9FB] border shadow-inner rounded-b-lg flex items-center justify-between ps-24 pe-10">
+        class="h-[66px] w-full bg-[#F9F9FB] border shadow-inner rounded-b-lg flex items-center justify-between ps-20 pe-10 py-12">
         <!-- Container 1 (Sisi Kiri) -->
         <div class="flex" id="container1">
             <div class="flex">
-                <img src="app/views/templates/img/laporan-lab-biru.png" alt="" class="w-12 h-12" />
-                <img src="app/views/templates/img/iconiclabsbaru.png" alt="" class="w-12 h-12" />
+                <img src="app/views/templates/img/silatek.png" alt=""  />
+
             </div>
         </div>
         <!-- Spasi Antara Container 1 dan Container 2 -->
