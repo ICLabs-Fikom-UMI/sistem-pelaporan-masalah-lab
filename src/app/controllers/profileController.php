@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/html/app/models/profileModel.php');
+include_once('app/models/profileModel.php');
 
 function showViewProfile($conn){
     include('/var/www/html/app/views/profile/profile.php');

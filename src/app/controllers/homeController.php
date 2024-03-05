@@ -1,7 +1,7 @@
 <?php
 
-include_once('/var/www/html/app/models/homeModel.php');
-include_once('/var/www/html/app/models/utility/dataModel.php');
+include_once('app/models/homeModel.php');
+include_once('app/models/utility/dataModel.php');
 
 function getPermasalahanLabAjax($conn) {
     $responseData = getAllPermasalahanLab($conn);

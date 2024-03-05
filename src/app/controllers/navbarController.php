@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/html/app/models/navbarModel.php');
+include_once('app/models/navbarModel.php');
 function handleProfilePictureRequest($conn) {
     // Pastikan ID pengguna tersedia, misal dari session atau input lain
     $userID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;

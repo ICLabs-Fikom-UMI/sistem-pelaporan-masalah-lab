@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/html/app/models/accessModel.php');
+include_once('app/models/accessModel.php');
 function getBeriAksesAjax($conn){
     $dataAsisten =getDataPengguna($conn);
     header('Content-Type: application/json');
