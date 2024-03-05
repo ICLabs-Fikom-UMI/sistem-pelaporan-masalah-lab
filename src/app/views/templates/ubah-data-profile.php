@@ -49,7 +49,7 @@
                             <div class="w-[600px] " id="menambahkan-foto-profile" >
                                 <div class="flex justify-center flex-col items-center">
                                     <img src=""
-                                        alt="" class="foto-profile w-48 h-48 rounded-full">
+                                        alt="foto profile" class="foto-profile w-48 h-48 rounded-full">
                                     <div class="">
                                         <!-- Input File tersembunyi -->
                                         <input type="file" id="foto_profile"  name="foto_profile">

@@ -9,7 +9,7 @@
                 <p>with a system."</p>
             </div>
             <div>
-                <img src="app/views/templates/img/login-illustrations.png" alt="" class="h-[332px]" />
+                <img src="app/views/templates/img/login-illustrations.png" alt="logo illustrations" class="h-[332px]" />
             </div>
         </div>
         <div id="container-child2">

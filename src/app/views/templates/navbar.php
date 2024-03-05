@@ -3,7 +3,7 @@
         <!-- Container 1 (Sisi Kiri) -->
         <div class="flex" id="container1">
             <div class="flex">
-                <img src="app/views/templates/img/silatek.png" alt=""  />
+                <img src="app/views/templates/img/silatek.png" alt="logo silatek"  />
 
             </div>
         </div>

@@ -9,7 +9,7 @@
                             </table>
                             <div class="w-[600px] ">
                                 <img src=""
-                                    alt="" class="w-48 h-48 rounded-full" id="foto-profile">
+                                    alt="foto profile" class="w-48 h-48 rounded-full" id="foto-profile">
                             </div>
                         </div>
                     </div>

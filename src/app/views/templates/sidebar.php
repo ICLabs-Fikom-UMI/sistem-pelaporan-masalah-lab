@@ -3,7 +3,7 @@
     margin-top: calc(100vh - 52vh);
   }
 </style>
-<div class="w-[80px] md:w-[300px] h-[calc(100vh-66px)] bg-[#F9F9FB] border-white shadow-xl text-xl   border-e-2 font-semibold tracking-wide flex  flex-col"
+<div class="relative w-[80px] md:w-[300px] h-[calc(100vh-66px)] bg-[#F9F9FB] border-white shadow-xl text-xl   border-e-2 font-semibold tracking-wide flex  flex-col"
             id="sidebar">
             <div id="beranda" class="flex items-center  py-2 md:pl-14 mt-16">
                 <div id="berandaBtn"
@@ -97,8 +97,8 @@
                     </div>
                 </div>
                 <!-- div gambar iclabs -->
-                <div class="flex justify-center custom-margin-top">
-                    <img src="app/views/templates/img/iconiclabsbaru.png" alt="" class="w-24 h-24" />
+                <div class="flex justify-center absolute bottom-20 left-0 right-0 ">
+                    <img src="app/views/templates/img/iconiclabsbaru.png" alt="iclabs Logo" class="w-24 h-24 mb-7" />
                 </div>
                 <?php endif; ?>
             </div>
